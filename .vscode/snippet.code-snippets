@@ -29,4 +29,17 @@
 	
 		"description": "Boilerplate template that extends layout.html"
 	},
+	"template for authentication": {
+		"scope": "html",
+		"prefix": "dj_authentication",
+		"body": [
+			"{% extends \"authentication/layout.html\" %}",
+			"{% block title %}",
+			"$0",
+			"{% endblock %}",
+			"{% block content %}",
+			"{% endblock %}"
+		],
+	
+	},
 }

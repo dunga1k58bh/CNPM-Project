@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'restaurant_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'restaurant',
+        'NAME': 'QL_Nhahang',
         'USER': 'sa',
         'PASSWORD': 'admin',
         'HOST': 'ADMIN\LTDUNG',

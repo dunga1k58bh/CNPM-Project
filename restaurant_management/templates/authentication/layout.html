@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>
+        {% block title %}
+        
+        {% endblock %}
+    </title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'authentication/site.css' %}"/>
+</head>
+
+<body>
+<div class="navbar">
+</div>
+
+<div class="body-content">
+    {% block content %}
+    
+    {% endblock %}
+    <hr/>
+    <footer>
+        <p>© 2021</p>
+    </footer>
+</div>
+</body>
+</html>
