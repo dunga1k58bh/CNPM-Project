@@ -6,17 +6,28 @@
 <div>
     <div>
         {% for ban in bans %}
-            <form action="" method="post">
-                {% csrf_token %}
-                <button name="chon_ban">
-                    <p>Bàn số : {{ban.so_ban}}</p><br>
+
+                {% if  ban.ma_hoa_don.ma_hoa_don is not None %}
+                    <button>
+                    <a href="{% url 'hoadon' ban.ma_hoa_don.ma_hoa_don %}">
+                    <p>Bàn số : {{ban.so_ban}}</p>
                     <p>Trạng thái: {{ban.trang_thai}}</p>
-                </button>
-            </form>
-               
+                    <p>Mã hóa đơn: {{ban.ma_hoa_don.ma_hoa_don}}</p>
+                    </a>
+                    </button>
+                {% else %}
+                    <button>
+                        <a href="{% url 'home' %}">
+                            <p>Bàn số : {{ban.so_ban}}</p>
+                            <p>Trạng thái: {{ban.trang_thai}}</p>
+                            <p>Mã hóa đơn: {{ban.ma_hoa_don.ma_hoa_don}}</p>
+                        </a>
+
+                    </button>
+                {% endif %}        
         {% endfor %}
     </div>
-    <div>
+    <!-- <div>
         <form action="" method="post" name="menu">
             {% csrf_token %}
             <p>Mã hóa đơn : {{hoa_don.ma_hoa_don}}</p>
@@ -24,6 +35,6 @@
             <button name="thanh_toan">Thanh toán</button>
         </form>
 
-    </div>
+    </div> -->
 </div>
 {% endblock %}
