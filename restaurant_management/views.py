@@ -8,7 +8,7 @@ from restaurant_management.models import *
 # Create your views here.
 
 
-def signin(request):
+def signin(request): 
     if request.method == 'POST':
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -27,10 +27,23 @@ def signin(request):
    
 
 def home(request):
-    bans = models.Ban.objects.all()
+    bans = Ban.objects.all()
+    # hoa_don = None
+    # if (request.method == 'POST'):
+    #     if "chon_ban" in request.POST :
+    #         so_ban = request.POST.get(so_ban)
+    #         print(so_ban)
+    #         ban = Ban.objects.get(so_ban = so_ban)
+    #         ma_hoa_don = ban.get_mahoadon()
+    #         if (ma_hoa_don != None):
+    #             hoa_don = HoaDon.objects.get(ma_hoa_don = ma_hoa_don)
+    #     if "add_hoa_don" in request.POST :
+    #         a =0
+              
     return render(request, "management/home.html", 
                   {
-                      bans : "bans"
+                        'bans' : bans,
+                        # 'hoa_don': hoa_don
                   })
 
 def takeAway(request):

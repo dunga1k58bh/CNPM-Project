@@ -3,10 +3,27 @@
 
 {% endblock %}
 {% block content %}
-<p class="message">
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-</p>
+<div>
+    <div>
+        {% for ban in bans %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <button name="chon_ban">
+                    <p>Bàn số : {{ban.so_ban}}</p><br>
+                    <p>Trạng thái: {{ban.trang_thai}}</p>
+                </button>
+            </form>
+               
+        {% endfor %}
+    </div>
+    <div>
+        <form action="" method="post" name="menu">
+            {% csrf_token %}
+            <p>Mã hóa đơn : {{hoa_don.ma_hoa_don}}</p>
+            <button name="add_hoa_don">Thêm hóa đơn</button>
+            <button name="thanh_toan">Thanh toán</button>
+        </form>
 
-{% load bans %}
-{% render bans %}
+    </div>
+</div>
 {% endblock %}
