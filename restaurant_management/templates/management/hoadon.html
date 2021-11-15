@@ -1,9 +1,11 @@
-{% extends "management/layout.html" %}
+{% extends "management/home.html" %}
 {% block title %}
 
 {% endblock %}
-{% block content %}
+{% block bill__content %}
 <div>
+    <div id="ttkh"> </div>
+
     <div>
         {% for ban in bans %}
         {% if  ban.ma_hoa_don.ma_hoa_don is not None %}
