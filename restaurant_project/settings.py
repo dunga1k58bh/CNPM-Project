@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -80,7 +81,7 @@ DATABASES = {
         'NAME': 'QL_Nhahang',
         'USER': 'sa',
         'PASSWORD': 'admin',
-        'HOST': 'DESKTOP-L5OJBSQ\SQLEXPRESS',
+        'HOST': 'ADMIN\LTDUNG',
         'PORT': '',
 
         'OPTIONS': {

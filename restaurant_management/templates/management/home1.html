@@ -1,0 +1,49 @@
+{% extends "management/layout.html" %}
+{% load bootstrap5 %}
+{% block title %} {% endblock %}
+
+{% block content %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<div class="container">
+    <div class="row">
+        <!-- Phần này cho danh sách bàn và menu -->
+        <div class="col-sm">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Danh Sách Bàn</button>
+                  <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Menu</button>
+                </div>
+              </nav>
+              <div class="tab-content" id="nav-tabContent">
+                    <!-- Content Danh sách bàn -->
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="btn_matrix" role="group" aria-label="Three Column Button Matrix">
+                            {% for ban in bans %}
+                                <form action="" method="post" class="btn_ban">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-primary" value={{ban.so_ban}} name = "choose_ban">
+                                        Bàn số    : {{ban.so_ban}} <br>
+                                        Trạng thái: {{ban.trang_thai}}
+                                    </button>
+                                </form>
+                            {% endfor %}
+                            
+                          </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                    </div>
+              </div>
+
+        </div>
+        <!-- Phần này cho Hóa đơn -->
+        <div class="col-sm">
+            <h1>Hóa đơn</h1>
+        </div>
+
+    </div>
+  </div>
+
+{% endblock %}

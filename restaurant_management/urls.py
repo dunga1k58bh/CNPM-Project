@@ -2,8 +2,8 @@ from django.urls import path
 from restaurant_management import views
 
 urlpatterns = [
-    path("", views.home, name="home"),    
-    path("hoadon/<int:ma_hoa_don>/", views.hoadon, name = "hoadon"),
+    path("", views.home, name="home"), 
+    path("home1", views.home1, name= "home1"),   
     path("take_away/", views.takeAway, name="take_away"),
     path("events/", views.events, name="events"),
     path("vip_member/", views.vipMember, name="vip_member"),

@@ -1,4 +1,4 @@
 
 *.pyc
 .vscode/launch.json
-
+restaurant_project/settings.py

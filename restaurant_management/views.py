@@ -27,20 +27,45 @@ def signin(request):
    
 
 def home(request):
-    bans = Ban.objects.all()     
-    return render(request, "management/home.html", 
-                  {
-                        'bans' : bans,
-                  })
-    
-def hoadon(request , ma_hoa_don):
+    ma_hoa_don = None
     bans = Ban.objects.all()
-    hoadons = HoaDon.objects.get(ma_hoa_don = ma_hoa_don)
-    return render(request, "management/hoadon.html",
-                  {
-                      'bans' : bans,
-                      'hoadons':hoadon
-                  })
+    menu = Menu.objects.all()
+    mon_an = MonAn.objects.all()
+    
+    try :
+        hoa_don = HoaDon.objects.get(ma_hoa_don = ma_hoa_don)
+        dat_mon = DatMon.objects.filter(ma_hoa_don = ma_hoa_don)
+        return render(request, "management/home.html", 
+                {
+                    'bans' : bans,
+                    'mon_an':mon_an,
+                    'menu': menu,
+                    'hoa_don':hoa_don,
+                    'ma_hoa_don': ma_hoa_don,
+                    'dat_mon': dat_mon,
+                })
+    except:
+            
+        return render(request, "management/home.html", 
+                    {
+                            'bans' : bans,
+                            'menu' : menu,
+                            'mon_an':mon_an,
+                            'ma_hoa_don': ma_hoa_don,
+                    })
+    
+def home1(request):
+    bans = Ban.objects.all()
+    context = {
+        'bans': bans
+    }
+    if "choose_ban" in request.POST :
+        so_ban = request.POST.get("choose_ban")
+        print(so_ban)
+        
+        # try:
+        #     hoadon = HoaDon.objects.get(ma)
+    return render(request, "management/home1.html", context)    
     
 def takeAway(request):
     return render(request, "management/take_away.html")

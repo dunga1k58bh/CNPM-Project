@@ -49,6 +49,7 @@ class HoaDon(models.Model):
     class Meta:
         managed = False
         db_table = 'HOA_DON'
+    
 
 
 class KhachHang(models.Model):
