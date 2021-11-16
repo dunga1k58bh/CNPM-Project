@@ -42,14 +42,14 @@
     border: solid black 1px;
     padding: 12px;
 }
-.tittle {
+.table__header {
     width: 100%;
     border: solid blue 1px;
     padding: 12px;
     margin-bottom: 12px;
     text-align: center;
 }
-.list_table{
+.table__container{
     width: 100%;
     padding: 12px;
     border: solid black 1px;
@@ -68,8 +68,9 @@
     font-size: 1rem;
     color: black;
     /* text-align: center; */
+    margin-bottom: 12px;
 }
-.name_table {
+.table__name {
 
     width: 100%;
     z-index: 2;
@@ -77,11 +78,11 @@
     height: 30px;
 
 }
-.status_table {
+.table__status {
     width: 100%;
     height: auto;
 }
-.status_table_label_free {
+.table__status_label_free {
     z-index: 1;
     position:absolute;
     top: 0;
@@ -91,7 +92,7 @@
     background-image: url(https://scontent.xx.fbcdn.net/v/t1.15752-9/254753712_589900058913456_1569198990793516476_n.png?_nc_cat=110&ccb=1-5&_nc_sid=aee45a&_nc_ohc=oOA9xOTdV6IAX_4vyNU&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=5d5da79c444b8065cf427e55216531bb&oe=61B8BB62);
     background-size: cover;
 }
-.status_table_label_waiting {
+.table__status_label_waiting {
     z-index: 1;
     position:absolute;
     top: 0;
@@ -101,7 +102,7 @@
     background-image: url(https://scontent.xx.fbcdn.net/v/t1.15752-9/256310226_412535937257646_7529221538752758050_n.png?_nc_cat=108&ccb=1-5&_nc_sid=aee45a&_nc_ohc=yB3dt6U7j20AX9Pcumf&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=49cb4d72aedbcd72435bca7823ded3bd&oe=61B89BF6);
     background-size: cover;
 }
-.status_table_label_occupied {
+.table__status_label_occupied {
     z-index: 1;
     position:absolute;
     top: 0;
@@ -111,55 +112,64 @@
     background-image: url(https://scontent.xx.fbcdn.net/v/t1.15752-9/248306875_1285436938625385_8067854214674712552_n.png?_nc_cat=101&ccb=1-5&_nc_sid=aee45a&_nc_ohc=fORe2IoJTpkAX9E-fVf&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=37994ee17dcbbb6b2e1f7eb5dbff1386&oe=61B7BEAB);
     background-size: cover;
 }
-.bill {
+.bill__container {
     width: 100%;
     height: 100%;
     padding: 12px;
     border: solid black 1px;
 
 }
+.bill__header {
+    width: 100%;
+    border: solid blue 1px;
+    padding: 12px;
+    margin-bottom: 12px;
+    text-align: center;
+}
 .table__bill {
     padding: 12px;
     border: solid black 1px;
 }
 
-#demo {
-    border: solid red 1px;
-    padding: 12px;
-}
-.bill__header {
-    border: solid purple 1px;
-    margin: 12px;
-    padding: 12px;
-}
 .bill__content {
     position: relative;
     border: solid blue 1px;
-    margin: 12px;
+    margin-top: 12px;
     padding: 12px;
     width: auto;
     height: 400px;
+    background-color:lightgrey;
 }
-.add__bill {
+
+#pay__bill {
     position: absolute;
     height: 30px;
-    width:120px;
+    width:100px;
     border-radius: 3px;
     margin: 12px;
     bottom: 0;
     right: 0;
+    z-index: -1;
 }
-/* đoạn này test bootstrap */
-.btn_matrix{
-    font-size: 16px;
-    line-height: 24px;
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: left;
+#add__meal {
+    position: absolute;
+    height: 30px;
+    width:100px;
+    border-radius: 3px;
+    margin: 12px;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
 }
-.btn_ban{
-    width: 110px;
-    height: 110px;   
+#create__bill {
+    position: absolute;
+    height: 30px;
+    width:auto;
+    border-radius: 3px;
+    margin: 12px;
+    top: 0;
+    right: 0;
+    z-index: -1;
 }
-/*  */
+
+
