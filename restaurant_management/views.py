@@ -1,10 +1,13 @@
+from datetime import time
 from django.core.checks import messages
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-
+from django.utils import timezone
+import datetime
+from django.utils.tree import Node
+import pytz
 from restaurant_management import models
-from restaurant_management.models import *
 # Create your views here.
 
 
@@ -24,48 +27,54 @@ def signin(request):
             messages.error(request, 'Nhập thiếu tên đăng nhập hoặc mật khẩu')
     
     return render(request, "authentication/signin.html", {})
-   
-
+     
 def home(request):
-    ma_hoa_don = None
-    bans = Ban.objects.all()
-    menu = Menu.objects.all()
-    mon_an = MonAn.objects.all()
-    
-    try :
-        hoa_don = HoaDon.objects.get(ma_hoa_don = ma_hoa_don)
-        dat_mon = DatMon.objects.filter(ma_hoa_don = ma_hoa_don)
-        return render(request, "management/home.html", 
-                {
-                    'bans' : bans,
-                    'mon_an':mon_an,
-                    'menu': menu,
-                    'hoa_don':hoa_don,
-                    'ma_hoa_don': ma_hoa_don,
-                    'dat_mon': dat_mon,
-                })
-    except:
-            
-        return render(request, "management/home.html", 
-                    {
-                            'bans' : bans,
-                            'menu' : menu,
-                            'mon_an':mon_an,
-                            'ma_hoa_don': ma_hoa_don,
-                    })
-    
-def home1(request):
-    bans = Ban.objects.all()
+    bans = models.Ban.objects.all()
+    menu = models.Menu.objects.all()
+    mon_ans = models.MonAn.objects.all()
     context = {
-        'bans': bans
+        'bans': bans,
+        'menu': menu,
+        'mon_ans': mon_ans,
     }
     if "choose_ban" in request.POST :
         so_ban = request.POST.get("choose_ban")
-        print(so_ban)
-        
-        # try:
-        #     hoadon = HoaDon.objects.get(ma)
-    return render(request, "management/home1.html", context)    
+        context.update({
+                    'so_ban':so_ban
+                    })
+        try :
+            ban = models.Ban.objects.get(so_ban = so_ban)
+            hoadon = ban.ma_hoa_don
+            if hoadon is not None:
+                context.update({
+                    'hoadon' : hoadon,
+                    })
+            print(hoadon)
+        except:
+            print("ban nay chua co hoa don")
+    if "add_hoa_don" in request.POST :
+        so_ban = request.POST.get("add_hoa_don")
+        date = timezone.localtime(timezone.now())
+        nhanvien = models.NhanVien.objects.get(ma_nhan_vien = 1)
+        hoadon = models.HoaDon.objects.create(ngay_lap = date, don_gia = 0, phuong_thuc_thanh_toan ="tien_mat", so_ban= so_ban, ma_nhan_vien = nhanvien)
+        hoadon.save()
+        ban = models.Ban.objects.get(so_ban = so_ban)
+        ban.ma_hoa_don = hoadon
+        ban.save()
+    if "remove_hoa_don" in request.POST :
+        so_ban = request.POST.get("remove_hoa_don")
+        ban = models.Ban.objects.get(so_ban = so_ban)
+        hoadon = ban.ma_hoa_don
+        if hoadon is not None:
+            ma_hoa_don = hoadon.ma_hoa_don
+            models.DatMon.objects.filter(ma_hoa_don = ma_hoa_don).delete()
+            ban.ma_hoa_don = None
+            ban.save()
+            hoadon.delete()
+    return render(request, "management/home.html", context)
+    
+
+
     
 def takeAway(request):
     return render(request, "management/take_away.html")

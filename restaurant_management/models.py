@@ -28,7 +28,7 @@ class DatBan(models.Model):
 class DatMon(models.Model):
     ma_hoa_don = models.OneToOneField('HoaDon', models.DO_NOTHING, db_column='MA_HOA_DON', primary_key=True)  
 # Field name made lowercase.
-    ma_mon = models.ForeignKey('MonAn', models.DO_NOTHING, db_column='MA_MON')  # Field name made lowercase.  
+    ma_mon = models.ForeignKey('MonAn', models.DO_NOTHING, db_column='MA_MON',)  # Field name made lowercase.  
     so_luong = models.IntegerField(db_column='SO_LUONG')  # Field name made lowercase.
 
     class Meta:
