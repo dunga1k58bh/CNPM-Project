@@ -56,7 +56,7 @@
                                         <td>{{mon.gia}}</td>
                                         <td>
                                           
-                                            <button onclick="addMealFunction('{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
+                                            <button onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
                                           
                                         </td>
                                       </tr>      
@@ -86,14 +86,14 @@
                       </tr>
                     </thead>
                     <tbody id="bang_hoa_don">
-                    {% for mon in mon_da_dat %}
+                    <!-- {% for mon in mon_da_dat %}
                      <tr >
                         <th scope="row"></th>
                         <td class="ten__mon">{{mon.ten_mon}}</td>
                         <td class="so__luong">{{mon.don_vi}}</td>
                         <td class="gia__mon">{{mon.gia}}</td>
                     </tr>  
-                    {% endfor %}                      
+                    {% endfor %}                       -->
                       <!-- if else -->
 
                     </tbody>

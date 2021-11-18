@@ -15,7 +15,7 @@ class Ban(models.Model):
 
 
 class DatBan(models.Model):
-    ma_khach_hang = models.OneToOneField('KhachHang', models.DO_NOTHING, db_column='MA_KHACH_HANG', primary_key=True)  # Field name made lowercase.
+    ma_khach_hang = models.ForeignKey('KhachHang', models.DO_NOTHING, db_column='MA_KHACH_HANG')  # Field name made lowercase.
     so_ban = models.ForeignKey(Ban, models.DO_NOTHING, db_column='SO_BAN')  # Field name made lowercase.      
     thoi_gian = models.DateTimeField(db_column='THOI_GIAN')  # Field name made lowercase.
 
@@ -26,7 +26,7 @@ class DatBan(models.Model):
 
 
 class DatMon(models.Model):
-    ma_hoa_don = models.OneToOneField('HoaDon', models.DO_NOTHING, db_column='MA_HOA_DON', primary_key=True)  
+    ma_hoa_don = models.ForeignKey('HoaDon', models.DO_NOTHING, db_column='MA_HOA_DON')  
 # Field name made lowercase.
     ma_mon = models.ForeignKey('MonAn', models.DO_NOTHING, db_column='MA_MON',)  # Field name made lowercase.  
     so_luong = models.IntegerField(db_column='SO_LUONG')  # Field name made lowercase.
