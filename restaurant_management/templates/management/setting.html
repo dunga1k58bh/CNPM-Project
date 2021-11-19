@@ -1,17 +1,154 @@
-<div class="login-page">
-    <div class="form">
-      <form class="register-form">
-        <input type="text" placeholder="name"/>
-        <input type="password" placeholder="password"/>
-        <input type="text" placeholder="email address"/>
-        <button>create</button>
-        <p class="message">Already registered? <a href="#">Sign In</a></p>
-      </form>
-      <form class="login-form">
-        <input type="text" placeholder="username"/>
-        <input type="password" placeholder="password"/>
-        <button>login</button>
-        <p class="message">Not registered? <a href="#">Create an account</a></p>
-      </form>
-    </div>
+{% extends "management/layout.html" %}
+{% load bootstrap5 %}
+{% block title %}
+
+{% endblock %}
+{% block content %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<div class="row">
+<div class="col-sm-2">
+ <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      
+        <li class="nav-heading">
+          <span>SETTING</span>
+        </li>
+      <!-- End  -->
+
+      <li class="nav-item">
+        <button class="nav-link collapsed" style="border: none;" >
+          <span>Profile</span>
+        </button>
+      </li><!-- End Profile Page Nav -->
+
+
+      <li class="nav-item">
+        <button class="nav-link collapsed" style="border: none;" >
+          <span>Menu&Table</span>
+        </button>
+      </li><!-- End Contact Page Nav -->
+
+      <li class="nav-item">
+        <button class="nav-link collapsed" style="border: none;" >
+          <span>Register</span>
+        </button>
+      </li><!-- End Register Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'signin' %}" >
+          <span>Login</span>
+        </a>
+      </li><!-- End Login Page Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+</div>
+<div class= "setting_menu" style="display:contents;">
+  <div class="col-sm-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Mã</th>
+          <th scope="col">Tên Menu</th>
+          <th scope="col">#</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for menu in menus %}
+          <tr>
+              <th scope="row"></th>
+              <td>{{menu.ma_menu}}</td>
+              <td>{{menu.ten_menu}}</td>
+              <td>
+                
+                  <button onclick="menu_monan('{{menu.ma_menu}}')" >Edit</button>
+                
+              </td>
+            </tr>      
+          {% endfor %}
+      </tbody>
+  </table>
+  <form style="margin-left: 10px;">
+    <label for="quantity">  Cài đặt số lượng bàn:</label>
+    <input type="number" id="quantity" name="quantity" value="{{soluong_ban}}" min="1" max="100">
+    <button onclick="set_ban()">Save</button>
+  </form>
   </div>
+  <div class="col-sm-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Tên</th>
+          <th scope="col">Giá</th>
+          <th scope="col">Đơn vị</th>
+          <th scope="col">#</th>
+        </tr>
+      </thead>
+      <tbody>
+        <div class="MN">
+          {% for monan in monans %}
+              {% if  monan.ma_menu.ma_menu ==  "MN1" %}
+              <tr class="menu_1">
+                <th scope="row"></th>
+                <td>{{monan.ten_mon}}</td>
+                <td>{{monan.gia}}</td>
+                <td>{{monan.don_vi}}</td>
+                <td> 
+                    <button onclick="" class= "" >Delete</button>
+                  
+                </td>
+              </tr>   
+              {% elif monan.ma_menu.ma_menu ==  "MN2" %}
+              <tr class="menu_2">
+                <th scope="row"></th>
+                <td>{{monan.ten_mon}}</td>
+                <td>{{monan.gia}}</td>
+                <td>{{monan.don_vi}}</td>
+                <td> 
+                    <button onclick="" class= "" >Delete</button>
+                  
+                </td>
+              </tr>  
+              {% elif monan.ma_menu.ma_menu ==  "MN3" %}
+              <tr class="menu_3">
+                <th scope="row"></th>
+                <td>{{monan.ten_mon}}</td>
+                <td>{{monan.gia}}</td>
+                <td>{{monan.don_vi}}</td>
+                <td> 
+                    <button onclick="" class= "" >Delete</button>
+                  
+                </td>
+              </tr>  
+              {% elif monan.ma_menu.ma_menu ==  "MN4" %}
+              <tr class="menu_4">
+                <th scope="row"></th>
+                <td>{{monan.ten_mon}}</td>
+                <td>{{monan.gia}}</td>
+                <td>{{monan.don_vi}}</td>
+                <td> 
+                    <button onclick="" class= "" >Delete</button>
+                  
+                </td>
+              </tr>  
+              {% endif %}
+              
+          {% endfor %}
+      </div>
+          
+      </tbody>
+  </table>
+  <div class="add_mon">
+  <button style="margin: 15px;">Add </button>
+  <button style="margin: 15px;">Save</button>
+</div>
+  </div>
+</div>
+
+{% endblock %}
