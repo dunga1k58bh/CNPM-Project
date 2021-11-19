@@ -46,7 +46,7 @@ def home(request):
             ban = models.Ban.objects.get(so_ban = so_ban)
             hoadon = ban.ma_hoa_don
             if hoadon is not None:
-                context.update({
+                context.update({          
                     'hoadon' : hoadon,
                     })
             print(hoadon)
@@ -60,7 +60,7 @@ def home(request):
         hoadon.save()
         ban = models.Ban.objects.get(so_ban = so_ban)
         ban.ma_hoa_don = hoadon
-        ban.save()
+        ban.save()     
     if "remove_hoa_don" in request.POST :
         so_ban = request.POST.get("remove_hoa_don")
         ban = models.Ban.objects.get(so_ban = so_ban)

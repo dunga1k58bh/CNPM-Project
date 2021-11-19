@@ -81,6 +81,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Tên</th>
                         <th scope="col">Số lượng</th>
+                        <th scope="col">Đơn giá </th>
                         <th scope="col">Thành tiền</th>
                         <th scope="col">#</th>
                       </tr>
@@ -92,12 +93,14 @@
                         <td class="ten__mon">{{mon.ten_mon}}</td>
                         <td class="so__luong">{{mon.don_vi}}</td>
                         <td class="gia__mon">{{mon.gia}}</td>
+                        <td class="thanh_tien"> </td>
                     </tr>  
                     {% endfor %}                      
                       <!-- if else -->
 
                     </tbody>
                 </table>
+                {% comment %} <p>Tổng tiền :"{{getTongtien()}}" </p> {% endcomment %}
                 <button type="submit" value='{{so_ban}}' name="add_hoa_don">Thêm hóa đơn</button>
                 <button type="submit" value='{{so_ban}}' name="remove_hoa_don">Xóa hóa đơn</button>
                 <button type="submit" value='{{so_ban}}' name="pay">Thanh toán</button>

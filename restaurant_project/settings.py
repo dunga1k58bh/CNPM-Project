@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': 'QL_Nhahang',
         'USER': 'sa',
         'PASSWORD': 'admin',
-        'HOST': 'ADMIN\LTDUNG',
+        'HOST': 'DESKTOP-L5OJBSQ\SQLEXPRESS',
         'PORT': '',
 
         'OPTIONS': {
