@@ -86,14 +86,15 @@
                       </tr>
                     </thead>
                     <tbody id="bang_hoa_don">
-                    <!-- {% for mon in mon_da_dat %}
+                    {% for dat_mon in dat_mons %}
                      <tr >
                         <th scope="row"></th>
-                        <td class="ten__mon">{{mon.ten_mon}}</td>
-                        <td class="so__luong">{{mon.don_vi}}</td>
-                        <td class="gia__mon">{{mon.gia}}</td>
+                        <td class="ten__mon">{{dat_mon.get_ten_mon}}</td>
+                        <td class="so__luong">{{dat_mon.so_luong}}</td>
+                        <td class="gia__mon">{{dat_mon.thanh_tien}}</td>
+                        <th></th>
                     </tr>  
-                    {% endfor %}                       -->
+                    {% endfor %}                      
                       <!-- if else -->
 
                     </tbody>
