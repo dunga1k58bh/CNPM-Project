@@ -42,15 +42,17 @@ def home(request):
         context.update({
                     'so_ban':so_ban
                     })
-        ban = models.Ban.objects.get(so_ban = so_ban)
-        hoadon = ban.ma_hoa_don
-        dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
-        if hoadon is not None:
-            context.update({
+        try:
+            ban = models.Ban.objects.get(so_ban = so_ban)
+            hoadon = ban.ma_hoa_don
+            dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
+            if hoadon is not None:
+                context.update({
                     'hoadon' : hoadon,
                     'dat_mons': dat_mons
                     })
-
+        except:
+            print("ban nay chua co hoa don")
     if "add_hoa_don" in request.POST :
         # Đoạn này để tạo hóa đơn và thêm hóa đơn vào bàn
         so_ban = request.POST.get("add_hoa_don")
