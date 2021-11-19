@@ -103,4 +103,14 @@ def statistics(request):
 
 
 def setting(request):
-    return render(request, "management/setting.html")
+    menus = models.Menu.objects.all()
+    monans = models.MonAn.objects.all() 
+    bans = models.Ban.objects.all() 
+    soluong_ban = models.Ban.objects.filter().count()   
+    return render(request, "management/setting.html", 
+                  {
+                        'menus' : menus,
+                        'monans' : monans,
+                        'bans' : bans,
+                        'soluong_ban': soluong_ban,
+                  })
