@@ -51,8 +51,12 @@ def home(request):
                     'hoadon' : hoadon,
                     'dat_mons': dat_mons
                     })
+                ban.trang_thai ="đang sử dụng"
+                ban.save()
         except:
             print("ban nay chua co hoa don")
+            ban.trang_thai ="rảnh"
+            ban.save()
     if "add_hoa_don" in request.POST :
         # Đoạn này để tạo hóa đơn và thêm hóa đơn vào bàn
         so_ban = request.POST.get("add_hoa_don")
@@ -79,6 +83,7 @@ def home(request):
         else  :   
             hoadon = models.HoaDon.objects.create(ngay_lap = date, don_gia = giahoadon, phuong_thuc_thanh_toan ="tien_mat", so_ban= so_ban, ma_nhan_vien = nhanvien)
             ban.ma_hoa_don= hoadon
+        ban.trang_thai ="đang sử dụng"
         ban.save()
         hoadon.save()
         #Lưu món đặt mới vào csdl
@@ -96,6 +101,7 @@ def home(request):
             ma_hoa_don = hoadon.ma_hoa_don
             models.DatMon.objects.filter(ma_hoa_don = ma_hoa_don).delete()
             ban.ma_hoa_don = None
+            ban.trang_thai="rảnh"
             ban.save()
             hoadon.delete()
 
@@ -107,6 +113,7 @@ def home(request):
         if hoadon is not None:
             ma_hoa_don = hoadon.ma_hoa_don
             ban.ma_hoa_don = None
+            ban.trang_thai= "rảnh"
             ban.save()
     return render(request, "management/home.html", context)
     
