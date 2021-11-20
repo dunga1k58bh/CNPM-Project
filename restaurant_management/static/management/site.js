@@ -20,7 +20,7 @@ function addMealFunction(ma_mon, tenmon, giamon) {
     var z = document.getElementsByClassName("menu_3");
     var t = document.getElementsByClassName("menu_4");
      var i;
-     document.getElementsByClassName("add_mon")[0].style.display = 'flex';
+     document.getElementsByClassName("addd_mon")[0].style.display = 'flex';
     if(ma_menu == 'MN1'){
         for (i = 0; i < x.length; i++) x[i].style.display = 'table-row';
         for (i = 0; i < y.length; i++) y[i].style.display = 'none';
