@@ -75,12 +75,12 @@ def home(request):
         ban = models.Ban.objects.get(so_ban = so_ban)
         hoadon=ban.ma_hoa_don
         if hoadon is not None:
-            hoadon.don_gia = hoadon.don_gia +giahoadon        
+            hoadon.don_gia = hoadon.don_gia +giahoadon  
+            hoadon.save()      
         else  :   
             hoadon = models.HoaDon.objects.create(ngay_lap = date, don_gia = giahoadon, phuong_thuc_thanh_toan ="tien_mat", so_ban= so_ban, ma_nhan_vien = nhanvien)
             ban.ma_hoa_don= hoadon
         ban.save()
-        hoadon.save()
         #Lưu món đặt mới vào csdl
         ma_hoa_don = hoadon.ma_hoa_don
         for ma_mon in ma_mon_dat:
