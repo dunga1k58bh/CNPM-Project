@@ -1,5 +1,48 @@
 {% extends "management/layout.html" %}
+{% load bootstrap5 %}
 {% block title %}
 {% endblock %}
 {% block content %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<section class = "vip_member">
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-sm-4 bg-info">
+                <p>
+                    Khách hàng mới đang đăng ký thẻ thành viên là hạng đồng. <br>
+                    Tổng các hoá đơn đã mua hàng là 10 triệu sẽ được lên hạng bạc. <br>
+                    Tổng các hoá đơn đã mua hàng là 30 triệu sẽ được lên hạng vàng. <br>
+                    Tổng các hoá đơn đã mua hàng là 50 triệu sẽ được lên hạng kim cương. <br>
+                    Hạng càng cao tích luỹ càng nhiều.
+                </p>
+            </div>
+            <div class="col-sm-8 bg-warning">
+                <h3>Danh sách Vip Member</h3>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Hạng</th>
+                            <th>Mã Khách Hàng</th>
+                            <th>Tên Khách Hàng</th>
+                            <th>Tiền Tích Luỹ</th>                       
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row"></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="Add_Delete">
+                    <button type="button" class="btn btn-light float-start" id="AddVipMember">Thêm thành viên</button>
+                    <button type="button" class="btn btn-dark float-end" id="DelVipMember">Xoá thành viên</button>
+                </div> 
+            </div>
+            <!-- <div class="col-sm-4 bg-info"></div> -->
+        </div>
+    </div>
+</section>
 {% endblock %}
