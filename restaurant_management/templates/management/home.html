@@ -56,7 +56,7 @@
                                         <td>{{mon.gia}}</td>
                                         <td>
                                           
-                                            <button onclick="addMealFunction('{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
+                                            <button onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
                                           
                                         </td>
                                       </tr>      
@@ -81,26 +81,26 @@
                         <th scope="col">#</th>
                         <th scope="col">Tên</th>
                         <th scope="col">Số lượng</th>
-                        <th scope="col">Đơn giá </th>
+                        <th scope="col"> Đơn Giá </th>
                         <th scope="col">Thành tiền</th>
                         <th scope="col">#</th>
                       </tr>
                     </thead>
                     <tbody id="bang_hoa_don">
-                    {% for mon in mon_da_dat %}
+                    {% for dat_mon in dat_mons %}
                      <tr >
                         <th scope="row"></th>
-                        <td class="ten__mon">{{mon.ten_mon}}</td>
-                        <td class="so__luong">{{mon.don_vi}}</td>
-                        <td class="gia__mon">{{mon.gia}}</td>
-                        <td class="thanh_tien"> </td>
+                        <td class="ten__mon">{{dat_mon.get_ten_mon}}</td>
+                        <td class="so__luong">{{dat_mon.so_luong}}</td>
+                        <td class="gia__mon"> </td>
+                        <td class="thanh__tien"> {{dat_mon.thanh_tien}}</td>
+                        <th></th>
                     </tr>  
                     {% endfor %}                      
                       <!-- if else -->
 
                     </tbody>
                 </table>
-                {% comment %} <p>Tổng tiền :"{{getTongtien()}}" </p> {% endcomment %}
                 <button type="submit" value='{{so_ban}}' name="add_hoa_don">Thêm hóa đơn</button>
                 <button type="submit" value='{{so_ban}}' name="remove_hoa_don">Xóa hóa đơn</button>
                 <button type="submit" value='{{so_ban}}' name="pay">Thanh toán</button>

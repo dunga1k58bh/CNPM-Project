@@ -1,6 +1,75 @@
 {% extends "management/layout.html" %}
-{% block title %}
-
-{% endblock %}
+{% load bootstrap5 %}
+{% block title %} {% endblock %}
 {% block content %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<div class="container">
+    <div class="row">
+        <!-- Phần này cho danh sách bàn và menu -->
+        <div class="col-sm">
+            <h3> Menu </h3>
+                    <!-- Content cho danh sách thực đơn -->
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Tên</th>
+                                    <th scope="col">Đơn vị</th>
+                                    <th scope="col">Giá</th>
+                                    <th scope="col">#</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {% for mon in mon_ans %}
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>{{mon.ten_mon}}</td>
+                                        <td>{{mon.don_vi}}</td>
+                                        <td>{{mon.gia}}</td>
+                                        <td>
+                                          
+                                            <button onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
+                                          
+                                        </td>
+                                      </tr>      
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+        </div>
+        <!-- Phần này cho Hóa đơn -->
+        <div class="col-sm">
+            <h1>Hóa đơn</h1>
+            <p>Mã hóa đơn : {{hoadon.ma_hoa_don}}</p>
+            <form action="" method="post">
+                Số bàn : 8
+                {% csrf_token %}
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Tên</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col"> Đơn Giá </th>
+                        <th scope="col">Thành tiền</th>
+                        <th scope="col">#</th>
+                      </tr>
+                    </thead>
+                    <tbody id="bang_hoa_don">                 
+                      <!-- if else -->
+
+                    </tbody>
+                </table>
+                <button type="submit" value='8' name="add_hoa_don">Thanh toán</button>
+                
+            </form>
+
+        </div>
+
+    </div>
+  </div>
+
 {% endblock %}

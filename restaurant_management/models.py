@@ -15,7 +15,7 @@ class Ban(models.Model):
 
 
 class DatBan(models.Model):
-    ma_khach_hang = models.OneToOneField('KhachHang', models.DO_NOTHING, db_column='MA_KHACH_HANG', primary_key=True)  # Field name made lowercase.
+    ma_khach_hang = models.OneToOneField('KhachHang', models.DO_NOTHING, db_column='MA_KHACH_HANG')  # Field name made lowercase.
     so_ban = models.ForeignKey(Ban, models.DO_NOTHING, db_column='SO_BAN')  # Field name made lowercase.      
     thoi_gian = models.DateTimeField(db_column='THOI_GIAN')  # Field name made lowercase.
 
@@ -26,16 +26,24 @@ class DatBan(models.Model):
 
 
 class DatMon(models.Model):
-    ma_hoa_don = models.OneToOneField('HoaDon', models.DO_NOTHING, db_column='MA_HOA_DON', primary_key=True)  
+    ma_hoa_don = models.OneToOneField('HoaDon', models.DO_NOTHING, db_column='MA_HOA_DON', primary_key= True)  
 # Field name made lowercase.
-    ma_mon = models.ForeignKey('MonAn', models.DO_NOTHING, db_column='MA_MON',)  # Field name made lowercase.  
+    ma_mon = models.ForeignKey('MonAn', models.DO_NOTHING, db_column='MA_MON')  # Field name made lowercase.  
     so_luong = models.IntegerField(db_column='SO_LUONG')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'DAT_MON'
         unique_together = (('ma_hoa_don', 'ma_mon'),)
-
+    
+    def get_ten_mon(self):
+        mon = self.ma_mon
+        return mon.ten_mon
+    
+    def thanh_tien(self):
+        mon = self.ma_mon
+        gia = mon.gia 
+        return gia * self.so_luong
 
 class HoaDon(models.Model):
     ma_hoa_don = models.AutoField(db_column='MA_HOA_DON', primary_key=True)  # Field name made lowercase.     

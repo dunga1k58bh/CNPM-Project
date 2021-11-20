@@ -1,25 +1,17 @@
 
-function deleteMeal(){
-
-}
-function calculate(quantity, dongia){
-    return quantity*dongia ;
-}
-var tongtien=0;
-function addMealFunction(tenmon, giamon) {
-    alert("Thêm món "+tenmon+" cho hóa đơn");
-    var html=' <tr >  <th scope="row">  </th>  <td class="ten__mon">' 
+function addMealFunction(ma_mon, tenmon, giamon) {
+    var result=confirm("Are you sure?");
+    // alert("Thêm món "+tenmon+" cho hóa đơn");
+    if(result== true){
+        var html=' <tr class="monmoithem">  <th scope="row">  </th>  <td class="ten__mon">' 
     +tenmon
-    +' </td>  <td class="so__luong"> <input type="text" name="name-field" value="1"> </td>  <td class="gia__mon">'
-    + giamon+ '</td> '
-    + '<td class="thanh_tien">'
-    + calculate(1,giamon)
-    +'</td>'
-    + '<td> <button  onclick="deleteMeal()"> Delete </button> </td> </tr>   ';
-    // tongtien+=calculate(1,giamon);
+    +' </td>  <td class="so__luong"> <input type="text" name="so_luongs" value="1"> </td>  <td class="gia__mon">'
+    + giamon
+    + '</td>'
+    +'<td class="thanh__tien">'+giamon+'</td>'
+    +' <input type="text" value="'+ma_mon+'"name="ma_mons" hidden>'
+    + '<td> <button  onclick="deleteMeal()"> Delete </button> </td> </tr>';
     document.getElementById('bang_hoa_don').insertAdjacentHTML('afterend', html);
+    }
 }
-
-function getTongtien(){
-    return tongtien;
-}
+ 
