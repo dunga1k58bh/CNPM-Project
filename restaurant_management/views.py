@@ -81,7 +81,8 @@ def home(request):
         for ma_mon in ma_mon_dat:
             mon_an = models.MonAn.objects.get(ma_mon = ma_mon)
             so_luong = so_luong_dat[ma_mon_dat.index(ma_mon)]
-            dat_mon = models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon= mon_an, so_luong = so_luong)
+            if so_luong != '0' :
+                dat_mon = models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon= mon_an, so_luong = so_luong)
             giahoadon = giahoadon +  int(so_luong)* int(mon_an.gia)
         hoadon.don_gia= hoadon.don_gia + giahoadon
         hoadon.save()
@@ -135,7 +136,8 @@ def takeAway(request):
         for ma_mon in ma_mon_dat:
             mon_an = models.MonAn.objects.get(ma_mon = ma_mon)
             so_luong = so_luong_dat[ma_mon_dat.index(ma_mon)]
-            dat_mon = models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon= mon_an, so_luong = so_luong)
+            if so_luong != '0':
+                dat_mon = models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon= mon_an, so_luong = so_luong)
             giahoadon = giahoadon +  int(so_luong)* int(mon_an.gia)
 
         hoadon.don_gia = hoadon.don_gia + giahoadon
