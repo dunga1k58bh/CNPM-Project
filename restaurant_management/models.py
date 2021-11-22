@@ -40,6 +40,10 @@ class DatMon(models.Model):
         mon = self.ma_mon
         return mon.ten_mon
     
+    def get_gia(self):
+        mon = self.ma_mon
+        return mon.gia
+    
     def thanh_tien(self):
         mon = self.ma_mon
         gia = mon.gia 

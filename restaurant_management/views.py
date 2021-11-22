@@ -128,7 +128,7 @@ def takeAway(request):
         nhanvien = models.NhanVien.objects.get(ma_nhan_vien = 1)
         giahoadon =0  
         
-        if ma_hoa_don is not '':  
+        if ma_hoa_don != '':  
             hoadon = models.HoaDon.objects.get(ma_hoa_don = ma_hoa_don)
         else:          
             hoadon = models.HoaDon.objects.create(ngay_lap = date, don_gia = giahoadon, phuong_thuc_thanh_toan ="tien_mat",so_ban= 8,  ma_nhan_vien = nhanvien)  

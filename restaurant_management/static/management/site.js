@@ -8,7 +8,7 @@ function addMealFunction(ma_mon, tenmon, giamon) {
     +' </td>  <td class="so__luong"> <input type="text" name="so_luongs" value="1"> </td>  <td class="gia__mon">'
     + giamon
     + '</td>'
-    +'<td class="thanh__tien">'+giamon+'</td>'
+    +'<td class="thanh__tien"></td>'
     +' <input type="text" value="'+ma_mon+'"name="ma_mons" hidden>'
     + '<td> <button  onclick="deleteMeal()"> Delete </button> </td> </tr>';
     document.getElementById('bang_hoa_don').insertAdjacentHTML('afterend', html);
@@ -20,7 +20,7 @@ function addMealFunction(ma_mon, tenmon, giamon) {
     var z = document.getElementsByClassName("menu_3");
     var t = document.getElementsByClassName("menu_4");
      var i;
-     document.getElementsByClassName("add_mon")[0].style.display = 'flex';
+     document.getElementsByClassName("addd_mon")[0].style.display = 'flex';
     if(ma_menu == 'MN1'){
         for (i = 0; i < x.length; i++) x[i].style.display = 'table-row';
         for (i = 0; i < y.length; i++) y[i].style.display = 'none';
