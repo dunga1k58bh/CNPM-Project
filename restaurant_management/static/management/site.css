@@ -136,5 +136,5 @@ table, th, td {
   .add_mon {
   float:right;
   margin-right: 25px;
-  display: none;
+  display:block;
   }

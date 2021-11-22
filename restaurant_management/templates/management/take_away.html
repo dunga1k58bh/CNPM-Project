@@ -43,9 +43,8 @@
         <!-- Phần này cho Hóa đơn -->
         <div class="col-sm">
             <h1>Hóa đơn</h1>
-            <p>Mã hóa đơn : {{hoadon.ma_hoa_don}}</p>
+            <p>Mã hóa đơn : {{mahoadon}}</p>
             <form action="" method="post">
-                Số bàn : 8
                 {% csrf_token %}
                 <table class="table">
                     <thead>
@@ -58,13 +57,25 @@
                         <th scope="col">#</th>
                       </tr>
                     </thead>
-                    <tbody id="bang_hoa_don">                 
+                    <tbody id="bang_hoa_don">  
+                    {% for dat_mon in dat_mons %}
+                     <tr >
+                        <th scope="row"></th>
+                        <td class="ten__mon">{{dat_mon.get_ten_mon}}</td>
+                        <td class="so__luong">{{dat_mon.so_luong}}</td>
+                        <td class="gia__mon"> </td>
+                        <td class="thanh__tien"> {{dat_mon.thanh_tien}}</td>
+                        <th></th>
+                      </tr>  
+                    {% endfor %}                 
                       <!-- if else -->
 
                     </tbody>
                 </table>
-                <button type="submit" value='8' name="add_hoa_don">Thanh toán</button>
-                
+                <p style="float:right"> Tổng tiền: {{tongtien}}   </p>
+                <button type="submit" value='{{mahoadon}}' name="add_hoa_don">Lưu hóa đơn</button>
+                <button type="submit" value='{{mahoadon}}' name="remove_hoa_don">Xóa hóa đơn</button>
+                <button type="submit" value='{{mahoadon}}' name="pay">Thanh toán</button>               
             </form>
 
         </div>
