@@ -175,3 +175,5 @@ def setting(request):
                         'nhanviens' : nhanviens,
                         'soluong_ban': soluong_ban,
                   })
+def booking (request):
+    return 

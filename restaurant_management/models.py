@@ -18,7 +18,7 @@ class DatBan(models.Model):
     ma_khach_hang = models.OneToOneField('KhachHang', models.DO_NOTHING, db_column='MA_KHACH_HANG')  # Field name made lowercase.
     so_ban = models.ForeignKey(Ban, models.DO_NOTHING, db_column='SO_BAN')  # Field name made lowercase.      
     thoi_gian = models.DateTimeField(db_column='THOI_GIAN')  # Field name made lowercase.
-
+    
     class Meta:
         managed = False
         db_table = 'DAT_BAN'
@@ -61,8 +61,6 @@ class HoaDon(models.Model):
     class Meta:
         managed = False
         db_table = 'HOA_DON'
-    
-
 
 class KhachHang(models.Model):
     ma_khach_hang = models.CharField(db_column='MA_KHACH_HANG', primary_key=True, max_length=5)  # Field name 
