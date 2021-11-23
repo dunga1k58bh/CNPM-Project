@@ -67,32 +67,26 @@ def home(request):
         
         ma_mon_dat = request.POST.getlist("ma_mons")
         so_luong_dat = request.POST.getlist("so_luongs")
-        # Tính tiền đặt món mới
-        giahoadon =0        
-        for ma_mon in ma_mon_dat:
-            mon_an = models.MonAn.objects.get(ma_mon = ma_mon)
-            so_luong = so_luong_dat[ma_mon_dat.index(ma_mon)]
-            giahoadon = giahoadon +  int(so_luong)* int(mon_an.gia)
-            
-        # Kiểm tra: Nếu bàn có hóa đơn thì cộng tiền vào đơn giá của hóa đơn đó
-        # không thì tọa hóa đơn mới
+
         ban = models.Ban.objects.get(so_ban = so_ban)
         hoadon=ban.ma_hoa_don
-        if hoadon is not None:
-            hoadon.don_gia = hoadon.don_gia +giahoadon  
-            hoadon.save()      
-        else  :   
-            hoadon = models.HoaDon.objects.create(ngay_lap = date, don_gia = giahoadon, phuong_thuc_thanh_toan ="tien_mat", so_ban= so_ban, ma_nhan_vien = nhanvien)
+        if hoadon is None:  
+            hoadon = models.HoaDon.objects.create(ngay_lap = date, don_gia = 0, phuong_thuc_thanh_toan ="tien_mat", so_ban= so_ban, ma_nhan_vien = nhanvien)
             ban.ma_hoa_don= hoadon
         ban.trang_thai ="đang sử dụng"
         ban.save()
         #Lưu món đặt mới vào csdl
+        giahoadon =0 
         ma_hoa_don = hoadon.ma_hoa_don
         for ma_mon in ma_mon_dat:
             mon_an = models.MonAn.objects.get(ma_mon = ma_mon)
             so_luong = so_luong_dat[ma_mon_dat.index(ma_mon)]
-            dat_mon = models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon= mon_an, so_luong = so_luong)
-    
+            if so_luong != '0' :
+                dat_mon = models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon= mon_an, so_luong = so_luong)
+            giahoadon = giahoadon +  int(so_luong)* int(mon_an.gia)
+        hoadon.don_gia= hoadon.don_gia + giahoadon
+        hoadon.save()
+        
     if "remove_hoa_don" in request.POST :
         so_ban = request.POST.get("remove_hoa_don")
         ban = models.Ban.objects.get(so_ban = so_ban)
@@ -115,38 +109,64 @@ def home(request):
             ban.ma_hoa_don = None
             ban.trang_thai= "rảnh"
             ban.save()
+            
     return render(request, "management/home.html", context)
-    
 
 
-    
 def takeAway(request):
     menu = models.Menu.objects.all()
     mon_ans = models.MonAn.objects.all()
-    so_ban = 8
     context = {
         'menu': menu,
         'mon_ans': mon_ans,
     }
-    # Tương ứng bên giao diện là thanh toán, khi click thì tạo hóa đơn và lưu, mặc định số bàn là 8
-    if "add_hoa_don" in request.POST :
+    # Tương ứng bên giao diện là lưu hóa đơn, khi click thì tạo hóa đơn và lưu, mặc định số bàn là 8
+    if "add_hoa_don" in request.POST :    
+        ma_hoa_don = request.POST.get("add_hoa_don")
         date = timezone.localtime(timezone.now())
         ma_mon_dat = request.POST.getlist("ma_mons")
         so_luong_dat = request.POST.getlist("so_luongs")
         nhanvien = models.NhanVien.objects.get(ma_nhan_vien = 1)
-        giahoadon =0        
+        giahoadon =0  
+        
+        if ma_hoa_don != '':  
+            hoadon = models.HoaDon.objects.get(ma_hoa_don = ma_hoa_don)
+        else:          
+            hoadon = models.HoaDon.objects.create(ngay_lap = date, don_gia = giahoadon, phuong_thuc_thanh_toan ="tien_mat",so_ban= 8,  ma_nhan_vien = nhanvien)  
         for ma_mon in ma_mon_dat:
             mon_an = models.MonAn.objects.get(ma_mon = ma_mon)
             so_luong = so_luong_dat[ma_mon_dat.index(ma_mon)]
+            if so_luong != '0':
+                dat_mon = models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon= mon_an, so_luong = so_luong)
             giahoadon = giahoadon +  int(so_luong)* int(mon_an.gia)
 
-
-        hoadon = models.HoaDon.objects.create(ngay_lap = date, don_gia = giahoadon, phuong_thuc_thanh_toan ="tien_mat", so_ban= so_ban, ma_nhan_vien = nhanvien)
+        hoadon.don_gia = hoadon.don_gia + giahoadon
         hoadon.save()
-        for ma_mon in ma_mon_dat:
-            mon_an = models.MonAn.objects.get(ma_mon = ma_mon)
-            so_luong = so_luong_dat[ma_mon_dat.index(ma_mon)]
-            dat_mon = models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon= mon_an, so_luong = so_luong)
+        dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
+        context.update({
+            'mahoadon' : hoadon.ma_hoa_don ,
+            'tongtien' : hoadon.don_gia,
+            'dat_mons': dat_mons ,
+        })
+
+    # Xóa hóa đơn
+    if "remove_hoa_don" in request.POST :
+        ma_hoa_don= request.POST.get("remove_hoa_don")
+        hoadon= models.HoaDon.objects.get(ma_hoa_don = ma_hoa_don)
+        if hoadon is not None:
+            models.DatMon.objects.filter(ma_hoa_don = ma_hoa_don).delete()
+            hoadon.delete()
+            context.update({
+                'ma_hoa_don': ''
+            })
+    # Thanh toán hóa đơn
+    if "pay" in request.POST:
+        ma_hoa_don= request.POST.get("pay")
+        hoadon= models.HoaDon.objects.get(ma_hoa_don = ma_hoa_don)
+        if hoadon is not None:
+            context.update({
+                'ma_hoa_don': ''
+            })
 
     return render(request, "management/take_away.html", context)
 
