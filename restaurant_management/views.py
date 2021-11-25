@@ -11,6 +11,7 @@ from restaurant_management import models
 # Create your views here.
 
 
+
 def signin(request):
     if request.method == 'POST':
         username = request.POST.get("username")
