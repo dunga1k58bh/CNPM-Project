@@ -8,6 +8,8 @@ import datetime
 from django.utils.tree import Node
 import pytz
 from restaurant_management import models
+import json
+from django.db.models import Sum
 # Create your views here.
 
 
@@ -179,7 +181,26 @@ def vipMember(request):
 
 
 def statistics(request):
-    return render(request, "management/statistics.html")
+    ma_mons = []
+    so_luongs = []
+    ma_hoa_dons = []
+    ten_mons = []
+
+    dat_mons = models.DatMon.objects.values('ma_mon').annotate(Sum('so_luong'))
+    for dat_mon in dat_mons:
+        ma_mons.append(dat_mon['ma_mon'])
+        so_luongs.append(dat_mon['so_luong__sum'])
+        mon_an = models.MonAn.objects.get(ma_mon=dat_mon['ma_mon'])
+        ten_mons.append(mon_an.ten_mon)
+
+    context = {
+        'ma_mons': json.dumps(ma_mons),
+        'so_luongs': json.dumps(so_luongs),
+        'ten_mons': json.dumps(ten_mons),
+    }
+    print(context)
+
+    return render(request, "management/statistics.html", context)
 
 
 def setting(request):
