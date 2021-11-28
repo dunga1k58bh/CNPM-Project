@@ -1,0 +1,83 @@
+{% extends "management/layout.html" %}
+{% load bootstrap5 %}
+{% block title %} {% endblock %}
+
+{% block content %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<div class="container">
+    <div class="row">
+        <!-- Phần này cho danh sách bàn và menu -->
+        <div class="col-sm">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Danh Sách Bàn</button>
+                </div>
+              </nav>
+              <div class="tab-content" id="nav-tabContent">
+                    <!-- Content Danh sách bàn -->
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="btn_matrix" role="group" aria-label="Three Column Button Matrix">
+                            <form action="" method="post">
+                            {% for ban in bans %}
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-primary btn_ban" value='{{ban.so_ban}}' name = "choose_ban">
+                                        Bàn số    : {{ban.so_ban}} <br>
+                                        Trạng thái: {{ban.trang_thai}}
+                                    </button>
+                            {% endfor %}
+                            </form>
+                            
+                          </div>
+                    </div>
+              </div>
+
+        </div>
+        <!-- Phần này cho Hóa đơn -->
+        <div class="col-sm">
+            <h1>Hóa đơn</h1>
+            <p>Mã hóa đơn : {{hoadon.ma_hoa_don}}</p>
+            <form action="" method="post">
+                Số bàn : {{so_ban}}
+                {% csrf_token %}
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Họ tên</th>
+                        <th scope="col">Số điện thoại</th>
+                        <th scope="col"> Số bàn </th>
+                        <th scope="col">Thời gian</th>
+                        <th scope="col">#</th>
+                      </tr>
+                    </thead>
+                    <tbody id="bang_hoa_don">
+                     <tr >
+                        <th scope="row"></th>
+                        <td class="ho_ten">{{dat_ban.ho_ten}}</td>
+                        <td class="sdt">{{dat_ban.sdt}}</td>
+                        <td class="so_ban">{{dat_ban.so_ban.so_ban}}</td>
+                        <td class="thoi_gian"> {{dat_ban.thoi_gian}}</td>
+                        <th></th>
+                    </tr>                  
+                      <!-- if else -->
+                     <tr >
+                        <th scope="row"></th>
+                        <td class="ho_ten"><input name="ho_ten" type="text"  /></td>
+                        <td class="sdt"><input name="sdt" type="text"  /></td>
+                        <td class="so_ban">{{so_ban}}</td>
+                        <td class="thoi_gian"> </td>
+                        <th></th>
+                    </tr> 
+                    </tbody>
+                </table>
+                <button type="submit" value='{{so_ban}}' name="booking_table">Đặt bàn</button>
+                <button type="submit" value='{{dat_ban.so_ban.so_ban}}' name="remove_booking_table">Hủy đặt bàn</button>
+            </form>  
+        </div>
+
+    </div>
+  </div>
+
+{% endblock %}

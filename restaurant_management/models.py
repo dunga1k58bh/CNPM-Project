@@ -15,14 +15,14 @@ class Ban(models.Model):
 
 
 class DatBan(models.Model):
-    ma_khach_hang = models.OneToOneField('KhachHang', models.DO_NOTHING, db_column='MA_KHACH_HANG')  # Field name made lowercase.
-    so_ban = models.ForeignKey(Ban, models.DO_NOTHING, db_column='SO_BAN')  # Field name made lowercase.      
+    ho_ten = models.CharField( models.DO_NOTHING, db_column='HO_TEN', max_length=50)  # Field name made lowercase.
+    sdt = models.CharField(models.DO_NOTHING, db_column='SDT', max_length=20)  # Field name made lowercase.  
+    so_ban= models.OneToOneField('Ban',models.DO_NOTHING, db_column='SO_BAN')    
     thoi_gian = models.DateTimeField(db_column='THOI_GIAN')  # Field name made lowercase.
     
     class Meta:
         managed = False
         db_table = 'DAT_BAN'
-        unique_together = (('ma_khach_hang', 'so_ban'),)
 
 
 class DatMon(models.Model):
