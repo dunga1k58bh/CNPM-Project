@@ -1,20 +1,42 @@
 
 function addMealFunction(ma_mon, tenmon, giamon) {
-    var result=confirm("Are you sure?");
-    // alert("Thêm món "+tenmon+" cho hóa đơn");
-    if(result== true){
+    
         var html=' <tr class="'
     +ma_mon
     +'">  <th scope="row">  </th>  <td class="ten__mon">' 
     +tenmon
-    +' </td>  <td class="so__luong"> <input type="text" name="so_luongs" value="1"> </td>  <td class="gia__mon">'
+    +' </td>'  
+    +'<td class="so__luong"> <input onclick="delete_num()" type="button" value="-" />'
+    +'<input id="quantity" name="so_luongs" type="text" value="1" />'
+    +'<input onclick="add_num()" type="button" value="+" /> </td>' 
+    +'<td class="gia__mon">'
     + giamon
     + '</td>'
     +'<td class="thanh__tien"></td>'
     +' <input type="text" value="'+ma_mon+'"name="ma_mons" hidden>'
     + ' </tr>';
     document.getElementById('bang_hoa_don').insertAdjacentHTML('afterend', html);
+    
+}
+function deletebill(){
+    var result=confirm("Are you sure?");
+    if(result== true){
+        remove_hoa_don = true;
     }
+}
+
+function add_num(){
+    var result = document.getElementById("quantity"); 
+    var qty = result.value; 
+    if( !isNaN(qty)) result.value++;
+    return false;
+}
+
+function delete_num(){
+    var result = document.getElementById("quantity");
+    var qty = result.value; 
+    if( !isNaN(qty) && qty > 1 ) result.value--;
+    return false;
 }
 
  function menu_monan(ma_menu){

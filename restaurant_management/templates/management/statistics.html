@@ -1,9 +1,182 @@
 {% extends "management/layout.html" %}
+{% load bootstrap5 %}
 {% block title %}
-
+STATISTICS
 {% endblock %}
-
 {% block content %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<style>
+    .tab-content > .tab-pane:not(.active) {
+    display: block;
+    height: 0;
+    overflow-y: hidden;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+<script>
+    var ma_mons = JSON.parse("{{ ma_mons|escapejs }}");
+    var so_luongs = JSON.parse("{{ so_luongs|escapejs }}");
+    var ten_mons = JSON.parse("{{ ten_mons|escapejs }}");
+</script>
+<script>
+    $(function () {
+        var ctx_bar = document.getElementById("bar-chart").getContext('2d');
+        var data_bar = {
+            labels: ten_mons,
+          	datasets: [{
+            	label: 'food Items',
+            	backgroundColor: 'rgba(161, 198, 247, 1)',
+            	borderColor: 'rgb(47, 128, 237)',
+            	data: so_luongs,
+          	}]
+        };
+        var MyBarChart = new Chart(ctx_bar, {
+            type: 'bar',
+            data: data_bar,
+            options: {
+				scales: {
+            		yAxes: [{
+              			ticks: {
+                		beginAtZero: true,
+              			}
+            		}]
+          		},
+                maintainAspectRatio: false,
+                legend: {
+                    labels: {
+                        boxWidth: 12
+                    }
+                }
+            }
+        });
+		
+        var ctx_doughnut = document.getElementById("doughnut-chart").getContext('2d');
+        var data_doughunt = {
+            labels: ["rice", "yam", "tomato", "potato", "beans",
+           	"maize", "oil"],
+          	datasets: [{
+            	label: 'food Items',
+            	data: [30, 40, 20, 50, 80, 90, 20],
+                borderColor: 'rgb(0, 0, 0)',
+            	backgroundColor: ["#0074D9", "#FF4136", "#2ECC40",
+            	"#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00",
+            	"#001f3f", "#39CCCC", "#01FF70", "#85144b",
+            	"#F012BE", "#3D9970", "#111111", "#AAAAAA"]
+          	}]
+        };
+        var MyDoughtnutChart = new Chart(ctx_doughnut, {
+            type: 'doughnut',
+            data: data_doughunt,
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 12
+                    }
+                }
+            }
+        });
+        
+		var ctx_pie = document.getElementById("pie-chart").getContext('2d');
+        var data_pie = {
+            datasets: [{
+            	label: 'food Items',
+            	backgroundColor: ["#0074D9", "#FF4136", "#2ECC40",
+            	"#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00",
+            	"#001f3f", "#39CCCC", "#01FF70", "#85144b",
+            	"#F012BE", "#3D9970", "#111111", "#AAAAAA"],
+            	borderColor: 'rgb(0, 0, 0)',
+            	data: [30, 40, 20, 50, 80, 90, 20],
+          	}],
+			labels: ["rice", "yam", "tomato", "potato",
+          	"beans", "maize", "oil"]
+        };
+        var MyPieChart = new Chart(ctx_pie, {
+            type: 'pie',
+            data: data_pie,
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 12
+                    }
+                }
+            }
+        });
 
+		var ctx_line = document.getElementById("line-chart").getContext('2d');
+        var data_line = {
+			labels: ["sunday", "monday", "tuesday",
+          	"wednesday", "thursday", "friday", "saturday"],
+          	datasets: [{
+           		label: 'Last week',
+            	backgroundColor: 'rgba(161, 198, 247, 1)',
+            	borderColor: 'rgb(47, 128, 237)',
+            	data: [3000, 4000, 2000, 5000, 8000, 9000, 2000],
+          	}]
+        };
+        var MyLineChart = new Chart(ctx_line, {
+            type: 'line',
+            data: data_line,
+            options: {
+				scales: {
+            		yAxes: [{
+              			ticks: {
+                		beginAtZero: true,
+              			}
+            		}]
+          		},
+                maintainAspectRatio: false,
+                legend: {
+                    labels: {
+                        boxWidth: 12
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+<div class="container">
+    <div class="row">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-bar-tab" data-bs-toggle="tab" data-bs-target="#nav-bar" type="button" role="tab" aria-controls="nav-bar" aria-selected="true">Bar chart</button>
+                <button class="nav-link" id="nav-doughnut-tab" data-bs-toggle="tab" data-bs-target="#nav-doughnut" type="button" role="tab" aria-controls="nav-doughnut" aria-selected="false">Doughnut chart</button>
+                <button class="nav-link" id="nav-pie-tab" data-bs-toggle="tab" data-bs-target="#nav-pie" type="button" role="tab" aria-controls="nav-pie" aria-selected="fasle">Pie chart</button>
+                <button class="nav-link" id="nav-line-tab" data-bs-toggle="tab" data-bs-target="#nav-line" type="button" role="tab" aria-controls="nav-line" aria-selected="false">Line chart</button>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-bar" role="tabpanel" aria-labelledby="nav-bar-tab">
+                <h1 align="center">Bar chart</h1>
+                <div>
+                    <canvas id="bar-chart" width="240px" height="240px"></canvas>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-doughnut" role="tabpanel" aria-labelledby="nav-doughnut-tab">
+                <h1 align="center">Doughnut chart</h1>
+                <div>
+                    <canvas id="doughnut-chart" width="240px" height="240px"></canvas>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-pie" role="tabpanel" aria-labelledby="nav-pie-tab">
+                <h1 align="center">Pie chart</h1>
+                <div>
+                    <canvas id="pie-chart" width="240px" height="240px"></canvas>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-line" role="tabpanel" aria-labelledby="nav-line-tab">
+                <h1 align="center">Line chart</h1>
+                <div>
+                    <canvas id="line-chart" width="240px" height="240px"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
-
