@@ -19,28 +19,38 @@
                 </p>
             </div>
             <div class="col-sm-8 bg-warning">
-                <h3>Danh sách Vip Member</h3>
-                <table class="table table-bordered table-hover">
+                <h3 class=" ">Danh sách Vip Member</h3>
+                {% comment %} <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Fixed top</a>
+  </div>
+</nav> {% endcomment %}
+                <table class="table table-bordered table-hover ">
                     <thead>
                         <tr>
-                            <th>Hạng</th>
-                            <th>Mã Khách Hàng</th>
-                            <th>Tên Khách Hàng</th>
-                            <th>Tiền Tích Luỹ</th>                       
+                            <th>Mã thẻ</th>
+                            <th>Tên khách hàng</th>
+                            <th>Tiền tích luỹ</th>
+                            <th>Hạng</th>                       
                         </tr>
                     </thead>
                     <tbody>
+                    {% for thethanhvien in thethanhviens %}
                         <tr>
-                            <td scope="row"></td>
-                            <td></td>
-                            <td></td>
+                            {% comment %} <th scope="row"></th> {% endcomment %}
+                            <td>{{thethanhvien.ma_the}}</td>
+                            <td>{{thethanhvien.ma_khach_hang.ten_khach_hang}}</td>
+                            <td>{{thethanhvien.tien_tich_luy}}</td>
+                            <td>{{thethanhvien.hang}}</td>
+                            {% comment %} <th></th> {% endcomment %}
                         </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
-                <div class="Add_Delete">
+                {% comment %} <div class="Add_Delete">
                     <button type="button" class="btn btn-light float-start" id="AddVipMember">Thêm thành viên</button>
                     <button type="button" class="btn btn-dark float-end" id="DelVipMember">Xoá thành viên</button>
-                </div> 
+                </div>  {% endcomment %}
             </div>
             <!-- <div class="col-sm-4 bg-info"></div> -->
         </div>
