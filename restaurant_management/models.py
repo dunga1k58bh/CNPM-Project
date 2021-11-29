@@ -15,9 +15,8 @@ class Ban(models.Model):
 
 
 class DatBan(models.Model):
-    ho_ten = models.CharField( models.DO_NOTHING, db_column='HO_TEN', max_length=50)  # Field name made lowercase.
-    sdt = models.CharField(models.DO_NOTHING, db_column='SDT', max_length=20)  # Field name made lowercase.  
-    so_ban= models.OneToOneField('Ban',models.DO_NOTHING, db_column='SO_BAN')    
+    ma_khach_hang = models.OneToOneField('KhachHang', models.DO_NOTHING, db_column='MA_KHACH_HANG', primary_key= True)  # Field name made lowercase.
+    so_ban = models.ForeignKey(Ban, models.DO_NOTHING, db_column='SO_BAN')  # Field name made lowercase.      
     thoi_gian = models.DateTimeField(db_column='THOI_GIAN')  # Field name made lowercase.
     
     class Meta:

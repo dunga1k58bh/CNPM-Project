@@ -79,9 +79,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'QL_Nhahang',
-        'USER': 'sa',
-        'PASSWORD': 'admin',
-        'HOST': 'DESKTOP-L5OJBSQ\SQLEXPRESS',
+        # 'USER': '',
+        # 'PASSWORD': '',
+        'HOST': 'ADMIN\SQLEXPRESS',
         'PORT': '',
 
         'OPTIONS': {
