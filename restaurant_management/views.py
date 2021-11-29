@@ -86,7 +86,6 @@ def home(request):
             so_luong = so_luong_dat[ma_mon_dat.index(ma_mon)]
             #
             mdds = models.DatMon.objects.filter(ma_hoa_don = ma_hoa_don )
-            print(mdds)
             i =0
             mmm =0
             #
@@ -203,13 +202,32 @@ def takeAway(request):
             hoadon = models.HoaDon.objects.get(ma_hoa_don = ma_hoa_don)
         else:          
             hoadon = models.HoaDon.objects.create(ngay_lap = date, don_gia = giahoadon, phuong_thuc_thanh_toan ="tien_mat",so_ban= 8,  ma_nhan_vien = nhanvien)  
+            ma_hoa_don= hoadon.ma_hoa_don
         for ma_mon in ma_mon_dat:
             mon_an = models.MonAn.objects.get(ma_mon = ma_mon)
             so_luong = so_luong_dat[ma_mon_dat.index(ma_mon)]
-            if so_luong != '0':
-                dat_mon = models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon= mon_an, so_luong = so_luong)
+            #
+            mdds = models.DatMon.objects.filter(ma_hoa_don = ma_hoa_don )
+            i =0
+            mmm =0
+            #
+            if so_luong != '0' :
+                #
+                for mdd in mdds:
+                    if ma_mon == mdd.ma_mon.ma_mon :
+                        new_so_luong = int(so_luong) + int(mdd.so_luong)
+                        mdd.delete()
+                        models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon= mon_an, so_luong = new_so_luong)
+                        mmm= ma_mon
+                        i=1
+                #
+                if i==0 :
+                    dat_mon = models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon= mon_an, so_luong = so_luong)
+                else :
+                    for mdd in mdds:
+                        if mmm != mdd.ma_mon.ma_mon:
+                            models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon = mdd.ma_mon, so_luong = mdd.so_luong)
             giahoadon = giahoadon +  int(so_luong)* int(mon_an.gia)
-
         hoadon.don_gia = hoadon.don_gia + giahoadon
         hoadon.save()
         dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)

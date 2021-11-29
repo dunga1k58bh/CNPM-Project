@@ -6,9 +6,15 @@ function addMealFunction(ma_mon, tenmon, giamon) {
     +'">  <th scope="row">  </th>  <td class="ten__mon">' 
     +tenmon
     +' </td>'  
-    +'<td class="so__luong"> <input onclick="delete_num()" type="button" value="-" />'
-    +'<input id="quantity" name="so_luongs" type="text" value="1" />'
-    +'<input onclick="add_num()" type="button" value="+" /> </td>' 
+    +'<td class="so__luong"> <input onclick="delete_num('
+    +ma_mon
+    +')" type="button" value="-" />'
+    +'<input id="'
+    +ma_mon
+    +'" name="so_luongs" type="text" value="1" />'
+    +'<input onclick="add_num('
+    +ma_mon
+    +')" type="button" value="+" /> </td>' 
     +'<td class="gia__mon">'
     + giamon
     + '</td>'
@@ -25,15 +31,15 @@ function deletebill(){
     }
 }
 
-function add_num(){
-    var result = document.getElementById("quantity"); 
+function add_num(ma_mon){
+    var result = document.getElementById(ma_mon); 
     var qty = result.value; 
     if( !isNaN(qty)) result.value++;
     return false;
 }
 
-function delete_num(){
-    var result = document.getElementById("quantity");
+function delete_num(ma_mon){
+    var result = document.getElementById(ma_mon);
     var qty = result.value; 
     if( !isNaN(qty) && qty > 1 ) result.value--;
     return false;
