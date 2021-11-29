@@ -22,7 +22,6 @@ class DatBan(models.Model):
     class Meta:
         managed = False
         db_table = 'DAT_BAN'
-        unique_together = (('ma_khach_hang', 'so_ban'),)
 
 
 class DatMon(models.Model):

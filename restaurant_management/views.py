@@ -84,8 +84,28 @@ def home(request):
         for ma_mon in ma_mon_dat:
             mon_an = models.MonAn.objects.get(ma_mon = ma_mon)
             so_luong = so_luong_dat[ma_mon_dat.index(ma_mon)]
+            #
+            mdds = models.DatMon.objects.filter(ma_hoa_don = ma_hoa_don )
+            print(mdds)
+            i =0
+            mmm =0
+            #
             if so_luong != '0' :
-                dat_mon = models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon= mon_an, so_luong = so_luong)
+                #
+                for mdd in mdds:
+                    if ma_mon == mdd.ma_mon.ma_mon :
+                        new_so_luong = int(so_luong) + int(mdd.so_luong)
+                        mdd.delete()
+                        models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon= mon_an, so_luong = new_so_luong)
+                        mmm= ma_mon
+                        i=1
+                #
+                if i==0 :
+                    dat_mon = models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon= mon_an, so_luong = so_luong)
+                else :
+                    for mdd in mdds:
+                        if mmm != mdd.ma_mon.ma_mon:
+                            models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon = mdd.ma_mon, so_luong = mdd.so_luong)
             giahoadon = giahoadon +  int(so_luong)* int(mon_an.gia)
         hoadon.don_gia= hoadon.don_gia + giahoadon
         hoadon.save()
@@ -115,6 +135,53 @@ def home(request):
             
     return render(request, "management/home.html", context)
 
+def booking (request):
+    bans = models.Ban.objects.all()
+    context = {
+        'bans': bans,
+    }
+    if "choose_ban" in request.POST :
+        so_ban = request.POST.get("choose_ban")
+        context.update({
+                    'so_ban':so_ban
+                    })
+        try:
+            ban = models.Ban.objects.get(so_ban = so_ban)
+            print(so_ban)
+            print(ban)
+            dat_ban = models.DatMon.objects.filter(so_ban = ban)
+            if dat_ban is not None:
+                context.update({
+                    'dat_ban': dat_ban
+                    })
+                ban.trang_thai ="đang đợi"
+                ban.save()
+        except:
+            print("ban nay chua co khach dat")
+            ban.save()
+    if "booking_table" in request.POST :
+        so_ban = request.POST.get("booking_table")
+        ban = models.Ban.objects.get(so_ban = so_ban)
+        ho_ten = request.POST.get("ho_ten")
+        sdt = request.POST.get("sdt")
+        date = timezone.localtime(timezone.now())
+        dat_ban= models.DatBan.objects.create(ho_ten = ho_ten, sdt = sdt, so_ban = ban, thoi_gian = date)
+        ban.trang_thai = "đang đợi"
+        ban.save()
+        context.update({
+            'dat_ban': dat_ban
+        })
+    if "remove_booking_table" in request.POST :
+        so_ban = request.POST.get("remove_booking_table")
+        ban = models.Ban.objects.get(so_ban = so_ban)
+        dat_ban = models.DatBan.objects.filter(so_ban = so_ban)
+        dat_ban.delete()
+        ban.trang_thai = "rảnh"
+        ban.save()
+        context.update({
+            'dat_ban': dat_ban
+        })
+    return render(request, "management/booking.html", context)
 
 def takeAway(request):
     menu = models.Menu.objects.all()
@@ -225,5 +292,3 @@ def setting(request):
                         'nhanviens' : nhanviens,
                         'soluong_ban': soluong_ban,
                   })
-def booking (request):
-    return 
