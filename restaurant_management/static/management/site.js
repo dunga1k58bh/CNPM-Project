@@ -1,5 +1,7 @@
 
 function addMealFunction(ma_mon, tenmon, giamon) {
+    change= "'change" +tenmon + ma_mon+ "'" ;
+    tmmm = "change"+tenmon + ma_mon ;
     
         var html=' <tr class="'
     +ma_mon
@@ -7,13 +9,13 @@ function addMealFunction(ma_mon, tenmon, giamon) {
     +tenmon
     +' </td>'  
     +'<td class="so__luong"> <input onclick="delete_num('
-    +ma_mon
+    +change
     +')" type="button" value="-" />'
     +'<input id="'
-    +ma_mon
+    +tmmm
     +'" name="so_luongs" type="text" value="1" />'
     +'<input onclick="add_num('
-    +ma_mon
+    +change
     +')" type="button" value="+" /> </td>' 
     +'<td class="gia__mon">'
     + giamon
@@ -21,6 +23,7 @@ function addMealFunction(ma_mon, tenmon, giamon) {
     +'<td class="thanh__tien"></td>'
     +' <input type="text" value="'+ma_mon+'"name="ma_mons" hidden>'
     + ' </tr>';
+    document.getElementById("addMeal"+tenmon).disabled= true;
     document.getElementById('bang_hoa_don').insertAdjacentHTML('afterend', html);
     
 }
@@ -31,15 +34,15 @@ function deletebill(){
     }
 }
 
-function add_num(ma_mon){
-    var result = document.getElementById(ma_mon); 
+function add_num(id){
+    var result = document.getElementById(id); 
     var qty = result.value; 
     if( !isNaN(qty)) result.value++;
     return false;
 }
 
-function delete_num(ma_mon){
-    var result = document.getElementById(ma_mon);
+function delete_num(id){
+    var result = document.getElementById(id);
     var qty = result.value; 
     if( !isNaN(qty) && qty > 1 ) result.value--;
     return false;
