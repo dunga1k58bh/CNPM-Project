@@ -10,6 +10,7 @@ import pytz
 from restaurant_management import models
 import json
 from django.db.models import Sum
+from django.db.models.aggregates import Min
 # Create your views here.
 
 
@@ -325,25 +326,196 @@ def vipMember(request):
 
 
 def statistics(request):
-    ma_mons = []
-    so_luongs = []
-    ma_hoa_dons = []
-    ten_mons = []
+    context = {}
+    # lay thong tin cho tab all
+    ma_mons_all = []
+    so_luong_mons_all = []
+    ten_mons_all = []
+    dat_mons_all = models.DatMon.objects.all().values('ma_mon').annotate(Sum('so_luong'))
+    if dat_mons_all:
+        for dat_mon_all in dat_mons_all:
+            ma_mons_all.append(dat_mon_all['ma_mon'])
+            so_luong_mons_all.append(dat_mon_all['so_luong__sum'])
+    for ma_mon_all in ma_mons_all:
+        mons = models.MonAn.objects.filter(ma_mon=ma_mon_all)
+        for mon in mons:
+            ten_mons_all.append(mon.ten_mon)
+    context.update({
+        'ten_mons_all': json.dumps(ten_mons_all),
+        'so_luong_mons_all': json.dumps(so_luong_mons_all),
+    })
+    ma_menus_all = []
+    ten_menus_all = []
+    so_luong_menus_all = []
+    for ma_mon_all in ma_mons_all:
+        mons = models.MonAn.objects.filter(ma_mon=ma_mon_all)
+        if mons:
+            for mon in mons:
+                if mon.ma_menu.ma_menu not in ma_menus_all:
+                    ma_menus_all.append(mon.ma_menu.ma_menu)
+                    ten_menus_all.append(mon.ma_menu.ten_menu)
+    for ma_menu_all in ma_menus_all:
+        count = 0
+        dat_mons = models.DatMon.objects.filter(ma_mon__ma_menu=ma_menu_all).values('ma_mon').annotate(Sum('so_luong'))
+        if dat_mons:
+            for dat_mon in dat_mons:
+                count += dat_mon['so_luong__sum']
+            so_luong_menus_all.append(count)
+    context.update({
+        'ten_menus_all': json.dumps(ten_menus_all),
+        'so_luong_menus_all': json.dumps(so_luong_menus_all),
+    })
 
-    dat_mons = models.DatMon.objects.values('ma_mon').annotate(Sum('so_luong'))
-    for dat_mon in dat_mons:
-        ma_mons.append(dat_mon['ma_mon'])
-        so_luongs.append(dat_mon['so_luong__sum'])
-        mon_an = models.MonAn.objects.get(ma_mon=dat_mon['ma_mon'])
-        ten_mons.append(mon_an.ten_mon)
 
-    context = {
-        'ma_mons': json.dumps(ma_mons),
-        'so_luongs': json.dumps(so_luongs),
-        'ten_mons': json.dumps(ten_mons),
-    }
-    print(context)
+    doanh_thu_all = []
+    years = []
+    year_min = models.HoaDon.objects.aggregate(Min('ngay_lap__year'))['ngay_lap__year__min']
+    for year_idx in range(year_min, timezone.now().year + 1):
+        years.append(year_idx)
+        doanh_thu_year = 0
+        hoa_dons_year = models.HoaDon.objects.filter(ngay_lap__year=year_idx)
+        if hoa_dons_year:
+            for hoa_don_year in hoa_dons_year:
+                doanh_thu_year += hoa_don_year.don_gia
+        doanh_thu_all.append(doanh_thu_year)
+    tong_doanh_thu_all = 0
+    for i in doanh_thu_all:
+        tong_doanh_thu_all += i
+    context.update({
+        'doanh_thu_all': json.dumps(doanh_thu_all),
+        'years': json.dumps(years),
+        'tong_doanh_thu_all': tong_doanh_thu_all,
+    })
 
+    
+    #############################################################
+    # lay thong tin cho tab year
+    ma_mons_year = []
+    so_luong_mons_year = []
+    ten_mons_year = []
+    dat_mons_year = models.DatMon.objects.filter(ma_hoa_don__ngay_lap__year=timezone.now().year).values('ma_mon').annotate(Sum('so_luong'))
+    if dat_mons_year:
+        for dat_mon_year in dat_mons_year:
+            ma_mons_year.append(dat_mon_year['ma_mon'])
+            so_luong_mons_year.append(dat_mon_year['so_luong__sum'])
+    for ma_mon_year in ma_mons_year:
+        mons = models.MonAn.objects.filter(ma_mon=ma_mon_year)
+        for mon in mons:
+            ten_mons_year.append(mon.ten_mon)
+    context.update({
+        'ten_mons_year': json.dumps(ten_mons_year),
+        'so_luong_mons_year': json.dumps(so_luong_mons_year),
+    })
+    ma_menus_year = []
+    ten_menus_year = []
+    so_luong_menus_year = []
+    for ma_mon_year in ma_mons_year:
+        mons = models.MonAn.objects.filter(ma_mon=ma_mon_year)
+        if mons:
+            for mon in mons:
+                if mon.ma_menu.ma_menu not in ma_menus_year:
+                    ma_menus_year.append(mon.ma_menu.ma_menu)
+                    ten_menus_year.append(mon.ma_menu.ten_menu)
+    for ma_menu_year in ma_menus_year:
+        count = 0
+        dat_mons = models.DatMon.objects.filter(ma_mon__ma_menu=ma_menu_year).values('ma_mon').annotate(Sum('so_luong'))
+        if dat_mons:
+            for dat_mon in dat_mons:
+                count += dat_mon['so_luong__sum']
+            so_luong_menus_year.append(count)
+    context.update({
+        'ten_menus_year': json.dumps(ten_menus_year),
+        'so_luong_menus_year': json.dumps(so_luong_menus_year),
+    })
+
+
+    doanh_thu_year = []
+    months = []
+    for month_idx in range(1, timezone.now().month + 1):
+        months.append(month_idx)
+        doanh_thu_month = 0
+        hoa_dons_month = models.HoaDon.objects.filter(ngay_lap__month=month_idx,
+                                                      ngay_lap__year=timezone.now().year)
+        if hoa_dons_month:
+            for hoa_don_month in hoa_dons_month:
+                doanh_thu_month += hoa_don_month.don_gia
+        doanh_thu_year.append(doanh_thu_month)
+    tong_doanh_thu_year = 0
+    for i in doanh_thu_year:
+        tong_doanh_thu_year += i
+    context.update({
+        'doanh_thu_year': json.dumps(doanh_thu_year),
+        'months': json.dumps(months),
+        'tong_doanh_thu_year': tong_doanh_thu_year,
+    })
+    
+
+    #############################################################
+    # lay thong tin cho tab month
+    ma_mons_month = []
+    so_luong_mons_month = []
+    ten_mons_month = []
+    dat_mons_month = models.DatMon.objects.filter(ma_hoa_don__ngay_lap__month=timezone.now().month,
+                                                  ma_hoa_don__ngay_lap__year=timezone.now().year).values('ma_mon').annotate(Sum('so_luong'))
+    if dat_mons_month:
+        for dat_mon_month in dat_mons_month:
+            ma_mons_month.append(dat_mon_month['ma_mon'])
+            so_luong_mons_month.append(dat_mon_month['so_luong__sum'])
+    for ma_mon_month in ma_mons_month:
+        mons = models.MonAn.objects.filter(ma_mon=ma_mon_month)
+        if mons:
+            for mon in mons:
+                ten_mons_month.append(mon.ten_mon)
+    context.update({
+        'ten_mons_month': json.dumps(ten_mons_month),
+        'so_luong_mons_month': json.dumps(so_luong_mons_month),
+    })
+    ma_menus_month = []
+    ten_menus_month = []
+    so_luong_menus_month = []
+    for ma_mon_month in ma_mons_month:
+        mons = models.MonAn.objects.filter(ma_mon=ma_mon_month)
+        if mons:
+            for mon in mons:
+                if mon.ma_menu.ma_menu not in ma_menus_month:
+                    ma_menus_month.append(mon.ma_menu.ma_menu)
+                    ten_menus_month.append(mon.ma_menu.ten_menu)
+    for ma_menu_month in ma_menus_month:
+        count = 0
+        dat_mons = models.DatMon.objects.filter(ma_mon__ma_menu=ma_menu_month).values('ma_mon').annotate(Sum('so_luong'))
+        if dat_mons:
+            for dat_mon in dat_mons:
+                count += dat_mon['so_luong__sum']
+            so_luong_menus_month.append(count)
+    context.update({
+        'ten_menus_month': json.dumps(ten_menus_month),
+        'so_luong_menus_month': json.dumps(so_luong_menus_month),
+    })
+
+
+    doanh_thu_month = []
+    days = []
+    for day_idx in range(1, timezone.now().day + 1):
+        days.append(day_idx)
+        doanh_thu_day = 0
+        hoa_dons_day = models.HoaDon.objects.filter(ngay_lap__day=day_idx,
+                                                    ngay_lap__month=timezone.now().month,
+                                                    ngay_lap__year=timezone.now().year)
+        if hoa_dons_day:
+            for hoa_don_day in hoa_dons_day:
+                doanh_thu_day += hoa_don_day.don_gia
+        doanh_thu_month.append(doanh_thu_day)
+    tong_doanh_thu_month = 0
+    for i in doanh_thu_month:
+        tong_doanh_thu_month += i
+    context.update({
+        'doanh_thu_month': json.dumps(doanh_thu_month),
+        'days': json.dumps(days),
+        'tong_doanh_thu_month': tong_doanh_thu_month,
+    })
+
+
+    #############################################################
     return render(request, "management/statistics.html", context)
 
 
