@@ -73,7 +73,7 @@ def home(request):
     if "add_hoa_don" in request.POST :
         # Đoạn này để tạo hóa đơn và thêm hóa đơn vào bàn
         so_ban = request.POST.get("add_hoa_don")
-        date = timezone.localtime(timezone.now())
+        date = timezone.now()
         nhanvien = models.NhanVien.objects.get(ma_nhan_vien = 1)
 
         # Lấy ra danh sách mã món đã thêm và số lượng để add vào bảng Đặt món
@@ -215,7 +215,7 @@ def booking (request):
         ban = models.Ban.objects.get(so_ban = so_ban)
         ho_ten = request.POST.get("ho_ten")
         sdt = request.POST.get("sdt")
-        date = timezone.localtime(timezone.now())
+        date = timezone.now()
         dat_ban= models.DatBan.objects.create(ho_ten = ho_ten, sdt = sdt, so_ban = ban, thoi_gian = date)
         ban.trang_thai = "đang đợi"
         ban.save()
@@ -244,7 +244,7 @@ def takeAway(request):
     # Tương ứng bên giao diện là lưu hóa đơn, khi click thì tạo hóa đơn và lưu, mặc định số bàn là 8
     if "add_hoa_don" in request.POST :    
         ma_hoa_don = request.POST.get("add_hoa_don")
-        date = timezone.localtime(timezone.now())
+        date = timezone.now()
         ma_mon_dat = request.POST.getlist("ma_mons")
         so_luong_dat = request.POST.getlist("so_luongs")
         nhanvien = models.NhanVien.objects.get(ma_nhan_vien = 1)

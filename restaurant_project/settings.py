@@ -80,8 +80,8 @@ DATABASES = {
         'ENGINE': 'mssql',
         'NAME': 'QL_Nhahang',
         'USER': 'sa',
-        'PASSWORD': 'admin',
-        'HOST': 'DESKTOP-L5OJBSQ\SQLEXPRESS',
+        'PASSWORD': '1',
+        'HOST': 'DESKTOP-KMM76OT\SQLEXPRESS',
         'PORT': '',
 
         'OPTIONS': {
@@ -121,7 +121,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
