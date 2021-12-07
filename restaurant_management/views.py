@@ -200,13 +200,14 @@ def booking (request):
             ban = models.Ban.objects.get(so_ban = so_ban)
             print(so_ban)
             print(ban)
-            dat_ban = models.DatMon.objects.filter(so_ban = ban)
-            if dat_ban is not None:
-                context.update({
-                    'dat_ban': dat_ban
+            dat_bans = models.DatBan.objects.filter(so_ban= ban)
+            print(dat_bans)
+            #if dat_bans is not None:
+            context.update({
+                    'dat_bans': dat_bans
                     })
-                ban.trang_thai ="đang đợi"
-                ban.save()
+            ban.trang_thai ="đang đợi"
+            ban.save()
         except:
             print("ban nay chua co khach dat")
             ban.save()
@@ -215,24 +216,18 @@ def booking (request):
         ban = models.Ban.objects.get(so_ban = so_ban)
         ho_ten = request.POST.get("ho_ten")
         sdt = request.POST.get("sdt")
-        date = timezone.now()
+        date = request.POST.get("thoi_gian")
         dat_ban= models.DatBan.objects.create(ho_ten = ho_ten, sdt = sdt, so_ban = ban, thoi_gian = date)
-        ban.trang_thai = "đang đợi"
-        ban.save()
-        context.update({
-            'dat_ban': dat_ban
-        })
-    if "remove_booking_table" in request.POST :
-        so_ban = request.POST.get("remove_booking_table")
-        ban = models.Ban.objects.get(so_ban = so_ban)
-        dat_ban = models.DatBan.objects.filter(so_ban = so_ban)
+
+    if "delete_booking" in request.POST :
+        ma_dat_ban = request.POST.get("delete_booking")
+        dat_ban = models.DatBan.objects.get(ma_dat_ban = ma_dat_ban )
+        print(dat_ban)
         dat_ban.delete()
-        ban.trang_thai = "rảnh"
-        ban.save()
-        context.update({
-            'dat_ban': dat_ban
-        })
+
     return render(request, "management/booking.html", context)
+
+
 
 def takeAway(request):
     menu = models.Menu.objects.all()
