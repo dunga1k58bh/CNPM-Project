@@ -519,7 +519,25 @@ def setting(request):
     monans = models.MonAn.objects.all() 
     bans = models.Ban.objects.all() 
     nhanviens = models.NhanVien.objects.all() 
-    soluong_ban = models.Ban.objects.filter().count()   
+    soluong_ban = models.Ban.objects.filter().count() 
+    
+    if "save_mon" in request.POST :
+        name_mon = request.POST.get("tenmonan")
+        gia_mon = request.POST.get("giamonan")
+        don_vi_mon = request.POST.get("donvimon")
+        count_mon = (models.MonAn.objects.filter().count()+1)
+        ma_menu = request.POST.get("save_mon")
+        menu_moi = models.Menu.objects.get(ma_menu = ma_menu)
+        if name_mon != "Thêm món" and name_mon != "" and don_vi_mon != "Đơn vị" and don_vi_mon != "":
+            mon_moi = models.MonAn.objects.create(ma_mon = "M"+str(count_mon), ten_mon = name_mon, don_vi = don_vi_mon, gia = gia_mon, ma_menu = menu_moi)
+            mon_moi.save()
+        ma_mon_sua = request.POST.getlist("ma_monss")
+        gia_sua = request.POST.getlist("giamonsua")
+        for ma_mon in ma_mon_sua:
+            mon_an = models.MonAn.objects.get(ma_mon = ma_mon)
+            gia_moi = gia_sua[ma_mon_sua.index(ma_mon)]
+            mon_an.gia = gia_moi
+            mon_an.save()
     return render(request, "management/setting.html", 
                   {
                         'menus' : menus,
