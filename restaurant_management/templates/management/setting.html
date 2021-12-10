@@ -81,7 +81,7 @@
   </div>
 </div>
 <div class= "setting_menu" style="display:contents;">
-  <div class="col-sm-5">
+  <div class="col-sm-4">
     <table class="table">
       <thead>
         <tr>
@@ -112,8 +112,10 @@
     <button onclick="set_ban()">Save</button>
   </form>
   </div>
-  <div class="col-sm-5">
-    <table class="table">
+  <div class="col-sm-6">
+    <form action="" method="post">
+      {% csrf_token %}
+    <table class="table" id="table_mon">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -124,52 +126,51 @@
         </tr>
       </thead>
       <tbody>
+        <tr class="themmonmoi" style="display: none;">
+          <th scope="row"></th>
+          <td><input style="width: 200px" type="text" name="tenmonan" value="Thêm món" ></td>
+          <td><input style="width: 100px" type="number" min="0" step = "1000" name="giamonan" value="10000"></td>
+          <td><input style="width: 100px" type="text" name="donvimon" value="Đơn vị"></td>
+          <td></td>
+        </tr>
         <div class="MN">
           {% for monan in monans %}
               {% if  monan.ma_menu.ma_menu ==  "MN1" %}
-              <tr class="menu_1">
+              <tr class="menu_1" style="display: none;">
                 <th scope="row"></th>
                 <td>{{monan.ten_mon}}</td>
-                <td>{{monan.gia}}</td>
+                <td><input style="width: 100px" type="number" min="0" step = "1000" name="giamonsua" value={{monan.gia}}></td>
                 <td>{{monan.don_vi}}</td>
-                <td> 
-                    <button onclick="" class= "" >Delete</button>
-                  
-                </td>
+                <input type="text" value={{monan.ma_mon}} name="ma_monss" hidden>
+                <td></td>
               </tr>   
               {% elif monan.ma_menu.ma_menu ==  "MN2" %}
-              <tr class="menu_2">
+              <tr class="menu_2" style="display: none;">
                 <th scope="row"></th>
                 <td>{{monan.ten_mon}}</td>
-                <td>{{monan.gia}}</td>
+                <td><input style="width: 100px" type="number" min="0" step = "1000" name="giamonsua" value={{monan.gia}}></td>
                 <td>{{monan.don_vi}}</td>
-                <td> 
-                    <button onclick="" class= "" >Delete</button>
-                  
-                </td>
+                <input type="text" value={{monan.ma_mon}} name="ma_monss" hidden>
+                <td></td>
               </tr>  
               {% elif monan.ma_menu.ma_menu ==  "MN3" %}
-              <tr class="menu_3">
+              <tr class="menu_3" style="display: none;">
                 <th scope="row"></th>
                 <td>{{monan.ten_mon}}</td>
-                <td>{{monan.gia}}</td>
+                <td><input style="width: 100px" type="number" min="0" step = "1000" name="giamonsua" value={{monan.gia}}></td>
                 <td>{{monan.don_vi}}</td>
-                <td> 
-                    <button onclick="" class= "" >Delete</button>
-                  
-                </td>
+                <input type="text" value={{monan.ma_mon}} name="ma_monss" hidden>
+                <td></td>
               </tr>  
               {% elif monan.ma_menu.ma_menu ==  "MN4" %}
-              <tr class="menu_4">
+              <tr class="menu_4" style="display: none;">
                 <th scope="row"></th>
                 <td>{{monan.ten_mon}}</td>
-                <td>{{monan.gia}}</td>
+                <td><input style="width: 100px" type="number" min="0" step = "1000" name="giamonsua" value={{monan.gia}}></td>
                 <td>{{monan.don_vi}}</td>
-                <td> 
-                    <button onclick="" class= "" >Delete</button>
-                  
-                </td>
-              </tr>  
+                <input type="text" value={{monan.ma_mon}} name="ma_monss" hidden>
+                <td></td>
+              </tr>
               {% endif %}
               
           {% endfor %}
@@ -177,11 +178,9 @@
           
       </tbody>
   </table>
-  <div class="addd_mon">
-  <button style="margin: 15px;">Add </button>
-  <button style="margin: 15px;">Save</button>
-</div>
-
+    <button id="savemn" value = "MN1" type = "submit" name="save_mon" class = "addd_mon" onclick="return confirm('Bạn có chắc chắn muốn sửa menu?')">Save</button>
+  </form>
+  </div>
 </div>
 
 {% endblock %}
