@@ -53,7 +53,9 @@ function delete_num(id){
     var y = document.getElementsByClassName("menu_2");
     var z = document.getElementsByClassName("menu_3");
     var t = document.getElementsByClassName("menu_4");
+    var k = document.getElementById("savemn");
      var i;
+     document.getElementsByClassName("themmonmoi")[0].style.display = 'table-row';
      document.getElementsByClassName("addd_mon")[0].style.display = 'flex';
     if(ma_menu == 'MN1'){
         for (i = 0; i < x.length; i++) x[i].style.display = 'table-row';
@@ -79,6 +81,7 @@ function delete_num(id){
         for (i = 0; i < z.length; i++) z[i].style.display = 'none';
         for (i = 0; i < t.length; i++) t[i].style.display = 'table-row';
     }
+    k.value =ma_menu;
 }
 function set_ban() {
     var x = document.getElementById("quantity").value;
