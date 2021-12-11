@@ -3,8 +3,34 @@
     font-weight: 600;
     color: blue;
 }
+ /* css header */
+.header{
+  background: url("https://png.pngtree.com/thumb_back/fh260/back_our/20190620/ourmid/pngtree-taobao-cooking-food-festival-hand-drawn-poster-background-image_162253.jpg");
+  color: #d6cbdd;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+
+/* css nền bàn */
+.tab-content{
+  background-color: #c4cbd8;
+}
+
+/* css nền menu */
+.tab-pane fade{
+  background-color: #ced5e0;
+}
+/* css nền hóa đơn */
+.col-sm{
+  background-color: #cad1dd;
+}
 .navbar {
-    background-color: gray;
+    background-color: rgb(184, 70, 70);
     font-size: 1em;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: #ffffff;

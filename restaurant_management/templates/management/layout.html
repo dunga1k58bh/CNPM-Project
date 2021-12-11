@@ -10,9 +10,21 @@
     <script src="{% static  'management/site.js'%}" type "text/javascript"> </script>
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    <style>
+        body{
+            margin: 0;
+            background: url("https://bloganchoi.com/wp-content/uploads/2019/09/am-thuc-the-gioi.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+    </style>
 </head>
 
 <body>
+<div class="header">
+<h1>Website nhà hàng ẩm thực</h1>
+</div>
+
 <div class="navbar">
     <a href="{% url 'home' %}" class="navbar-item">HOME</a>
     <a href="{% url 'take_away' %}" class="navbar-item">TAKE AWAY</a>
