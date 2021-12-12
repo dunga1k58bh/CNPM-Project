@@ -1,15 +1,18 @@
-from datetime import time
+import calendar
+from datetime import date, datetime, time, timedelta
 from django.core.checks import messages
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.utils import timezone
-import datetime
-from django.utils.tree import Node
-import pytz
+from django.views.generic.edit import ModelFormMixin
+from django.views.generic.list import ListView
 from restaurant_management import models
 import json
 from django.db.models import Sum
+from restaurant_management.form import EventForm
+from restaurant_management.utils import CalendarEvent
+from django.utils.safestring import mark_safe
 # Create your views here.
 
 
@@ -240,9 +243,66 @@ def takeAway(request):
 
     return render(request, "management/take_away.html", context)
 
-def events(request):
-    return render(request, "management/events.html")
+class EventsView(ListView, ModelFormMixin):
+    model = models.SuKien
+    template_name='calendar_event/events.html'
+    form_class = EventForm
+    
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        self.form = self.form_class()
+        # Explicitly states what get to call:
+        return ListView.get(self, request, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        self.form = self.get_form(self.form_class)
+        if self.form.is_valid():
+            self.object = self.form.save()
+        return self.get(request, *args, **kwargs)
+            
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        d = get_date(self.request.GET.get('day', None))
+        d = get_date(self.request.GET.get('month', None))
+        context['prev_month'] = prev_month(d)
+        context['next_month'] = next_month(d)
+        cal_event = CalendarEvent(d.year, d.month)
+        html_cal = cal_event.formatmonth(withyear=True)
+        context['calendar_event'] = mark_safe(html_cal)
+        create_event_form = self.form
+        context["create_event_form"] = create_event_form
+        events = models.SuKien.objects.filter(ngay_bd__month__lte= d.month, ngay_kt__month__gte=d.month,
+                                              ngay_bd__year__lte= d.year, ngay_kt__year__gte=d.year)
+        context["events"] = events
+        
+        return context
 
+    
+    
+    
+def get_date(req_day):
+    if req_day :
+        year, month = (int(x) for  x in req_day.split('-'))
+        return date(year, month, day=1) 
+    return datetime.today()    
+def prev_month(d):
+    first = d.replace(day=1)
+    prev_month = first - timedelta(days=1)
+    month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
+    return month
+
+def next_month(d):
+    days_in_month = calendar.monthrange(d.year, d.month)[1]
+    last = d.replace(day=days_in_month)
+    next_month = last + timedelta(days=1)
+    month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
+    return month   
+
+    
+    
+    
+    
+    
 def vipMember(request):
     menus = models.Menu.objects.all()
     khachhangs = models.KhachHang.objects.all()

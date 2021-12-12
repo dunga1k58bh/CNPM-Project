@@ -25,8 +25,7 @@ class DatBan(models.Model):
 
 
 class DatMon(models.Model):
-    ma_hoa_don = models.OneToOneField('HoaDon', models.DO_NOTHING, db_column='MA_HOA_DON', primary_key= True)  
-# Field name made lowercase.
+    ma_hoa_don = models.OneToOneField('HoaDon', models.DO_NOTHING, db_column='MA_HOA_DON', primary_key= True)  # Field name made lowercase.
     ma_mon = models.ForeignKey('MonAn', models.DO_NOTHING, db_column='MA_MON')  # Field name made lowercase.  
     so_luong = models.IntegerField(db_column='SO_LUONG')  # Field name made lowercase.
 
@@ -90,6 +89,8 @@ class MonAn(models.Model):
     class Meta:
         managed = False
         db_table = 'MON_AN'
+    def __str__(self):
+        return self.ten_mon
 
 
 class NhanVien(models.Model):
@@ -102,6 +103,21 @@ class NhanVien(models.Model):
     class Meta:
         managed = False
         db_table = 'NHAN_VIEN'
+
+class SuKien(models.Model):
+    ma_sk = models.AutoField(db_column='MA_SK', primary_key=True)  # Field name made lowercase.
+    ten_sk = models.CharField(db_column='TEN_SK', max_length=50)  # Field name made lowercase.
+    mo_ta = models.CharField(db_column='MO_TA', max_length=200)  # Field name made lowercase.
+    ma_mon = models.ForeignKey(MonAn, models.DO_NOTHING, db_column='MA_MON')  # Field name made lowercase.
+    ngay_bd = models.DateTimeField(db_column='NGAY_BD')  # Field name made lowercase.
+    ngay_kt = models.DateTimeField(db_column='NGAY_KT')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'SU_KIEN'
+    
+    def get_ten_mon(self):
+        return self.ma_mon.ten_mon 
 
 
 class TheThanhVien(models.Model):
