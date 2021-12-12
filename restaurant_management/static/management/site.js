@@ -1,20 +1,29 @@
 
 function addMealFunction(ma_mon, tenmon, giamon) {
+    change= "'change" +tenmon + ma_mon+ "'" ;
+    tmmm = "change"+tenmon + ma_mon ;
     
         var html=' <tr class="'
     +ma_mon
     +'">  <th scope="row">  </th>  <td class="ten__mon">' 
     +tenmon
     +' </td>'  
-    +'<td class="so__luong"> <input onclick="delete_num()" type="button" value="-" />'
-    +'<input id="quantity" name="so_luongs" type="text" value="1" />'
-    +'<input onclick="add_num()" type="button" value="+" /> </td>' 
+    +'<td class="so__luong"> <input onclick="delete_num('
+    +change
+    +')" type="button" value="-" />'
+    +'<input id="'
+    +tmmm
+    +'" name="so_luongs" type="text" value="1" />'
+    +'<input onclick="add_num('
+    +change
+    +')" type="button" value="+" /> </td>' 
     +'<td class="gia__mon">'
     + giamon
     + '</td>'
     +'<td class="thanh__tien"></td>'
     +' <input type="text" value="'+ma_mon+'"name="ma_mons" hidden>'
     + ' </tr>';
+    document.getElementById("addMeal"+tenmon).disabled= true;
     document.getElementById('bang_hoa_don').insertAdjacentHTML('afterend', html);
     
 }
@@ -25,15 +34,15 @@ function deletebill(){
     }
 }
 
-function add_num(){
-    var result = document.getElementById("quantity"); 
+function add_num(id){
+    var result = document.getElementById(id); 
     var qty = result.value; 
     if( !isNaN(qty)) result.value++;
     return false;
 }
 
-function delete_num(){
-    var result = document.getElementById("quantity");
+function delete_num(id){
+    var result = document.getElementById(id);
     var qty = result.value; 
     if( !isNaN(qty) && qty > 1 ) result.value--;
     return false;
@@ -44,7 +53,9 @@ function delete_num(){
     var y = document.getElementsByClassName("menu_2");
     var z = document.getElementsByClassName("menu_3");
     var t = document.getElementsByClassName("menu_4");
+    var k = document.getElementById("savemn");
      var i;
+     document.getElementsByClassName("themmonmoi")[0].style.display = 'table-row';
      document.getElementsByClassName("addd_mon")[0].style.display = 'flex';
     if(ma_menu == 'MN1'){
         for (i = 0; i < x.length; i++) x[i].style.display = 'table-row';
@@ -70,6 +81,7 @@ function delete_num(){
         for (i = 0; i < z.length; i++) z[i].style.display = 'none';
         for (i = 0; i < t.length; i++) t[i].style.display = 'table-row';
     }
+    k.value =ma_menu;
 }
 function set_ban() {
     var x = document.getElementById("quantity").value;

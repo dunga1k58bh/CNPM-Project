@@ -53,27 +53,31 @@
                       </tr>
                     </thead>
                     <tbody id="bang_hoa_don">
+                      {% for dat_ban in dat_bans %}
                      <tr >
                         <th scope="row"></th>
                         <td class="ho_ten">{{dat_ban.ho_ten}}</td>
                         <td class="sdt">{{dat_ban.sdt}}</td>
                         <td class="so_ban">{{dat_ban.so_ban.so_ban}}</td>
                         <td class="thoi_gian"> {{dat_ban.thoi_gian}}</td>
-                        <th></th>
-                    </tr>                  
+                        <th>
+                          <button type="submit" value='{{dat_ban.ma_dat_ban}}' name="delete_booking">Hủy</button>
+                        </th>
+                    </tr>   
+                    {% endfor %}       
                       <!-- if else -->
                      <tr >
                         <th scope="row"></th>
                         <td class="ho_ten"><input name="ho_ten" type="text"  /></td>
                         <td class="sdt"><input name="sdt" type="text"  /></td>
                         <td class="so_ban">{{so_ban}}</td>
-                        <td class="thoi_gian"> </td>
+                        <td class="thoi_gian"><input name="thoi_gian" type="text"  /> </td>
                         <th></th>
                     </tr> 
                     </tbody>
                 </table>
                 <button type="submit" value='{{so_ban}}' name="booking_table">Đặt bàn</button>
-                <button type="submit" value='{{dat_ban.so_ban.so_ban}}' name="remove_booking_table">Hủy đặt bàn</button>
+                
             </form>  
         </div>
 

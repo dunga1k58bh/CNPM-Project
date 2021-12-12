@@ -13,28 +13,102 @@ STATISTICS
     overflow-y: hidden;
 }
 </style>
+
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
 <script>
-    var ma_mons = JSON.parse("{{ ma_mons|escapejs }}");
-    var so_luongs = JSON.parse("{{ so_luongs|escapejs }}");
-    var ten_mons = JSON.parse("{{ ten_mons|escapejs }}");
+    // lay thong tin cho tab all
+    var doanh_thu_all = JSON.parse("{{ doanh_thu_all|escapejs }}")
+    var years = JSON.parse("{{ years|escapejs }}")
+    var ten_mons_all = JSON.parse("{{ ten_mons_all|escapejs }}")
+    var so_luong_mons_all = JSON.parse("{{ so_luong_mons_all|escapejs }}")
+    var ten_menus_all = JSON.parse("{{ ten_menus_all|escapejs }}")
+    var so_luong_menus_all = JSON.parse("{{ so_luong_menus_all|escapejs }}")
+    // lay thong tin cho tab year
+    var doanh_thu_year = JSON.parse("{{ doanh_thu_year|escapejs }}")
+    var months = JSON.parse("{{ months|escapejs }}")
+    var ten_mons_year = JSON.parse("{{ ten_mons_year|escapejs }}")
+    var so_luong_mons_year = JSON.parse("{{ so_luong_mons_year|escapejs }}")
+    var ten_menus_year = JSON.parse("{{ ten_menus_year|escapejs }}")
+    var so_luong_menus_year = JSON.parse("{{ so_luong_menus_year|escapejs }}")
+    // lay thong tin cho tab month
+    var doanh_thu_month = JSON.parse("{{ doanh_thu_month|escapejs }}")
+    var days = JSON.parse("{{ days|escapejs }}")
+    var ten_mons_month = JSON.parse("{{ ten_mons_month|escapejs }}")
+    var so_luong_mons_month = JSON.parse("{{ so_luong_mons_month|escapejs }}")
+    var ten_menus_month = JSON.parse("{{ ten_menus_month|escapejs }}")
+    var so_luong_menus_month = JSON.parse("{{ so_luong_menus_month|escapejs }}")
 </script>
 <script>
     $(function () {
-        var ctx_bar = document.getElementById("bar-chart").getContext('2d');
-        var data_bar = {
-            labels: ten_mons,
+        // bieu do cho tab all
+        var ctx_doughnut_dish_all = document.getElementById("doughnut-dish-all").getContext('2d');
+        var data_doughnut_dish_all = {
+            labels: ten_mons_all,
           	datasets: [{
             	label: 'food Items',
-            	backgroundColor: 'rgba(161, 198, 247, 1)',
-            	borderColor: 'rgb(47, 128, 237)',
-            	data: so_luongs,
+            	data: so_luong_mons_all,
+                borderColor: 'rgb(0, 0, 0)',
+            	backgroundColor: ["#0074D9", "#FF4136", "#2ECC40",
+            	"#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00",
+            	"#001f3f", "#39CCCC", "#01FF70", "#85144b",
+            	"#F012BE", "#3D9970", "#111111", "#AAAAAA"]
           	}]
         };
-        var MyBarChart = new Chart(ctx_bar, {
+        var MyDoughnut_dish_all = new Chart(ctx_doughnut_dish_all, {
+            type: 'doughnut',
+            data: data_doughnut_dish_all,
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 12
+                    }
+                }
+            }
+        });
+
+		var ctx_pie_menu_all = document.getElementById("pie-menu-all").getContext('2d');
+        var data_pie_menu_all = {
+            datasets: [{
+            	label: 'food Items',
+            	backgroundColor: ["#0074D9", "#FF4136", "#2ECC40",
+            	"#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00",
+            	"#001f3f", "#39CCCC", "#01FF70", "#85144b",
+            	"#F012BE", "#3D9970", "#111111", "#AAAAAA"],
+            	borderColor: 'rgb(0, 0, 0)',
+            	data: so_luong_menus_all,
+          	}],
+			labels: ten_menus_all
+        };
+        var MyPie_menu_all = new Chart(ctx_pie_menu_all, {
+            type: 'pie',
+            data: data_pie_menu_all,
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 12
+                    }
+                }
+            }
+        });
+        
+        var ctx_line_all = document.getElementById("line-all").getContext('2d');
+        var data_line_all = {
+			labels: years,
+          	datasets: [{
+           		label: 'All',
+            	backgroundColor: 'rgba(161, 198, 247, 1)',
+            	borderColor: 'rgb(47, 128, 237)',
+            	data: doanh_thu_all,
+          	}]
+        };
+        var MyLine_all = new Chart(ctx_line_all, {
             type: 'bar',
-            data: data_bar,
+            data: data_line_all,
             options: {
 				scales: {
             		yAxes: [{
@@ -51,14 +125,15 @@ STATISTICS
                 }
             }
         });
-		
-        var ctx_doughnut = document.getElementById("doughnut-chart").getContext('2d');
-        var data_doughunt = {
-            labels: ["rice", "yam", "tomato", "potato", "beans",
-           	"maize", "oil"],
+
+
+		// bieu do cho tab year
+        var ctx_doughnut_dish_year = document.getElementById("doughnut-dish-year").getContext('2d');
+        var data_doughnut_dish_year = {
+            labels: ten_mons_year,
           	datasets: [{
             	label: 'food Items',
-            	data: [30, 40, 20, 50, 80, 90, 20],
+            	data: so_luong_mons_year,
                 borderColor: 'rgb(0, 0, 0)',
             	backgroundColor: ["#0074D9", "#FF4136", "#2ECC40",
             	"#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00",
@@ -66,9 +141,9 @@ STATISTICS
             	"#F012BE", "#3D9970", "#111111", "#AAAAAA"]
           	}]
         };
-        var MyDoughtnutChart = new Chart(ctx_doughnut, {
+        var MyDoughnut_dish_year = new Chart(ctx_doughnut_dish_year, {
             type: 'doughnut',
-            data: data_doughunt,
+            data: data_doughnut_dish_year,
             options: {
                 maintainAspectRatio: false,
                 legend: {
@@ -80,8 +155,8 @@ STATISTICS
             }
         });
         
-		var ctx_pie = document.getElementById("pie-chart").getContext('2d');
-        var data_pie = {
+		var ctx_pie_menu_year = document.getElementById("pie-menu-year").getContext('2d');
+        var data_pie_menu_year = {
             datasets: [{
             	label: 'food Items',
             	backgroundColor: ["#0074D9", "#FF4136", "#2ECC40",
@@ -89,14 +164,13 @@ STATISTICS
             	"#001f3f", "#39CCCC", "#01FF70", "#85144b",
             	"#F012BE", "#3D9970", "#111111", "#AAAAAA"],
             	borderColor: 'rgb(0, 0, 0)',
-            	data: [30, 40, 20, 50, 80, 90, 20],
+            	data: so_luong_menus_year,
           	}],
-			labels: ["rice", "yam", "tomato", "potato",
-          	"beans", "maize", "oil"]
+			labels: ten_menus_year
         };
-        var MyPieChart = new Chart(ctx_pie, {
+        var MyPie_menu_year = new Chart(ctx_pie_menu_year, {
             type: 'pie',
-            data: data_pie,
+            data: data_pie_menu_year,
             options: {
                 maintainAspectRatio: false,
                 legend: {
@@ -107,21 +181,106 @@ STATISTICS
                 }
             }
         });
-
-		var ctx_line = document.getElementById("line-chart").getContext('2d');
-        var data_line = {
-			labels: ["sunday", "monday", "tuesday",
-          	"wednesday", "thursday", "friday", "saturday"],
+        
+        var ctx_line_year = document.getElementById("line-year").getContext('2d');
+        var data_line_year = {
+			labels: months,
           	datasets: [{
-           		label: 'Last week',
+           		label: 'This year',
             	backgroundColor: 'rgba(161, 198, 247, 1)',
             	borderColor: 'rgb(47, 128, 237)',
-            	data: [3000, 4000, 2000, 5000, 8000, 9000, 2000],
+            	data: doanh_thu_year,
           	}]
         };
-        var MyLineChart = new Chart(ctx_line, {
-            type: 'line',
-            data: data_line,
+        var MyLine_year = new Chart(ctx_line_year, {
+            type: 'bar',
+            data: data_line_year,
+            options: {
+				scales: {
+            		yAxes: [{
+              			ticks: {
+                		beginAtZero: true,
+              			}
+            		}]
+          		},
+                maintainAspectRatio: false,
+                legend: {
+                    labels: {
+                        boxWidth: 12
+                    }
+                }
+            }
+        });
+
+
+        // bieu do cho tab month
+        var ctx_doughnut_dish_month = document.getElementById("doughnut-dish-month").getContext('2d');
+        var data_doughnut_dish_month = {
+            labels: ten_mons_month,
+          	datasets: [{
+            	label: 'food Items',
+            	data: so_luong_mons_month,
+                borderColor: 'rgb(0, 0, 0)',
+            	backgroundColor: ["#0074D9", "#FF4136", "#2ECC40",
+            	"#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00",
+            	"#001f3f", "#39CCCC", "#01FF70", "#85144b",
+            	"#F012BE", "#3D9970", "#111111", "#AAAAAA"]
+          	}]
+        };
+        var MyDoughnut_dish_month = new Chart(ctx_doughnut_dish_month, {
+            type: 'doughnut',
+            data: data_doughnut_dish_month,
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 12
+                    }
+                }
+            }
+        });
+        
+		var ctx_pie_menu_month = document.getElementById("pie-menu-month").getContext('2d');
+        var data_pie_menu_month = {
+            datasets: [{
+            	label: 'food Items',
+            	backgroundColor: ["#0074D9", "#FF4136", "#2ECC40",
+            	"#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00",
+            	"#001f3f", "#39CCCC", "#01FF70", "#85144b",
+            	"#F012BE", "#3D9970", "#111111", "#AAAAAA"],
+            	borderColor: 'rgb(0, 0, 0)',
+            	data: so_luong_menus_month,
+          	}],
+			labels: ten_menus_month
+        };
+        var MyPie_menu_month = new Chart(ctx_pie_menu_month, {
+            type: 'pie',
+            data: data_pie_menu_month,
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 12
+                    }
+                }
+            }
+        });
+        
+        var ctx_line_month = document.getElementById("line-month").getContext('2d');
+        var data_line_month = {
+			labels: days,
+          	datasets: [{
+           		label: 'This month',
+            	backgroundColor: 'rgba(161, 198, 247, 1)',
+            	borderColor: 'rgb(47, 128, 237)',
+            	data: doanh_thu_month,
+          	}]
+        };
+        var MyLine_month = new Chart(ctx_line_month, {
+            type: 'bar',
+            data: data_line_month,
             options: {
 				scales: {
             		yAxes: [{
@@ -145,35 +304,61 @@ STATISTICS
     <div class="row">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active" id="nav-bar-tab" data-bs-toggle="tab" data-bs-target="#nav-bar" type="button" role="tab" aria-controls="nav-bar" aria-selected="true">Bar chart</button>
-                <button class="nav-link" id="nav-doughnut-tab" data-bs-toggle="tab" data-bs-target="#nav-doughnut" type="button" role="tab" aria-controls="nav-doughnut" aria-selected="false">Doughnut chart</button>
-                <button class="nav-link" id="nav-pie-tab" data-bs-toggle="tab" data-bs-target="#nav-pie" type="button" role="tab" aria-controls="nav-pie" aria-selected="fasle">Pie chart</button>
-                <button class="nav-link" id="nav-line-tab" data-bs-toggle="tab" data-bs-target="#nav-line" type="button" role="tab" aria-controls="nav-line" aria-selected="false">Line chart</button>
+                <button class="nav-link active" id="nav-month-tab" data-bs-toggle="tab" data-bs-target="#nav-month" type="button" role="tab" aria-controls="nav-month" aria-selected="false">This Month</button>
+                <button class="nav-link" id="nav-year-tab" data-bs-toggle="tab" data-bs-target="#nav-year" type="button" role="tab" aria-controls="nav-year" aria-selected="fasle">This Year</button>
+                <button class="nav-link" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button" role="tab" aria-controls="nav-all" aria-selected="false">All</button>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-bar" role="tabpanel" aria-labelledby="nav-bar-tab">
-                <h1 align="center">Bar chart</h1>
+            <div class="tab-pane fade show active" id="nav-month" role="tabpanel" aria-labelledby="nav-month-tab">
+                <h1 align="center">Revenue</h1>
                 <div>
-                    <canvas id="bar-chart" width="240px" height="240px"></canvas>
+                    <canvas id="line-month" width="240px" height="240px"></canvas>
+                </div>
+                <h3 align="center">Sum: {{tong_doanh_thu_month}}</h3>
+                <hr/>
+                <h1 align="center">Number of orders per dish</h1>
+                <div>
+                    <canvas id="doughnut-dish-month" width="240px" height="240px"></canvas>
+                </div>
+                <hr/>
+                <h1 align="center">Number of dishes ordered per menu</h1>
+                <div>
+                    <canvas id="pie-menu-month" width="240px" height="240px"></canvas>
                 </div>
             </div>
-            <div class="tab-pane fade" id="nav-doughnut" role="tabpanel" aria-labelledby="nav-doughnut-tab">
-                <h1 align="center">Doughnut chart</h1>
+            <div class="tab-pane fade" id="nav-year" role="tabpanel" aria-labelledby="nav-year-tab">
+                <h1 align="center">Revenue</h1>
                 <div>
-                    <canvas id="doughnut-chart" width="240px" height="240px"></canvas>
+                    <canvas id="line-year" width="240px" height="240px"></canvas>
+                </div>
+                <h3 align="center">Sum: {{tong_doanh_thu_year}}</h3>
+                <hr/>
+                <h1 align="center">Number of orders per dish</h1>
+                <div>
+                    <canvas id="doughnut-dish-year" width="240px" height="240px"></canvas>
+                </div>
+                <hr/>
+                <h1 align="center">Number of dishes ordered per menu</h1>
+                <div>
+                    <canvas id="pie-menu-year" width="240px" height="240px"></canvas>
                 </div>
             </div>
-            <div class="tab-pane fade" id="nav-pie" role="tabpanel" aria-labelledby="nav-pie-tab">
-                <h1 align="center">Pie chart</h1>
+            <div class="tab-pane fade" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+                <h1 align="center">Revenue</h1>
                 <div>
-                    <canvas id="pie-chart" width="240px" height="240px"></canvas>
+                    <canvas id="line-all" width="240px" height="240px"></canvas>
                 </div>
-            </div>
-            <div class="tab-pane fade" id="nav-line" role="tabpanel" aria-labelledby="nav-line-tab">
-                <h1 align="center">Line chart</h1>
+                <h3 align="center">Sum: {{tong_doanh_thu_all}}</h3>
+                <hr/>
+                <h1 align="center">Number of orders per dish</h1>
                 <div>
-                    <canvas id="line-chart" width="240px" height="240px"></canvas>
+                    <canvas id="doughnut-dish-all" width="240px" height="240px"></canvas>
+                </div>
+                <hr/>
+                <h1 align="center">Number of dishes ordered per menu</h1>
+                <div>
+                    <canvas id="pie-menu-all" width="240px" height="240px"></canvas>
                 </div>
             </div>
         </div>
