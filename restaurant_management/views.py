@@ -59,6 +59,8 @@ def home(request):
                 ban.save()
             if hoadon.ma_khach_hang is not None:
                 ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
+                hoadon.ma_khach_hang= None
+                hoadon.save()
                 context.update({
                     'tientichluy' : ma_the.tien_tich_luy,
                     'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
@@ -90,8 +92,7 @@ def home(request):
         else :
             ban = models.Ban.objects.get(so_ban = so_ban)
             hoadon=ban.ma_hoa_don
-            hoadon.ma_khach_hang= None
-            hoadon.save()
+           
         
         ban = models.Ban.objects.get(so_ban = so_ban)
         hoadon=ban.ma_hoa_don
@@ -206,7 +207,7 @@ def booking (request):
             context.update({
                     'dat_bans': dat_bans
                     })
-            ban.trang_thai ="đang đợi"
+            #ban.trang_thai ="đang đợi"
             ban.save()
         except:
             print("ban nay chua co khach dat")
