@@ -97,19 +97,40 @@
                     <tbody id="bang_hoa_don">
                     {% for dat_mon in dat_mons %}
                      <tr >
-                        <th scope="row"></th>
+                        <td></td>
                         <td class="ten__mon">{{dat_mon.get_ten_mon}}</td>
                         <td class="so__luong">{{dat_mon.so_luong}}</td>
                         <td class="gia__mon">{{dat_mon.get_gia}}</td>
                         <td class="thanh__tien"> {{dat_mon.thanh_tien}}</td>
-                        <th></th>
+                        <td></td>
                     </tr>  
                     {% endfor %}                      
                       <!-- if else -->
 
-                    </tbody>
+                  </tbody>
+                    <tfoot>
+                      <tr>
+                        <th colspan="6">Khuyến mãi</th>
+                      </tr>
+                      <tr>
+                        <th scope="row"></th>
+                        <td class="ten__mon">Món </td>
+                        <td class="so__luong">1</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <th></th>
+                      </tr>
+                      <tr>
+                        <th scope="row"></th>
+                        <td></td>
+                        <td></td>
+                        <td class="tong_tien">Tổng tiền: </td>
+                        <td class="total">{{hoadon.don_gia}}</td>
+                        <th></th>
+                      </tr>
+
+                    </tfoot>
                 </table>
-                <p style="float:right"> Tổng tiền: {{hoadon.don_gia}}   </p> 
                 <button type="submit" value='{{so_ban}}' name="add_hoa_don">Lưu hóa đơn</button>
                 <button onclick = "deletebill() " type="submit" value='{{so_ban}}' name="remove_hoa_don">Xóa hóa đơn</button>
                 <button type="submit" value='{{so_ban}}' name="pay">Thanh toán</button>

@@ -1,0 +1,47 @@
+{% extends "management/layout.html" %}
+{% block title %}
+
+{% endblock %}
+{% block content %}
+<!-- You can alternatively load the minified version -->
+<div class="main-site-event">
+	<a class="btn btn-info left" href="{% url 'cal_events' %}?{{ prev_month }}"> Previous Month </a>
+	<button id="create_event" class="btn btn-primary" type="button" name="button" >Create event</button>
+	<button id="edit_event" class="btn btn-primary" type="button" name="button" >Edit</button>
+	<a class="btn btn-info right" href="{% url 'cal_events' %}?{{ next_month }}"> Next Month </a>
+	{{calendar_event}}
+</div>
+
+<div id = "create_event_form">
+	<form action="" class= "popup_content" method="post">
+		{% csrf_token %}
+		{{create_event_form.management_form}}
+    	{% for field in create_event_form %}
+            	<p class="label_sukien">{{ field.label_tag }}</p> {{ field }}
+    	{% endfor %}
+		<div class="form-button">
+			<button type="submit" >Create</button>
+			<button id="close_create_event">Close</button>
+		</div>
+	</form>
+	
+</div>
+
+
+
+<script>
+var popup1 = document.getElementById("create_event_form");
+var openPopup1 = document.getElementById("create_event");
+var closePopup1 = document.getElementById('close_create_event');
+
+
+openPopup1.addEventListener('click', function() {
+	popup1.style.display = "block";
+});
+closePopup1.addEventListener('click', function() {
+	popup1.style.display = "none";
+});
+
+</script>
+
+{% endblock %}
