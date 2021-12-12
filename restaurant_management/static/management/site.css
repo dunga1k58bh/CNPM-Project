@@ -79,8 +79,8 @@ table, th, td {
     scrollbar-width: thin;
     scrollbar-color: #aab7cf transparent;
     box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
-    background-color: #fff;
-    margin-top: -15px;
+    background-color: rgba(206, 206, 206, 0.9);
+    margin-top: 116px;
   }
 
 .sidebar-nav {
@@ -96,7 +96,7 @@ table, th, td {
   .sidebar-nav .nav-heading {
     font-size: 11px;
     text-transform: uppercase;
-    color: #899bbd;
+    color: #00153b;
     font-weight: 600;
     margin: 10px 0 5px 15px;
   }
@@ -107,7 +107,7 @@ table, th, td {
     font-weight: 600;
     color: #030b53;
     transition: 0.3;
-    background: #fff;
+    background: rgba(255, 255, 255, 0);
     padding: 10px 15px;
     border-radius: 4px;
   }
@@ -116,3 +116,4 @@ table, th, td {
     margin-right: 25px;
     display:none;
     }
+  
