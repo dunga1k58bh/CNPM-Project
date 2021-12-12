@@ -1,5 +1,6 @@
 from datetime import time
 from django.core.checks import messages
+from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -11,6 +12,7 @@ from restaurant_management import models
 import json
 from django.db.models import Sum
 from django.db.models.aggregates import Min
+
 # Create your views here.
 
 
@@ -309,15 +311,33 @@ def events(request):
     return render(request, "management/events.html")
 
 def vipMember(request):
+    
+    if 'AddKH' in request.POST:
+        # KH_Hang = request.POST.get("AddKH")
+        # Member = models.KhachHang.objects.get(KH_Hang = KH_Hang)
+        ma_the = request.POST.get('ma_the')
+        ma_khach_hang = request.POST.get('ma_khach_hang')
+        ten_khach_hang = request.POST.get('ten_khach_hang')
+        so_dien_thoai = request.POST.get('so_dien_thoai')
+        try:
+            KH = models.KhachHang.objects.create(ma_khach_hang = ma_khach_hang, ten_khach_hang = ten_khach_hang, so_dien_thoai = so_dien_thoai)  
+            models.TheThanhVien.objects.create(ma_the = ma_the, ma_khach_hang = KH, tien_tich_luy = 0, hang = 'Đồng')
+        except:
+            print('Không được')
+    if 'DelKH' in request.POST:
+        ma_the = request.POST.get('DelKH')
+        the = models.TheThanhVien.objects.get(ma_the = ma_the)
+        the.delete = 'yes'
+        the.save()
     menus = models.Menu.objects.all()
-    khachhangs = models.KhachHang.objects.all()
-    thethanhviens = models.TheThanhVien.objects.all()
-    return render(request, "management/vip_member.html",
-                {
-                    'menu' : menus,
-                    'thethanhviens' : thethanhviens,
-                    'khachhangs' : khachhangs
-                })
+    thethanhviens = models.TheThanhVien.objects.filter(delete__isnull = True)
+    context = {
+        'menu' : menus,
+        'thethanhviens' : thethanhviens,
+        # 'khachhangs' : khachhangs,
+        # 'KH_Hang' : KH_Hang
+    }
+    return render(request, "management/vip_member.html", context)
 
 
 def statistics(request):

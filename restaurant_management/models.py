@@ -67,7 +67,7 @@ class KhachHang(models.Model):
     ma_khach_hang = models.CharField(db_column='MA_KHACH_HANG', primary_key=True, max_length=5)  # Field name 
     ten_khach_hang = models.CharField(db_column='TEN_KHACH_HANG', max_length=100)  # Field name made lowercase.
     so_dien_thoai = models.CharField(db_column='SO_DIEN_THOAI', max_length=20)  # Field name made lowercase.  
-
+    
     class Meta:
         managed = False
         db_table = 'KHACH_HANG'
@@ -111,7 +111,9 @@ class TheThanhVien(models.Model):
     ma_khach_hang = models.ForeignKey(KhachHang, models.DO_NOTHING, db_column='MA_KHACH_HANG')  # Field name made lowercase.
     tien_tich_luy = models.IntegerField(db_column='TIEN_TICH_LUY')  # Field name made lowercase.
     hang = models.CharField(db_column='HANG', max_length=50)  # Field name made lowercase.
-
+    delete = models.CharField(db_column='DELETE', max_length=50, blank=True, null=True)  # Field name made lowercase.
     class Meta:
         managed = False
         db_table = 'THE_THANH_VIEN'
+    def getName(self):
+        return self.ma_khach_hang.ten_khach_hang

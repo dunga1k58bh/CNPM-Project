@@ -9,50 +9,54 @@
 <section class = "vip_member">
     <div class="container my-4">
         <div class="row">
-            <div class="col-sm-2 bg-info">
-                {% comment %} <p>
-                    Khách hàng mới đang đăng ký thẻ thành viên là hạng đồng. <br>
-                    Tổng các hoá đơn đã mua hàng là 10 triệu sẽ được lên hạng bạc. <br>
-                    Tổng các hoá đơn đã mua hàng là 30 triệu sẽ được lên hạng vàng. <br>
-                    Tổng các hoá đơn đã mua hàng là 50 triệu sẽ được lên hạng kim cương. <br>
-                    Hạng càng cao tích luỹ càng nhiều.
-                </p> {% endcomment %}
+            <div class="col-sm-4 bg-info">
+                <h3>Thêm thành viên</h3>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <!-- {{ AddF.as_p }}   -->
+                    <label for="">Ma the</label>
+                    <input type="text" name="ma_the" class="form-control">
+                    <label>Ma KH</label>
+                    <input type="text" name="ma_khach_hang" class="form-control">
+                    <label>Ten KH</label>
+                    <input type="text" name="ten_khach_hang" class="form-control">
+                    <label>SĐT</label>
+                    <input type="text" name="so_dien_thoai" class="form-control"> <br>
+                    <button type="submit" value="{{KH_Hang}}" name="AddKH" class="btn btn-light">Submit</button>
+                </form>
+                
             </div>
             <div class="col-sm-8 bg-warning">
                 <h3 class=" ">Danh sách Vip Member</h3>
-                {% comment %} <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Fixed top</a>
-  </div>
-</nav> {% endcomment %}
-                <table class="table table-bordered table-hover ">
-                    <thead>
-                        <tr>
-                            <th>Mã thẻ</th>
-                            <th>Tên khách hàng</th>
-                            <th>Tiền tích luỹ</th>
-                            <th>Hạng</th>                       
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for thethanhvien in thethanhviens %}
-                        <tr>
-                            {% comment %} <th scope="row"></th> {% endcomment %}
-                            <td>{{thethanhvien.ma_the}}</td>
-                            <td>{{thethanhvien.ma_khach_hang.ten_khach_hang}}</td>
-                            <td>{{thethanhvien.tien_tich_luy}}</td>
-                            <td>{{thethanhvien.hang}}</td>
-                            {% comment %} <th></th> {% endcomment %}
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                {% comment %} <div class="Add_Delete">
-                    <button type="button" class="btn btn-light float-start" id="AddVipMember">Thêm thành viên</button>
-                    <button type="button" class="btn btn-dark float-end" id="DelVipMember">Xoá thành viên</button>
-                </div>  {% endcomment %}
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <table class="table table-bordered table-hover ">
+                        <thead>
+                            <tr>
+                                <th>Mã thẻ</th>
+                                <th>Tên khách hàng</th>
+                                <th>Tiền tích luỹ</th>
+                                <th>Hạng</th>                       
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for thethanhvien in thethanhviens %}
+                            <tr>
+                                {% comment %} <th scope="row"></th> {% endcomment %}
+                                <td>{{thethanhvien.ma_the}}</td>
+                                <td>{{thethanhvien.ma_khach_hang.ten_khach_hang}}</td>
+                                <td>{{thethanhvien.tien_tich_luy}}</td>
+                                <td>{{thethanhvien.hang}}</td>
+                                <td><button type='submit' class="btn btn-light" value="{{thethanhvien.ma_the}}" name="DelKH">Xoá</button></td>
+                                {% comment %} <th></th> {% endcomment %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </form>
+                
             </div>
-            <div class="col-sm-2 bg-info"></div>
+            <!-- <div class="col-sm-2 bg-info"></div> -->
         </div>
     </div>
 </section>
