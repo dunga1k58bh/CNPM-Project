@@ -114,7 +114,7 @@
   .addd_mon {
   float:right;
   margin-right: 25px;
-  display:block;
+  display:none;
   }
 
   /* Event css*/
