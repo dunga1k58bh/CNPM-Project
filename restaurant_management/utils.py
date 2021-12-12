@@ -11,6 +11,7 @@ class CalendarEvent(HTMLCalendar):
     
         
     def formatday(self, day, events: SuKien):
+        print(day)
         events_per_day = events.filter(ngay_bd__day__lte= day, ngay_kt__day__gte= day)
         d = ''
         for event in events_per_day:
@@ -19,6 +20,7 @@ class CalendarEvent(HTMLCalendar):
             return f"<td><span class='date'>{day}</span><ul> {d} </ul></td>"
         return '<td></td>'
     
+    
     def formatweek(self, theweek, events: SuKien):
         week = ''
         for d, weekday in theweek:
@@ -26,8 +28,8 @@ class CalendarEvent(HTMLCalendar):
         return f'<tr>{week}</tr>'
     
     def formatmonth(self, withyear = True):
-        events = SuKien.objects.filter(ngay_bd__year = self.year, ngay_bd__month = self.month)
-        cal_event = f'<table border="0" cellpadding="0" cellspacing="0" class="calendar">\n'
+        events = SuKien.objects.filter(ngay_bd__year__lte= self.year, ngay_bd__month__lte = self.month)
+        cal_event = f'<table class="calendar">\n'
         cal_event += f'{self.formatmonthname(self.year, self.month, withyear=withyear)}\n'
         cal_event += f'{self.formatweekheader()} \n'
         for week in self.monthdays2calendar(self.year, self.month):

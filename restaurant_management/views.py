@@ -329,6 +329,7 @@ class EventsView(ListView, ModelFormMixin):
         context = super().get_context_data(**kwargs)
         d = get_date(self.request.GET.get('day', None))
         d = get_date(self.request.GET.get('month', None))
+        print(d)
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
         cal_event = CalendarEvent(d.year, d.month)

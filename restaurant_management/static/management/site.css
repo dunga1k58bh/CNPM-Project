@@ -61,10 +61,10 @@
 }
 
 /*My css*/
-table, th, td {
+/* table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
-  }
+  } */
 /*setting*/
 .sidebar {
     position: fixed;
@@ -115,7 +115,7 @@ table, th, td {
   float:right;
   margin-right: 25px;
   display:block;
-  }from django.db.models.aggregates import Min
+  }
 
   /* Event css*/
   .main-site-event{
@@ -129,19 +129,22 @@ table, th, td {
   }
   
   .calendar tr, .calendar td {
-    border: 1px solid black;
+    border-width:1px;  
+    border-radius: 15px;
   }
   
   .calendar th {
     padding: 10px;
     text-align: center;
     font-size: 18px;
+    background-color: rgb(189, 189, 189);
   }
   
   .calendar td {
     width: 75px;
     height: 80px;
     padding: 20px 0px 0px 5px;
+    background-color: rgb(240, 234, 234);
   }
   
   .month {

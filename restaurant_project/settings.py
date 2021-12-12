@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "bootstrap5",
-    'bootstrap_modal_forms',
 ]
 
 MIDDLEWARE = [
@@ -80,9 +79,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'QL_Nhahang',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': 'DESKTOP-SM04QHI\SQLSERVER_HVC',
+        'USER': 'sa',
+        'PASSWORD': 'admin',
+        'HOST': 'ADMIN\SQLEXPRESS',
         'PORT': '',
 
         'OPTIONS': {
