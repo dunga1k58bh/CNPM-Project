@@ -3,8 +3,34 @@
     font-weight: 600;
     color: blue;
 }
+ /* css header */
+.header{
+  background: url("https://png.pngtree.com/thumb_back/fh260/back_our/20190620/ourmid/pngtree-taobao-cooking-food-festival-hand-drawn-poster-background-image_162253.jpg");
+  color: #d6cbdd;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+
+/* css nền bàn */
+.tab-content{
+  background-color: #c4cbd8;
+}
+
+/* css nền menu */
+.tab-pane fade{
+  background-color: #ced5e0;
+}
+/* css nền hóa đơn */
+.col-sm{
+  background-color: #cad1dd;
+}
 .navbar {
-    background-color: gray;
+    background-color: rgb(184, 70, 70);
     font-size: 1em;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: #ffffff;
@@ -53,24 +79,11 @@ table, th, td {
     scrollbar-width: thin;
     scrollbar-color: #aab7cf transparent;
     box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
-    background-color: #fff;
-    margin-top: -15px;
+    background-color: rgba(206, 206, 206, 0.9);
+    margin-top: 116px;
   }
-  @media (max-width: 1199px) {
-    .sidebar {
-      left: -300px;
-    }
-  }
-  .sidebar::-webkit-scrollbar {
-    width: 5px;
-    height: 8px;
-    background-color: #fff;
-  }
-  .sidebar::-webkit-scrollbar-thumb {
-    background-color: #aab7cf;
-  }
-  
-  .sidebar-nav {
+
+.sidebar-nav {
     padding: 0;
     margin: 0;
     list-style: none;
@@ -80,13 +93,10 @@ table, th, td {
     margin: 0;
     list-style: none;
   }
-  .sidebar-nav .nav-item {
-    margin-bottom: 5px;
-  }
   .sidebar-nav .nav-heading {
     font-size: 11px;
     text-transform: uppercase;
-    color: #899bbd;
+    color: #00153b;
     font-weight: 600;
     margin: 10px 0 5px 15px;
   }
@@ -95,49 +105,17 @@ table, th, td {
     align-items: center;
     font-size: 15px;
     font-weight: 600;
-    color: #4154f1;
+    color: #030b53;
     transition: 0.3;
-    background: #f6f9ff;
+    background: rgba(255, 255, 255, 0);
     padding: 10px 15px;
     border-radius: 4px;
-  }
-  .sidebar-nav .nav-link i {
-    font-size: 16px;
-    margin-right: 10px;
-    color: #4154f1;
-  }
-  .sidebar-nav .nav-link.collapsed {
-    color: #012970;
-    background: #fff;
-  }
-  .sidebar-nav .nav-link.collapsed i {
-    color: #899bbd;
-  }
-  .sidebar-nav .nav-link:hover {
-    color: #4154f1;
-    background: #f6f9ff;
-  }
-  .sidebar-nav .nav-link:hover i {
-    color: #4154f1;
-  }
-  .menu_1 {
-    display: none;
-  }
-  .menu_2 {
-    display: none;
-  }
-  .menu_3 {
-    display: none;
-  }
-  .menu_4 {
-    display: none;
-  
   }
   .addd_mon {
   float:right;
   margin-right: 25px;
   display:block;
-  }
+  }from django.db.models.aggregates import Min
 
   /* Event css*/
   .main-site-event{
