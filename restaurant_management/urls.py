@@ -3,6 +3,7 @@ from restaurant_management import views
 
 urlpatterns = [
     path("", views.signin, name="signin"),
+    path("signout/", views.signout, name="signout"),
     path("home/", views.home, name="home"),
     path("take_away/", views.takeAway, name="take_away"),
     path("cal_events/", views.EventsView.as_view(), name="cal_events"),

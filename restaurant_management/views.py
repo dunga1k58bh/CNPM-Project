@@ -36,6 +36,13 @@ def signin(request):
     
     return render(request, "authentication/signin.html", {})
 
+
+@login_required(login_url='/')
+def signout(request):
+    logout(request)
+    return render(request, "authentication/signout.html", {})
+
+
 @login_required(login_url='/')
 def home(request):
     bans = models.Ban.objects.all()
