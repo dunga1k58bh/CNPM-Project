@@ -324,6 +324,10 @@ class EventsView(ListView, ModelFormMixin):
         self.form = self.get_form(self.form_class)
         if self.form.is_valid():
             self.object = self.form.save()
+        if "delete_event" in request.POST :
+            ma_sk = request.POST.get("delete_event")
+            event_del = models.SuKien.objects.get(ma_sk = ma_sk)
+            event_del.delete()
         return self.get(request, *args, **kwargs)
             
     def get_context_data(self, **kwargs):
@@ -341,7 +345,6 @@ class EventsView(ListView, ModelFormMixin):
         events = models.SuKien.objects.filter(ngay_bd__month__lte= d.month, ngay_kt__month__gte=d.month,
                                               ngay_bd__year__lte= d.year, ngay_kt__year__gte=d.year)
         context["events"] = events
-        
         return context
 
     
