@@ -451,6 +451,8 @@ def statistics(request):
     doanh_thu_all = []
     years = []
     year_min = models.HoaDon.objects.aggregate(Min('ngay_lap__year'))['ngay_lap__year__min']
+    if year_min is None:
+        year_min = timezone.now().year
     for year_idx in range(year_min, timezone.now().year + 1):
         years.append(year_idx)
         doanh_thu_year = 0
