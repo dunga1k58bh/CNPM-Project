@@ -1,7 +1,6 @@
 import calendar
 from datetime import date, datetime, time, timedelta
 from django.core.checks import messages
-from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
@@ -16,11 +15,10 @@ from restaurant_management.form import EventForm
 from restaurant_management.utils import CalendarEvent
 from django.utils.safestring import mark_safe
 from django.db.models.aggregates import Min
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
-
-
 def signin(request):
     if request.method == 'POST':
         username = request.POST.get("username")
@@ -31,13 +29,14 @@ def signin(request):
             if user is not None:
                 login(request, user)
                 return redirect("home")
-            else :
+            else:
                 messages.error(request, "Nhập sai tên đăng nhập hoặc mật khẩu")    
-        else :
+        else:
             messages.error(request, 'Nhập thiếu tên đăng nhập hoặc mật khẩu')
     
     return render(request, "authentication/signin.html", {})
-     
+
+@login_required(login_url='/')
 def home(request):
     bans = models.Ban.objects.all()
     menu = models.Menu.objects.all()
@@ -193,6 +192,8 @@ def home(request):
                 thethanhvien.save()
     return render(request, "management/home.html", context)
 
+
+@login_required(login_url='/')
 def booking (request):
     bans = models.Ban.objects.all()
     context = {
@@ -235,7 +236,7 @@ def booking (request):
     return render(request, "management/booking.html", context)
 
 
-
+@login_required(login_url='/')
 def takeAway(request):
     menu = models.Menu.objects.all()
     mon_ans = models.MonAn.objects.all()
@@ -312,7 +313,9 @@ def takeAway(request):
 
     return render(request, "management/take_away.html", context)
 
-class EventsView(ListView, ModelFormMixin):
+class EventsView(LoginRequiredMixin, ListView, ModelFormMixin):
+    login_url = '/'
+
     model = models.SuKien
     template_name='calendar_event/events.html'
     form_class = EventForm
@@ -375,7 +378,7 @@ def next_month(d):
     
     
     
-    
+@login_required(login_url='/')
 def vipMember(request):
     
     if 'AddKH' in request.POST:
@@ -406,6 +409,7 @@ def vipMember(request):
     return render(request, "management/vip_member.html", context)
 
 
+@login_required(login_url='/')
 def statistics(request):
     context = {}
     # lay thong tin cho tab all
@@ -602,6 +606,7 @@ def statistics(request):
     return render(request, "management/statistics.html", context)
 
 
+@login_required(login_url='/')
 def setting(request):
     menus = models.Menu.objects.all()
     monans = models.MonAn.objects.all() 
