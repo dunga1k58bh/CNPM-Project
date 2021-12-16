@@ -69,72 +69,127 @@
 
         </div>
         <!-- Phần này cho Hóa đơn -->
+        
         <div class="col-sm">
-            <h1>Hóa đơn</h1>
-            <p>Mã hóa đơn : {{hoadon.ma_hoa_don}}</p>
-            <form action="" method="post">
-                Số bàn : {{so_ban}}
-                <p>Thông tin khách hàng:<input  name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}"> </input>
-                  <button type="submit" value='{{so_ban}}' name="search_infor_kh">Search</button>
-                </p>
-                <p>Họ tên của khách hàng:{{hotenkhachhang}}</p>
-                <p>Tiền tích lũy của khách hàng:{{tientichluy}}</p>
-                <p>Tiêu tích lũy:<input  name="so_diem_tieu" type="text " value="0"> </input>
-                <button type="submit" value='{{so_ban}}' name="tieu_tich_luy">Use</button>
-                </p>
-                {% csrf_token %}
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Tên</th>
-                        <th scope="col">Số lượng</th>
-                        <th scope="col"> Đơn Giá </th>
-                        <th scope="col">Thành tiền</th>
-                        <th scope="col">#</th>
-                      </tr>
-                    </thead>
-                    <tbody id="bang_hoa_don">
-                    {% for dat_mon in dat_mons %}
-                     <tr >
-                        <td></td>
-                        <td class="ten__mon">{{dat_mon.get_ten_mon}}</td>
-                        <td class="so__luong">{{dat_mon.so_luong}}</td>
-                        <td class="gia__mon">{{dat_mon.get_gia}}</td>
-                        <td class="thanh__tien"> {{dat_mon.thanh_tien}}</td>
-                        <td></td>
-                    </tr>  
-                    {% endfor %}                      
-                      <!-- if else -->
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home-bill" type="button" role="tab" aria-controls="nav-home-bill" aria-selected="true">Hóa đơn</button>
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-home-booking" type="button" role="tab" aria-controls="nav-home-booking" aria-selected="false">Lịch đặt</button>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home-bill" role="tabpanel" aria-labelledby="nav-home-bill-tab">
+            
+            
+              <p>Mã hóa đơn : {{hoadon.ma_hoa_don}}</p>
+              <form action="" method="post">
+                  Số bàn : {{so_ban}}
+                  <p>Thông tin khách hàng:<input  name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}"> </input>
+                    <button type="submit" value='{{so_ban}}' name="search_infor_kh">Search</button>
+                  </p>
+                  <p>Họ tên của khách hàng:{{hotenkhachhang}}</p>
+                  <p>Tiền tích lũy của khách hàng:{{tientichluy}}</p>
+                  <p>Tiêu tích lũy:<input  name="so_diem_tieu" type="text " value="0"> </input>
+                  <button type="submit" value='{{so_ban}}' name="tieu_tich_luy">Use</button>
+                  </p>
+                  {% csrf_token %}
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Tên</th>
+                          <th scope="col">Số lượng</th>
+                          <th scope="col"> Đơn Giá </th>
+                          <th scope="col">Thành tiền</th>
+                          <th scope="col">#</th>
+                        </tr>
+                      </thead>
+                      <tbody id="bang_hoa_don">
+                      {% for dat_mon in dat_mons %}
+                       <tr >
+                          <td></td>
+                          <td class="ten__mon">{{dat_mon.get_ten_mon}}</td>
+                          <td class="so__luong">{{dat_mon.so_luong}}</td>
+                          <td class="gia__mon">{{dat_mon.get_gia}}</td>
+                          <td class="thanh__tien"> {{dat_mon.thanh_tien}}</td>
+                          <td></td>
+                      </tr>  
+                      {% endfor %}                      
+                        <!-- if else -->
+  
+                    </tbody>
+                      <tfoot>
+                        <tr>
+                          <th colspan="6">Khuyến mãi</th>
+                        </tr>
+                        <tr>
+                          <th scope="row"></th>
+                          <td class="ten__mon">Món </td>
+                          <td class="so__luong">1</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <th></th>
+                        </tr>
+                        <tr>
+                          <th scope="row"></th>
+                          <td></td>
+                          <td></td>
+                          <td class="tong_tien">Tổng tiền: </td>
+                          <td class="total">{{hoadon.don_gia}}</td>
+                          <th></th>
+                        </tr>
+  
+                      </tfoot>
+                  </table>
+                  <button type="submit" value='{{so_ban}}' name="add_hoa_don">Lưu hóa đơn</button>
+                  <button onclick = "deletebill() " type="submit" value='{{so_ban}}' name="remove_hoa_don">Xóa hóa đơn</button>
+                  <button type="submit" value='{{so_ban}}' name="pay">Thanh toán</button>
+              </form>
+            </div>
+            <div class="tab-pane fade " id="nav-home-booking" role="tabpanel" aria-labelledby="nav-home-booking-tab">
+              
+              <form action="" method="post">
+                  Số bàn : {{so_ban}}
+                  {% csrf_token %}
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Họ tên</th>
+                          <th scope="col">Số điện thoại</th>
+                          <th scope="col"> Số bàn </th>
+                          <th scope="col">Thời gian</th>
+                          <th scope="col">#</th>
+                        </tr>
+                      </thead>
+                      <tbody id="bang_hoa_don">
+                        {% for dat_ban in dat_bans %}
+                       <tr >
+                          <th scope="row"></th>
+                          <td class="ho_ten">{{dat_ban.ho_ten}}</td>
+                          <td class="sdt">{{dat_ban.sdt}}</td>
+                          <td class="so_ban">{{dat_ban.so_ban.so_ban}}</td>
+                          <td class="thoi_gian"> {{dat_ban.thoi_gian}}</td>
+                      </tr>   
+                      {% endfor %}       
+                        <!-- if else
+                       <tr >
+                          <th scope="row"></th>
+                          <td class="ho_ten"><input name="ho_ten" type="text"  /></td>
+                          <td class="sdt"><input name="sdt" type="text"  /></td>
+                          <td class="so_ban">{{so_ban}}</td>
+                          <td class="thoi_gian"><input name="thoi_gian" type="text"  /> </td>
+                          <th></th>
+                      </tr>  -->
+                      </tbody>
+                  </table>
+                  
+                  
+              </form>  
 
-                  </tbody>
-                    <tfoot>
-                      <tr>
-                        <th colspan="6">Khuyến mãi</th>
-                      </tr>
-                      <tr>
-                        <th scope="row"></th>
-                        <td class="ten__mon">Món </td>
-                        <td class="so__luong">1</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <th></th>
-                      </tr>
-                      <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td class="tong_tien">Tổng tiền: </td>
-                        <td class="total">{{hoadon.don_gia}}</td>
-                        <th></th>
-                      </tr>
-
-                    </tfoot>
-                </table>
-                <button type="submit" value='{{so_ban}}' name="add_hoa_don">Lưu hóa đơn</button>
-                <button onclick = "deletebill() " type="submit" value='{{so_ban}}' name="remove_hoa_don">Xóa hóa đơn</button>
-                <button type="submit" value='{{so_ban}}' name="pay">Thanh toán</button>
-            </form>  
+            </div>
+          </div>
+              
         </div>
 
     </div>

@@ -56,17 +56,19 @@ def home(request):
             ban = models.Ban.objects.get(so_ban = so_ban)
             hoadon = ban.ma_hoa_don
             dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
+            dat_bans = models.DatBan.objects.filter(so_ban= ban)
             if hoadon is not None:
                 context.update({
                     'hoadon' : hoadon,
-                    'dat_mons': dat_mons
+                    'dat_mons': dat_mons,
+                    'dat_bans': dat_bans
                     })
                 ban.trang_thai ="đang sử dụng"
                 ban.save()
             if hoadon.ma_khach_hang is not None:
                 ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
-                hoadon.ma_khach_hang= None
-                hoadon.save()
+                # hoadon.ma_khach_hang= None
+                # hoadon.save()
                 context.update({
                     'tientichluy' : ma_the.tien_tich_luy,
                     'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
@@ -76,6 +78,10 @@ def home(request):
         except:
             if hoadon is None:
                 print("ban nay chua co hoa don")
+                dat_bans = models.DatBan.objects.filter(so_ban= ban)
+                context.update({
+                    'dat_bans': dat_bans
+                    })
                 ban.trang_thai ="rảnh"
                 ban.save()
     if "add_hoa_don" in request.POST :
@@ -176,6 +182,7 @@ def home(request):
             ban.trang_thai="rảnh"
             ban.save()
             hoadon.delete()
+        
 
     #Khi click thanh toán thì xóa hóa đơn khỏi bàn trả về bàn chưa có hóa đơn     
     if "pay" in request.POST :
@@ -191,6 +198,15 @@ def home(request):
                 thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
                 thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy + hoadon.don_gia * 0.1
                 thethanhvien.save()
+    
+    if "booking_table" in request.POST :
+        so_ban = request.POST.get("booking_table")
+        ban = models.Ban.objects.get(so_ban = so_ban)
+        ho_ten = request.POST.get("ho_ten")
+        sdt = request.POST.get("sdt")
+        date = request.POST.get("thoi_gian")
+        dat_ban= models.DatBan.objects.create(ho_ten = ho_ten, sdt = sdt, so_ban = ban, thoi_gian = date)
+
     return render(request, "management/home.html", context)
 
 def booking (request):
@@ -290,7 +306,58 @@ def takeAway(request):
             'tongtien' : hoadon.don_gia,
             'dat_mons': dat_mons ,
         })
-
+        ttkh= request.POST.get("thong_tin_khach_hang")
+        if ttkh != "":
+            ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
+            hoadon.ma_khach_hang= ma_khach_hang
+            hoadon.save()
+            ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
+            dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
+            context.update({
+                'tientichluy' : ma_the.tien_tich_luy,
+                'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
+                'hotenkhachhang' : hoadon.ma_khach_hang.ten_khach_hang,
+            })  
+    if "search_infor_kh" in request.POST:
+        mahoadon = request.POST.get("search_infor_kh")
+        hoadon=models.HoaDon.objects.get(ma_hoa_don = mahoadon)
+        ttkh= request.POST.get("thong_tin_khach_hang")
+        if ttkh != "":
+            ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
+            hoadon.ma_khach_hang= ma_khach_hang
+            hoadon.save()
+            ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
+            dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
+            context.update({
+                'tientichluy' : ma_the.tien_tich_luy,
+                'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
+                'hotenkhachhang' : hoadon.ma_khach_hang.ten_khach_hang,
+                'mahoadon' : hoadon.ma_hoa_don ,
+                'tongtien' : hoadon.don_gia,
+                'dat_mons': dat_mons ,
+            })   
+    if "tieu_tich_luy" in request.POST:
+        mahoadon = request.POST.get("tieu_tich_luy")
+        hoadon=models.HoaDon.objects.get(ma_hoa_don = mahoadon)
+        sodiemtieu = request.POST.get("so_diem_tieu")
+        ttkh= request.POST.get("thong_tin_khach_hang")
+        if ttkh != "":
+            ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
+            thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = ma_khach_hang)
+            thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy- int(sodiemtieu)
+            hoadon.don_gia = hoadon.don_gia - int(sodiemtieu)
+            hoadon.save()
+            thethanhvien.save()
+            ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
+            dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
+            context.update({
+                'tientichluy' : ma_the.tien_tich_luy,
+                'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
+                'hotenkhachhang' : hoadon.ma_khach_hang.ten_khach_hang,
+                'mahoadon' : hoadon.ma_hoa_don ,
+                'tongtien' : hoadon.don_gia,
+                'dat_mons': dat_mons ,
+            })
     # Xóa hóa đơn
     if "remove_hoa_don" in request.POST :
         ma_hoa_don= request.POST.get("remove_hoa_don")
