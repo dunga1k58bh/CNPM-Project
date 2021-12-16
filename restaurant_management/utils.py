@@ -11,7 +11,6 @@ class CalendarEvent(HTMLCalendar):
     
         
     def formatday(self, day, events: SuKien):
-        print(day)
         events_per_day = events.filter(ngay_bd__day__lte= day, ngay_kt__day__gte= day)
         d = ''
         for event in events_per_day:

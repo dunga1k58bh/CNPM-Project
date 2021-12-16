@@ -26,7 +26,49 @@
 	</form>
 	
 </div>
+<div id="edit_event_popup">
+	<div class="content_div">
+	<table class="edit_event_content">
+		<thead>
+			<tr>
+				<th>Tên event</th>
+				<th>Mô tả</th>
+				<th>StartTime</th>
+				<th>EndTime</th>
+				<th>Món khuyến mãi</th>
+				<th>###</th>
+			</tr>
+		</thead>
 
+		<tbody>
+		{% for event in events %}
+		<form action="" method="post">
+		{% csrf_token %}
+			<tr>
+				<td>{{event.ten_sk}}</td>
+				<td>{{event.mo_ta}}</td>
+				<td>{{event.ngay_bd}}</td>
+				<td>{{event.ngay_kt}}</td>
+				<td>{{event.ma_mon}}</td>
+				<td>
+					<ul class="list-inline m-0">
+						<li class="list-inline-item">
+							<button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-table">Edit</i></button>
+						</li>
+						<li class="list-inline-item">
+							<button class="btn btn-danger btn-sm rounded-0" type="submit" data-toggle="tooltip" data-placement="top" title="Delete" value="{{event.ma_sk}}" name="delete_event"><i class="fa fa-trash">Delete</i></button>
+				</td>
+			</tr>
+		</form>
+		{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr><button id="close_edit_event" class="btn btn-primary" type="button" name="button" >Close</button></tr>
+		</tfoot>
+	
+	</table>
+    </div>
+</div>
 
 
 <script>
@@ -34,6 +76,9 @@ var popup1 = document.getElementById("create_event_form");
 var openPopup1 = document.getElementById("create_event");
 var closePopup1 = document.getElementById('close_create_event');
 
+var edit_event_pop = document.getElementById("edit_event_popup");
+var openPopup2 = document.getElementById("edit_event");
+var closePopup2 = document.getElementById("close_edit_event")
 
 openPopup1.addEventListener('click', function() {
 	popup1.style.display = "block";
@@ -41,6 +86,16 @@ openPopup1.addEventListener('click', function() {
 closePopup1.addEventListener('click', function() {
 	popup1.style.display = "none";
 });
+
+openPopup2.addEventListener('click', function() {
+	edit_event_pop.style.display = "block";
+});
+
+closePopup2.addEventListener('click', function() {
+	edit_event_pop.style.display = "none";
+
+});
+
 
 </script>
 
