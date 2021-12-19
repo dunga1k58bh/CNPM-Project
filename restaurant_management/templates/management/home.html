@@ -7,10 +7,9 @@
 {% bootstrap_javascript %}
 
 <div class="container">
-    <div class="row">
         <!-- Phần này cho danh sách bàn và menu -->
-        <div class="col-sm">
-            <nav>
+        <div id="container_1">
+              <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                   <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Danh Sách Bàn</button>
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Menu</button>
@@ -34,10 +33,9 @@
                     </div>
                     <!-- Content cho danh sách thực đơn -->
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                        {% comment %} <form action="" method="post"> {% endcomment %}
                             Số bàn : {{so_ban}}
-                            {% comment %} {% csrf_token %}  {% endcomment %}
-                            <table class="table">
+
+                            <table class="table" >
                                 <thead>
                                   <tr>
                                     <th scope="col">#</th>
@@ -47,10 +45,14 @@
                                     <th scope="col">#</th>
                                   </tr>
                                 </thead>
-                                <tbody>
+                            </table>
+                                <div style="height: 550px; overflow:auto;">
+                                  <table class="table">
+                                    <tbody>
                                     {% for mon in mon_ans %}
                                     <tr>
-                                        <th scope="row"></th>
+                  
+                                        <td></td>
                                         <td>{{mon.ten_mon}}</td>
                                         <td>{{mon.don_vi}}</td>
                                         <td>{{mon.gia}}</td>
@@ -61,8 +63,9 @@
                                         </td>
                                       </tr>      
                                     {% endfor %}
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                  </table>
+                                </div>
                          {% comment %} </form>  {% endcomment %}
                     </div>
               </div>
@@ -70,7 +73,7 @@
         </div>
         <!-- Phần này cho Hóa đơn -->
         
-        <div class="col-sm">
+        <div id="container_2">
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home-bill" type="button" role="tab" aria-controls="nav-home-bill" aria-selected="true">Hóa đơn</button>
@@ -84,12 +87,12 @@
               <p>Mã hóa đơn : {{hoadon.ma_hoa_don}}</p>
               <form action="" method="post">
                   Số bàn : {{so_ban}}
-                  <p>Thông tin khách hàng:<input  name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}"> </input>
+                  <p>Thông tin khách hàng:<input  name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}">
                     <button type="submit" value='{{so_ban}}' name="search_infor_kh">Search</button>
                   </p>
                   <p>Họ tên của khách hàng:{{hotenkhachhang}}</p>
                   <p>Tiền tích lũy của khách hàng:{{tientichluy}}</p>
-                  <p>Tiêu tích lũy:<input  name="so_diem_tieu" type="text " value="0"> </input>
+                  <p>Tiêu tích lũy:<input  name="so_diem_tieu" type="text " value="0">
                   <button type="submit" value='{{so_ban}}' name="tieu_tich_luy">Use</button>
                   </p>
                   {% csrf_token %}
@@ -104,6 +107,9 @@
                           <th scope="col">#</th>
                         </tr>
                       </thead>
+                  </table>    
+                  <div style="height: 150px; overflow:auto;">
+                    <table class="table">
                       <tbody id="bang_hoa_don">
                       {% for dat_mon in dat_mons %}
                        <tr >
@@ -116,20 +122,28 @@
                       </tr>  
                       {% endfor %}                      
                         <!-- if else -->
-  
                     </tbody>
+                    </table>
+                  </div>
+                    <table class="table">
                       <tfoot>
                         <tr>
                           <th colspan="6">Khuyến mãi</th>
                         </tr>
                         <tr>
-                          <th scope="row"></th>
-                          <td class="ten__mon">Món </td>
-                          <td class="so__luong">1</td>
-                          <td>0</td>
-                          <td>0</td>
                           <th></th>
+                          <th>Món</th>
+                          <th colspan="2">Sự kiện</th>
+                          <th>Thành tiền</th>
                         </tr>
+                        {% for event in events %}
+                          <tr>
+                              <td></td>
+                              <td>{{event.ma_mon}}</td>
+                              <td colspan="2">{{event.ten_sk}}</td>
+                              <td>0</td>
+                          </tr>
+                        {% endfor %}
                         <tr>
                           <th scope="row"></th>
                           <td></td>
@@ -192,7 +206,7 @@
               
         </div>
 
-    </div>
+
   </div>
 
 {% endblock %}

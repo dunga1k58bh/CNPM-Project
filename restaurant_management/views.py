@@ -48,10 +48,13 @@ def home(request):
     bans = models.Ban.objects.all()
     menu = models.Menu.objects.all()
     mon_ans = models.MonAn.objects.all()
+    now = timezone.now()
+    events = models.SuKien.objects.filter(ngay_bd__lte= now, ngay_kt__gte = now)
     context = {
         'bans': bans,
         'menu': menu,
         'mon_ans': mon_ans,
+        'events': events,
     }
     if "choose_ban" in request.POST :
         so_ban = request.POST.get("choose_ban")
@@ -147,7 +150,7 @@ def home(request):
                         if mmm != mdd.ma_mon.ma_mon:
                             models.DatMon.objects.create(ma_hoa_don = hoadon, ma_mon = mdd.ma_mon, so_luong = mdd.so_luong)
             giahoadon = giahoadon +  int(so_luong)* int(mon_an.gia)
-        hoadon.don_gia= hoadon.don_gia + giahoadon
+        hoadon.don_gia= hoadon.don_gia + giahoadon     
         hoadon.save()
     if "search_infor_kh" in request.POST:
         so_ban= request.POST.get("search_infor_kh")

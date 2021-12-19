@@ -15,6 +15,43 @@
   background-attachment: fixed;
   background-size: 100% 100%;
 }
+.container{
+  width: 100%;
+  height: 700px;
+  padding: auto;
+  background-color: #aab7cf;
+}
+
+#container_1{
+  width: 49%;
+  height: 650px;
+  float: left;
+  background-color: #aab7cf;
+}
+#container_2{
+  height: 690px;
+  width: 50%;
+  float: right;
+  font-size: small;
+}
+
+.container{
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.btn_ban{
+  width: 110px;
+  height: 110px;
+  padding: auto;
+  color: green;
+}
+.btn_matrix{
+  font-size: 16px;
+  line-height: 24px;
+  width: 100%;
+}
+
 
 /* css nền bàn */
 .tab-content{
@@ -26,9 +63,7 @@
   background-color: #ced5e0;
 }
 /* css nền hóa đơn */
-.col-sm{
-  background-color: #cad1dd;
-}
+
 .navbar {
     background-color: rgb(184, 70, 70);
     font-size: 1em;

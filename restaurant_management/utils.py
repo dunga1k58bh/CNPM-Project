@@ -14,7 +14,7 @@ class CalendarEvent(HTMLCalendar):
         events_per_day = events.filter(ngay_bd__day__lte= day, ngay_kt__day__gte= day)
         d = ''
         for event in events_per_day:
-            d+=f'<li">{event.ten_sk}</li>'
+            d+=f'<li>{event.ten_sk}</li>'
         if day != 0:
             return f"<td><span class='date'>{day}</span><ul> {d} </ul></td>"
         return '<td></td>'
