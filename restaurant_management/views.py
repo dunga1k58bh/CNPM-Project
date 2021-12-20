@@ -203,10 +203,13 @@ def home(request):
             ban.ma_hoa_don = None
             ban.trang_thai= "rảnh"
             ban.save()
-            if hoadon.ma_khach_hang is not None:               
-                thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
-                thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy + hoadon.don_gia * 0.1
-                thethanhvien.save()
+            try:
+                if hoadon.ma_khach_hang is not None:               
+                    thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
+                    thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy + hoadon.don_gia * 0.1
+                    thethanhvien.save()
+            except:
+                print("bàn này ko có mã")
     
     if "booking_table" in request.POST :
         so_ban = request.POST.get("booking_table")
@@ -384,9 +387,18 @@ def takeAway(request):
         ma_hoa_don= request.POST.get("pay")
         hoadon= models.HoaDon.objects.get(ma_hoa_don = ma_hoa_don)
         if hoadon is not None:
+            ma_hoa_don = hoadon.ma_hoa_don
             context.update({
                 'ma_hoa_don': ''
             })
+            try:
+                if hoadon.ma_khach_hang is not None:               
+                    thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
+                    thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy + hoadon.don_gia * 0.1
+                    thethanhvien.save()
+            except:
+                print("bàn này ko có mã")
+            
 
     return render(request, "management/take_away.html", context)
 
