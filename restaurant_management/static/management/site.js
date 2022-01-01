@@ -2,8 +2,12 @@
 function addMealFunction(ma_mon, tenmon, giamon) {
     change= "'change" +tenmon + ma_mon+ "'" ;
     tmmm = "change"+tenmon + ma_mon ;
-    
-        var html=' <tr class="'
+    mamon= "'"+ ma_mon +"'";
+    tm=",'"+ tenmon +"'";
+    idMealAdded= "idMeal"+ ma_mon;
+        var html=' <tr id="'
+    +idMealAdded
+    +'" class="'
     +ma_mon
     +'">  <th scope="row">  </th>  <td class="ten__mon">' 
     +tenmon
@@ -21,11 +25,21 @@ function addMealFunction(ma_mon, tenmon, giamon) {
     + giamon
     + '</td>'
     +'<td class="thanh__tien"></td>'
-    +' <input type="text" value="'+ma_mon+'"name="ma_mons" hidden>'
+    +'<td> <input type="text" value="'+ma_mon+'"name="ma_mons" hidden> </td>'
+    +'<td> <button type="button" onclick="deleteMealFunction('
+    +mamon
+    +tm
+    +')" >Del</button> </td>'
     + ' </tr>';
     document.getElementById("addMeal"+tenmon).disabled= true;
     document.getElementById('bang_hoa_don').insertAdjacentHTML('afterend', html);
     
+}
+
+function deleteMealFunction(idMeal, tenmon) {
+    var element = document.getElementById("idMeal"+idMeal);
+    element.parentNode.removeChild(element);
+    document.getElementById("addMeal"+tenmon).disabled= false;
 }
 function deletebill(){
     var result=confirm("Are you sure?");

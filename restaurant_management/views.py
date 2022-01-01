@@ -47,13 +47,19 @@ def signout(request):
 def home(request):
     bans = models.Ban.objects.all()
     menu = models.Menu.objects.all()
-    mon_ans = models.MonAn.objects.all()
+    menu1 = models.MonAn.objects.filter(ma_menu='MN1')
+    menu2 = models.MonAn.objects.filter(ma_menu='MN2')
+    menu3 = models.MonAn.objects.filter(ma_menu='MN3')
+    menu4 = models.MonAn.objects.filter(ma_menu='MN4')
     now = timezone.now()
     events = models.SuKien.objects.filter(ngay_bd__lte= now, ngay_kt__gte = now)
     context = {
         'bans': bans,
         'menu': menu,
-        'mon_ans': mon_ans,
+        'menu1': menu1,
+        'menu2': menu2,
+        'menu3': menu3,
+        'menu4': menu4,
         'events': events,
     }
     if "choose_ban" in request.POST :
@@ -156,12 +162,14 @@ def home(request):
         so_ban= request.POST.get("search_infor_kh")
         ttkh= request.POST.get("thong_tin_khach_hang")
         if ttkh != "":
+            print("yes")
             ban = models.Ban.objects.get(so_ban = so_ban)
             hoadon=ban.ma_hoa_don
             ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
             hoadon.ma_khach_hang= ma_khach_hang
             hoadon.save()
         else :
+            print("no")
             ban = models.Ban.objects.get(so_ban = so_ban)
             hoadon=ban.ma_hoa_don
             hoadon.ma_khach_hang= None
@@ -181,9 +189,10 @@ def home(request):
             thethanhvien.save()
             
     if "remove_hoa_don" in request.POST :
-        so_ban = request.POST.get("remove_hoa_don")
-        ban = models.Ban.objects.get(so_ban = so_ban)
-        hoadon = ban.ma_hoa_don
+        ma_hoa_don = request.POST.get("remove_hoa_don")
+        hoadon= models.HoaDon.objects.get(ma_hoa_don=ma_hoa_don)
+        so_ban = hoadon.so_ban
+        ban=models.Ban.objects.get(so_ban=so_ban)
         if hoadon is not None:
             ma_hoa_don = hoadon.ma_hoa_don
             models.DatMon.objects.filter(ma_hoa_don = ma_hoa_don).delete()
@@ -194,10 +203,11 @@ def home(request):
         
 
     #Khi click thanh toán thì xóa hóa đơn khỏi bàn trả về bàn chưa có hóa đơn     
-    if "pay" in request.POST :
-        so_ban = request.POST.get("pay")
-        ban = models.Ban.objects.get(so_ban = so_ban)
-        hoadon = ban.ma_hoa_don
+    if "pay_hoa_don" in request.POST :
+        ma_hoa_don = request.POST.get("pay_hoa_don")
+        hoadon= models.HoaDon.objects.get(ma_hoa_don=ma_hoa_don)
+        so_ban = hoadon.so_ban
+        ban=models.Ban.objects.get(so_ban=so_ban)
         if hoadon is not None:
             ma_hoa_don = hoadon.ma_hoa_don
             ban.ma_hoa_don = None
@@ -207,6 +217,7 @@ def home(request):
                 if hoadon.ma_khach_hang is not None:               
                     thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
                     thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy + hoadon.don_gia * 0.1
+                    thethanhvien.tong_tien= thethanhvien.tong_tien+ hoadon.don_gia
                     thethanhvien.save()
             except:
                 print("bàn này ko có mã")
@@ -268,10 +279,16 @@ def booking (request):
 @login_required(login_url='/')
 def takeAway(request):
     menu = models.Menu.objects.all()
-    mon_ans = models.MonAn.objects.all()
+    menu1 = models.MonAn.objects.filter(ma_menu='MN1')
+    menu2 = models.MonAn.objects.filter(ma_menu='MN2')
+    menu3 = models.MonAn.objects.filter(ma_menu='MN3')
+    menu4 = models.MonAn.objects.filter(ma_menu='MN4')
     context = {
         'menu': menu,
-        'mon_ans': mon_ans,
+        'menu1': menu1,
+        'menu2': menu2,
+        'menu3': menu3,
+        'menu4': menu4,
     }
     # Tương ứng bên giao diện là lưu hóa đơn, khi click thì tạo hóa đơn và lưu, mặc định số bàn là 8
     if "add_hoa_don" in request.POST :    
@@ -395,6 +412,7 @@ def takeAway(request):
                 if hoadon.ma_khach_hang is not None:               
                     thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
                     thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy + hoadon.don_gia * 0.1
+                    thethanhvien.tong_tien= thethanhvien.tong_tien+ hoadon.don_gia
                     thethanhvien.save()
             except:
                 print("bàn này ko có mã")

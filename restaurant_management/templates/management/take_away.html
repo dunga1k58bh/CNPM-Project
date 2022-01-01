@@ -9,54 +9,183 @@
 <div class="container">
         <!-- Phần này cho danh sách bàn và menu -->
         <div id="container_1">
-            <h3> Menu </h3>
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Menu</button>
+            </div>
+          </nav>
                     <!-- Content cho danh sách thực đơn -->
-                    <table class="table" >
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Tên</th>
-                          <th scope="col">Đơn vị</th>
-                          <th scope="col">Giá</th>
-                          <th scope="col">#</th>
-                        </tr>
-                      </thead>
-                  </table>
-                      <div style="height: 550px; overflow:auto;">
-                        <table class="table">
-                          <tbody>
-                          {% for mon in mon_ans %}
-                          <tr>
-        
-                              <td></td>
-                              <td>{{mon.ten_mon}}</td>
-                              <td>{{mon.don_vi}}</td>
-                              <td>{{mon.gia}}</td>
-                              <td>
-                                
-                                  <button id="addMeal{{mon.ten_mon}}" onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
-                                
-                              </td>
-                            </tr>      
-                          {% endfor %}
-                          </tbody>
-                        </table>
-                      </div>
+                    <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                      <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                          <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-menu1" type="button" role="tab" aria-controls="nav-menu1" aria-selected="true">Menu 1</button>
+                          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-menu2" type="button" role="tab" aria-controls="nav-menu2" aria-selected="false">Menu 2</button>
+                          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-menu3" type="button" role="tab" aria-controls="nav-menu3" aria-selected="false">Menu 3</button>
+                          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-menu4" type="button" role="tab" aria-controls="nav-menu4" aria-selected="false">Menu 4</button>
+                        </div>
+                      </nav>
+                      <div class="tab-content" id="nav-tabMenuContent">
+                        <div class="tab-pane fade show active" id="nav-menu1" role="tabpanel" aria-labelledby="nav-menu1-tab">
+
+                            <table class="table" >
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Tên</th>
+                                    <th scope="col">Đơn vị</th>
+                                    <th scope="col">Giá</th>
+                                    <th scope="col">#</th>
+                                  </tr>
+                                </thead>
+                            </table>
+                                <div style="height: 550px; overflow:auto;">
+                                  <table class="table">
+                                    <tbody>
+                                    {% for mon in menu1 %}
+                                    <tr>
+                  
+                                        <td></td>
+                                        <td>{{mon.ten_mon}}</td>
+                                        <td>{{mon.don_vi}}</td>
+                                        <td>{{mon.gia}}</td>
+                                        <td>
+                                          
+                                            <button id="addMeal{{mon.ten_mon}}" onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
+                                          
+                                        </td>
+                                      </tr>      
+                                    {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                        </div>
+                              <div class="tab-pane fade" id="nav-menu2" role="tabpanel" aria-labelledby="nav-menu2-tab">
+
+                                <table class="table" >
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Tên</th>
+                                        <th scope="col">Đơn vị</th>
+                                        <th scope="col">Giá</th>
+                                        <th scope="col">#</th>
+                                      </tr>
+                                    </thead>
+                                </table>
+                                    <div style="height: 550px; overflow:auto;">
+                                      <table class="table">
+                                        <tbody>
+                                        {% for mon in menu2 %}
+                                        <tr>
+                      
+                                            <td></td>
+                                            <td>{{mon.ten_mon}}</td>
+                                            <td>{{mon.don_vi}}</td>
+                                            <td>{{mon.gia}}</td>
+                                            <td>
+                                              
+                                                <button id="addMeal{{mon.ten_mon}}" onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
+                                              
+                                            </td>
+                                          </tr>      
+                                        {% endfor %}
+                                        </tbody>
+                                      </table>
+                                    </div>
+                              </div>
+                              <div class="tab-pane fade" id="nav-menu3" role="tabpanel" aria-labelledby="nav-menu3-tab">
+
+                                <table class="table" >
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Tên</th>
+                                        <th scope="col">Đơn vị</th>
+                                        <th scope="col">Giá</th>
+                                        <th scope="col">#</th>
+                                      </tr>
+                                    </thead>
+                                </table>
+                                    <div style="height: 550px; overflow:auto;">
+                                      <table class="table">
+                                        <tbody>
+                                        {% for mon in menu3 %}
+                                        <tr>
+                      
+                                            <td></td>
+                                            <td>{{mon.ten_mon}}</td>
+                                            <td>{{mon.don_vi}}</td>
+                                            <td>{{mon.gia}}</td>
+                                            <td>
+                                              
+                                                <button id="addMeal{{mon.ten_mon}}" onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
+                                              
+                                            </td>
+                                          </tr>      
+                                        {% endfor %}
+                                        </tbody>
+                                      </table>
+                                    </div>
+                              </div>
+                              <div class="tab-pane fade" id="nav-menu4" role="tabpanel" aria-labelledby="nav-menu4-tab">
+
+                                <table class="table" >
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Tên</th>
+                                        <th scope="col">Đơn vị</th>
+                                        <th scope="col">Giá</th>
+                                        <th scope="col">#</th>
+                                      </tr>
+                                    </thead>
+                                </table>
+                                    <div style="height: 550px; overflow:auto;">
+                                      <table class="table">
+                                        <tbody>
+                                        {% for mon in menu4 %}
+                                        <tr>
+                      
+                                            <td></td>
+                                            <td>{{mon.ten_mon}}</td>
+                                            <td>{{mon.don_vi}}</td>
+                                            <td>{{mon.gia}}</td>
+                                            <td>
+                                              
+                                                <button id="addMeal{{mon.ten_mon}}" onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
+                                              
+                                            </td>
+                                          </tr>      
+                                        {% endfor %}
+                                        </tbody>
+                                      </table>
+                              </div>
+                          </div>
+                         {% comment %} </form>  {% endcomment %}
+                    </div>
+                    </div>
+                  </div>
 
         </div>
         <!-- Phần này cho Hóa đơn -->
         <div id="container_2">
-            <h1>Hóa đơn</h1>
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Hóa đơn</button>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
             <p>Mã hóa đơn : {{mahoadon}}</p>
 
-            <form action="" method="post">
+            <form name="take_awayForm" action="" method="post">
               <p>Thông tin khách hàng:<input  name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}">
-                <button type="submit" value='{{mahoadon}}' name="search_infor_kh">Search</button>
+                <button type="submit" value='{{mahoadon}}' name="search_infor_kh" id= "search">Search</button>
               </p>
               <p>Họ tên của khách hàng:{{hotenkhachhang}}</p>
               <p>Tiền tích lũy của khách hàng:{{tientichluy}}</p>
               <p>Tiêu tích lũy:<input  name="so_diem_tieu" type="text " value="0">
-              <button type="submit" value='{{mahoadon}}' name="tieu_tich_luy">Use</button>
+              <button type="submit" value='{{mahoadon}}' name="tieu_tich_luy" id= "use">Use</button>
               </p>
                 {% csrf_token %}
                 <table class="table">
@@ -92,11 +221,25 @@
                 </table>
                 <p style="float:right"> Tổng tiền: {{tongtien}}   </p>
                 <button type="submit" value='{{mahoadon}}' name="add_hoa_don">Lưu hóa đơn</button>
-                <button type="submit" value='{{mahoadon}}' name="remove_hoa_don">Xóa hóa đơn</button>
-                <button type="submit" value='{{mahoadon}}' name="pay">Thanh toán</button>               
+                <button type="submit" value='{{mahoadon}}' name="remove_hoa_don" id="xoahoadon">Xóa hóa đơn</button>
+                <button type="submit" value='{{mahoadon}}' name="pay" id="thanhtoan">Thanh toán</button>               
             </form>
 
+        
+        
+          </div>
         </div>
   </div>
-
+  <script>
+    var mahoadon= document.take_awayForm.remove_hoa_don.value;
+    var ttkh= document.take_awayForm.thong_tin_khach_hang.value;
+    if(mahoadon== null || mahoadon ==""){
+      document.getElementById("xoahoadon").disabled= true;
+      document.getElementById("thanhtoan").disabled= true;
+      document.getElementById("search").disabled= true;
+    }
+    if(ttkh==null || ttkh==""){
+      document.getElementById("use").disabled= true;
+    }
+  </script>
 {% endblock %}

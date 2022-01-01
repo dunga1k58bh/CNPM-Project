@@ -7,9 +7,9 @@
 {% bootstrap_javascript %}
 
 <div class="container">
-    <div class="row">
+    {% comment %} <div class="row"> {% endcomment %}
         <!-- Phần này cho danh sách bàn và menu -->
-        <div class="col-sm">
+        <div id="container_1">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                   <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Danh Sách Bàn</button>
@@ -35,10 +35,13 @@
 
         </div>
         <!-- Phần này cho Hóa đơn -->
-        <div class="col-sm">
-            <h1>Hóa đơn</h1>
-            <p>Mã hóa đơn : {{hoadon.ma_hoa_don}}</p>
-            <form action="" method="post">
+        <div id="container_2">
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Lịch đặt</button>
+            </div>
+          </nav>
+            <form name="bookingForm" action="" method="post" onsubmit="return validateform()">
                 Số bàn : {{so_ban}}
                 {% csrf_token %}
                 <table class="table">
@@ -66,22 +69,46 @@
                     </tr>   
                     {% endfor %}       
                       <!-- if else -->
-                     <tr >
-                        <th scope="row"></th>
-                        <td class="ho_ten"><input name="ho_ten" type="text"  /></td>
+                     {% comment %} <tr >
+                        <th scope="row"></th> {% endcomment %}
+                        {% comment %} <td class="ho_ten"><input name="ho_ten" type="text"  /></td>
                         <td class="sdt"><input name="sdt" type="text"  /></td>
                         <td class="so_ban">{{so_ban}}</td>
-                        <td class="thoi_gian"><input name="thoi_gian" type="text"  /> </td>
-                        <th></th>
-                    </tr> 
+                        <td class="thoi_gian"><input name="thoi_gian" type="text"  /> </td> {% endcomment %}
+                        {% comment %} <th></th>
+                    </tr>  {% endcomment %}
+                    <div class="ho_ten">Họ tên: <input name="ho_ten" type="text"  /></div>
+                    <div class="sdt">Số điện thoại: <input name="sdt" type="text"  /></div>
+                    <div class="thoi_gian">Thời gian: <input type="datetime-local" name="thoi_gian"></div>
                     </tbody>
                 </table>
-                <button type="submit" value='{{so_ban}}' name="booking_table">Đặt bàn</button>
+                <button type="submit" value='{{so_ban}}' name="booking_table" id="dat__ban">Đặt bàn</button>
                 
             </form>  
         </div>
 
-    </div>
+    {% comment %} </div> {% endcomment %}
   </div>
+  <script>
+    var soban= document.bookingForm.booking_table.value;
+    if(soban== null || soban ==""){
+      document.getElementById("dat__ban").disabled= true;
+    }
 
+    function validateform() {
+    var name = document.bookingForm.ho_ten.value;
+    var sdt = document.bookingForm.sdt.value;
+    var thoigian = document.bookingForm.thoi_gian.value
+    if (name == null || name == "") {
+    alert("Họ tên không được để trống!");
+    return false;
+    } else if (sdt== null || sdt=="") {
+    alert("Số điện thoại không được để trống!");
+    return false;
+    } else if (thoigian== null || thoigian=="") {
+    alert("Thời gian không được để trống!");
+    return false;
+    }
+    }
+  </script>
 {% endblock %}
