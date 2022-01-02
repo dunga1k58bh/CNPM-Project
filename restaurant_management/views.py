@@ -17,7 +17,7 @@ from django.utils.safestring import mark_safe
 from django.db.models.aggregates import Min
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-
+from .filter import TTVfilter
 # Create your views here.
 def signin(request):
     if request.method == 'POST':
@@ -481,17 +481,23 @@ def vipMember(request):
             KH = models.KhachHang.objects.create(ma_khach_hang = ma_khach_hang, ten_khach_hang = ten_khach_hang, so_dien_thoai = so_dien_thoai)  
             models.TheThanhVien.objects.create(ma_the = ma_the, ma_khach_hang = KH, tien_tich_luy = 0, hang = 'Đồng')
         except:
-            print('Không được')
+            #html = '<script>alert("Không thành công")</script>'
+            #messages.error(request, 'Không thành công')
+            return redirect('/vip_member/')
     if 'DelKH' in request.POST:
         ma_the = request.POST.get('DelKH')
         the = models.TheThanhVien.objects.get(ma_the = ma_the)
         the.delete = 'yes'
         the.save()
     menus = models.Menu.objects.all()
+    
     thethanhviens = models.TheThanhVien.objects.filter(delete__isnull = True)
+    myFilter = TTVfilter(request.GET, queryset=thethanhviens)
+    thethanhviens = myFilter.qs
     context = {
         'menu' : menus,
         'thethanhviens' : thethanhviens,
+        'myFilter' : myFilter,
         # 'khachhangs' : khachhangs,
         # 'KH_Hang' : KH_Hang
     }

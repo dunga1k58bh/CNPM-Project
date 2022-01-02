@@ -128,6 +128,7 @@ class TheThanhVien(models.Model):
     tien_tich_luy = models.IntegerField(db_column='TIEN_TICH_LUY')  # Field name made lowercase.
     hang = models.CharField(db_column='HANG', max_length=50)  # Field name made lowercase.
     delete = models.CharField(db_column='DELETE', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    tong_tien = models.IntegerField(db_column='TONG_TIEN', blank=True, null=True)  # Field name made lowercase.
     class Meta:
         managed = False
         db_table = 'THE_THANH_VIEN'
