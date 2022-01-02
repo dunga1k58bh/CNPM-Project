@@ -18,11 +18,11 @@
               <div class="tab-content" id="nav-tabContent">
                     <!-- Content Danh sách bàn -->
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                        <div class="btn_matrix" role="group" aria-label="Three Column Button Matrix">
+                        <div style="height: 630px; overflow:auto;" class="btn_matrix" role="group" aria-label="Three Column Button Matrix">
                             <form action="" method="post">
                             {% for ban in bans %}
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-outline-primary btn_ban" value='{{ban.so_ban}}' name = "choose_ban">
+                                    <button style="margin:5px" type="submit" class="btn btn-outline-primary btn_ban" value='{{ban.so_ban}}' name = "choose_ban">
                                         Bàn số    : {{ban.so_ban}} <br>
                                         Trạng thái: {{ban.trang_thai}}
                                     </button>
@@ -48,25 +48,25 @@
                             <table class="table" >
                                 <thead>
                                   <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Tên</th>
-                                    <th scope="col">Đơn vị</th>
-                                    <th scope="col">Giá</th>
-                                    <th scope="col">#</th>
+                                    <th scope="col" style="width :10%">Mã</th>
+                                    <th scope="col"style="width :40%">Tên</th>
+                                    <th scope="col"style="width :20%">Đơn vị</th>
+                                    <th scope="col"style="width :20%">Giá</th>
+                                    <th scope="col"style="width :10%">Chọn</th>
                                   </tr>
                                 </thead>
                             </table>
-                                <div style="height: 550px; overflow:auto;">
+                                <div style="height: 510px; overflow:auto;">
                                   <table class="table">
                                     <tbody>
                                     {% for mon in menu1 %}
                                     <tr>
                   
-                                        <td></td>
-                                        <td>{{mon.ten_mon}}</td>
-                                        <td>{{mon.don_vi}}</td>
-                                        <td>{{mon.gia}}</td>
-                                        <td>
+                                        <td style="width :10%">{{mon.ma_mon}}</td>
+                                        <td style="width :40%">{{mon.ten_mon}}</td>
+                                        <td style="width :20%">{{mon.don_vi}}</td>
+                                        <td style="width :20%">{{mon.gia}}</td>
+                                        <td style="width :10%">
                                           
                                             <button id="addMeal{{mon.ten_mon}}" onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
                                           
@@ -83,25 +83,25 @@
                                 <table class="table" >
                                     <thead>
                                       <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Tên</th>
-                                        <th scope="col">Đơn vị</th>
-                                        <th scope="col">Giá</th>
-                                        <th scope="col">#</th>
+                                        <th scope="col" style="width :10%">Mã</th>
+                                        <th scope="col"style="width :40%">Tên</th>
+                                        <th scope="col"style="width :20%">Đơn vị</th>
+                                        <th scope="col"style="width :20%">Giá</th>
+                                        <th scope="col"style="width :10%">Chọn</th>
                                       </tr>
                                     </thead>
                                 </table>
-                                    <div style="height: 550px; overflow:auto;">
+                                    <div style="height: 510px; overflow:auto;">
                                       <table class="table">
                                         <tbody>
                                         {% for mon in menu2 %}
                                         <tr>
                       
-                                            <td></td>
-                                            <td>{{mon.ten_mon}}</td>
-                                            <td>{{mon.don_vi}}</td>
-                                            <td>{{mon.gia}}</td>
-                                            <td>
+                                          <td style="width :10%">{{mon.ma_mon}}</td>
+                                          <td style="width :40%">{{mon.ten_mon}}</td>
+                                          <td style="width :20%">{{mon.don_vi}}</td>
+                                          <td style="width :20%">{{mon.gia}}</td>
+                                          <td style="width :10%">
                                               
                                                 <button id="addMeal{{mon.ten_mon}}" onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
                                               
@@ -118,25 +118,25 @@
                                 <table class="table" >
                                     <thead>
                                       <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Tên</th>
-                                        <th scope="col">Đơn vị</th>
-                                        <th scope="col">Giá</th>
-                                        <th scope="col">#</th>
+                                        <th scope="col" style="width :10%">Mã</th>
+                                        <th scope="col"style="width :40%">Tên</th>
+                                        <th scope="col"style="width :20%">Đơn vị</th>
+                                        <th scope="col"style="width :20%">Giá</th>
+                                        <th scope="col"style="width :10%">Chọn</th>
                                       </tr>
                                     </thead>
                                 </table>
-                                    <div style="height: 550px; overflow:auto;">
+                                    <div style="height: 510px; overflow:auto;">
                                       <table class="table">
                                         <tbody>
                                         {% for mon in menu3 %}
                                         <tr>
                       
-                                            <td></td>
-                                            <td>{{mon.ten_mon}}</td>
-                                            <td>{{mon.don_vi}}</td>
-                                            <td>{{mon.gia}}</td>
-                                            <td>
+                                          <td style="width :10%">{{mon.ma_mon}}</td>
+                                          <td style="width :40%">{{mon.ten_mon}}</td>
+                                          <td style="width :20%">{{mon.don_vi}}</td>
+                                          <td style="width :20%">{{mon.gia}}</td>
+                                          <td style="width :10%">
                                               
                                                 <button id="addMeal{{mon.ten_mon}}" onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
                                               
@@ -153,25 +153,25 @@
                                 <table class="table" >
                                     <thead>
                                       <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Tên</th>
-                                        <th scope="col">Đơn vị</th>
-                                        <th scope="col">Giá</th>
-                                        <th scope="col">#</th>
+                                        <th scope="col" style="width :10%">Mã</th>
+                                        <th scope="col"style="width :40%">Tên</th>
+                                        <th scope="col"style="width :20%">Đơn vị</th>
+                                        <th scope="col"style="width :20%">Giá</th>
+                                        <th scope="col"style="width :10%">Chọn</th>
                                       </tr>
                                     </thead>
                                 </table>
-                                    <div style="height: 550px; overflow:auto;">
+                                    <div style="height: 510px; overflow:auto;">
                                       <table class="table">
                                         <tbody>
                                         {% for mon in menu4 %}
                                         <tr>
                       
-                                            <td></td>
-                                            <td>{{mon.ten_mon}}</td>
-                                            <td>{{mon.don_vi}}</td>
-                                            <td>{{mon.gia}}</td>
-                                            <td>
+                                          <td style="width :10%">{{mon.ma_mon}}</td>
+                                          <td style="width :40%">{{mon.ten_mon}}</td>
+                                          <td style="width :20%">{{mon.don_vi}}</td>
+                                          <td style="width :20%">{{mon.gia}}</td>
+                                          <td style="width :10%">
                                               
                                                 <button id="addMeal{{mon.ten_mon}}" onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
                                               
@@ -201,39 +201,48 @@
             
             
               <form name="homeForm" action="" method="post">
-                  <p>Số bàn : {{so_ban}} </p>
-                  <p>Mã hóa đơn : {{hoadon.ma_hoa_don}}</p>
-                  <p>Thông tin khách hàng:<input  name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}">
-                    <button type="submit" value='{{so_ban}}' name="search_infor_kh" id= "search">Search</button>
-                  </p>
-                  <p>Họ tên của khách hàng:{{hotenkhachhang}}</p>
-                  <p>Tiền tích lũy của khách hàng:{{tientichluy}}</p>
-                  <p>Tiêu tích lũy:<input  name="so_diem_tieu" type="text " value="0">
+                  <div class="row">
+                    <div class="col">
+                      <p>Số bàn : {{so_ban}} </p>
+                      <p > Số ĐT:<input style="width:120px" name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}">
+                        <button type="submit" value='{{so_ban}}' name="search_infor_kh" id= "search">Search</button> 
+                      </p>
+                      <p > Xu tích lũy:{{tientichluy}}</p>
+                      </div>
+                    <div class="col">
+                      <p>Mã hóa đơn : {{hoadon.ma_hoa_don}}</p>
+                      <p > Họ tên:{{hotenkhachhang}}</p>
+                      <p > Tiêu xu:<input style="width:120px" name="so_diem_tieu" type="text " value="0">
+                            <button type="submit" value='{{so_ban}}' name="tieu_tich_luy" id="use">Use</button>
+                      </p>
+                    </div>
+                  </div>
+  
+                  {% comment %} <p >Tiền tích lũy của khách hàng:{{tientichluy}}</p>
+                  <p >Tiêu tích lũy:<input  name="so_diem_tieu" type="text " value="0">
                   <button type="submit" value='{{so_ban}}' name="tieu_tich_luy" id="use">Use</button>
-                  </p>
+                  </p> {% endcomment %}
                   {% csrf_token %}
                   <table class="table">
                       <thead>
                         <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Tên</th>
-                          <th scope="col">Số lượng</th>
-                          <th scope="col"> Đơn Giá </th>
-                          <th scope="col">Thành tiền</th>
-                          <th scope="col">#</th>
+                          <th style="width :30%" scope="col">Tên</th>
+                          <th style="width :20%" scope="col">Số lượng</th>
+                          <th style="width :20%" scope="col"> Đơn Giá </th>
+                          <th style="width :20%" scope="col">Thành tiền</th>
+                          <th style="width :10%" scope="col"></th>
                         </tr>
                       </thead>
                   </table>    
-                  <div style="height: 150px; overflow:auto;">
+                  <div style="height: 275px; overflow:auto;">
                     <table class="table">
                       <tbody id="bang_hoa_don">
                       {% for dat_mon in dat_mons %}
                        <tr >
-                          <td></td>
-                          <td class="ten__mon">{{dat_mon.get_ten_mon}}</td>
-                          <td class="so__luong">{{dat_mon.so_luong}}</td>
-                          <td class="gia__mon">{{dat_mon.get_gia}}</td>
-                          <td class="thanh__tien"> {{dat_mon.thanh_tien}}</td>
+                          <td style="width :30%" class="ten__mon">{{dat_mon.get_ten_mon}}</td>
+                          <td style="width :20%" class="so__luong">{{dat_mon.so_luong}}</td>
+                          <td style="width :20%" class="gia__mon">{{dat_mon.get_gia}}</td>
+                          <td style="width :10%" class="thanh__tien"> {{dat_mon.thanh_tien}}</td>
                           <td></td>
                       </tr>  
                       {% endfor %}                      
@@ -341,5 +350,10 @@
     if(ttkh==null || ttkh==""){
       document.getElementById("use").disabled= true;
     }
+
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
+
   </script>
 {% endblock %}
