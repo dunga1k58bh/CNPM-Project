@@ -31,11 +31,9 @@ function deleteMealFunction(idMeal, tenmon) {
     element.parentNode.removeChild(element);
     document.getElementById("addMeal"+tenmon).disabled= false;
 }
-function deletebill(){
+function validateHomeForm(){
     var result=confirm("Are you sure?");
-    if(result== true){
-        remove_hoa_don = true;
-    }
+    return result ;
 }
 
  function menu_monan(ma_menu){

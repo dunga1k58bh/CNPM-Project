@@ -31,11 +31,11 @@
                             <table class="table" >
                                 <thead>
                                   <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Tên</th>
-                                    <th scope="col">Đơn vị</th>
-                                    <th scope="col">Giá</th>
-                                    <th scope="col">#</th>
+                                    <th scope="col" style="width :10%">Mã</th>
+                                    <th scope="col"style="width :40%">Tên</th>
+                                    <th scope="col"style="width :20%">Đơn vị</th>
+                                    <th scope="col"style="width :20%">Giá</th>
+                                    <th scope="col"style="width :10%">Chọn</th>
                                   </tr>
                                 </thead>
                             </table>
@@ -45,11 +45,11 @@
                                     {% for mon in menu1 %}
                                     <tr>
                   
-                                        <td></td>
-                                        <td>{{mon.ten_mon}}</td>
-                                        <td>{{mon.don_vi}}</td>
-                                        <td>{{mon.gia}}</td>
-                                        <td>
+                                      <td style="width :10%">{{mon.ma_mon}}</td>
+                                      <td style="width :40%">{{mon.ten_mon}}</td>
+                                      <td style="width :20%">{{mon.don_vi}}</td>
+                                      <td style="width :20%">{{mon.gia}}</td>
+                                      <td style="width :10%">
                                           
                                             <button id="addMeal{{mon.ten_mon}}" onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
                                           
@@ -65,11 +65,11 @@
                                 <table class="table" >
                                     <thead>
                                       <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Tên</th>
-                                        <th scope="col">Đơn vị</th>
-                                        <th scope="col">Giá</th>
-                                        <th scope="col">#</th>
+                                        <th scope="col" style="width :10%">Mã</th>
+                                        <th scope="col"style="width :40%">Tên</th>
+                                        <th scope="col"style="width :20%">Đơn vị</th>
+                                        <th scope="col"style="width :20%">Giá</th>
+                                        <th scope="col"style="width :10%">Chọn</th>
                                       </tr>
                                     </thead>
                                 </table>
@@ -79,11 +79,11 @@
                                         {% for mon in menu2 %}
                                         <tr>
                       
-                                            <td></td>
-                                            <td>{{mon.ten_mon}}</td>
-                                            <td>{{mon.don_vi}}</td>
-                                            <td>{{mon.gia}}</td>
-                                            <td>
+                                          <td style="width :10%">{{mon.ma_mon}}</td>
+                                          <td style="width :40%">{{mon.ten_mon}}</td>
+                                          <td style="width :20%">{{mon.don_vi}}</td>
+                                          <td style="width :20%">{{mon.gia}}</td>
+                                          <td style="width :10%">
                                               
                                                 <button id="addMeal{{mon.ten_mon}}" onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
                                               
@@ -99,11 +99,11 @@
                                 <table class="table" >
                                     <thead>
                                       <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Tên</th>
-                                        <th scope="col">Đơn vị</th>
-                                        <th scope="col">Giá</th>
-                                        <th scope="col">#</th>
+                                        <th scope="col" style="width :10%">Mã</th>
+                                        <th scope="col"style="width :40%">Tên</th>
+                                        <th scope="col"style="width :20%">Đơn vị</th>
+                                        <th scope="col"style="width :20%">Giá</th>
+                                        <th scope="col"style="width :10%">Chọn</th>
                                       </tr>
                                     </thead>
                                 </table>
@@ -113,11 +113,11 @@
                                         {% for mon in menu3 %}
                                         <tr>
                       
-                                            <td></td>
-                                            <td>{{mon.ten_mon}}</td>
-                                            <td>{{mon.don_vi}}</td>
-                                            <td>{{mon.gia}}</td>
-                                            <td>
+                                          <td style="width :10%">{{mon.ma_mon}}</td>
+                                          <td style="width :40%">{{mon.ten_mon}}</td>
+                                          <td style="width :20%">{{mon.don_vi}}</td>
+                                          <td style="width :20%">{{mon.gia}}</td>
+                                          <td style="width :10%">
                                               
                                                 <button id="addMeal{{mon.ten_mon}}" onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
                                               
@@ -133,11 +133,11 @@
                                 <table class="table" >
                                     <thead>
                                       <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Tên</th>
-                                        <th scope="col">Đơn vị</th>
-                                        <th scope="col">Giá</th>
-                                        <th scope="col">#</th>
+                                        <th scope="col" style="width :10%">Mã</th>
+                                        <th scope="col"style="width :40%">Tên</th>
+                                        <th scope="col"style="width :20%">Đơn vị</th>
+                                        <th scope="col"style="width :20%">Giá</th>
+                                        <th scope="col"style="width :10%">Chọn</th>
                                       </tr>
                                     </thead>
                                 </table>
@@ -147,11 +147,11 @@
                                         {% for mon in menu4 %}
                                         <tr>
                       
-                                            <td></td>
-                                            <td>{{mon.ten_mon}}</td>
-                                            <td>{{mon.don_vi}}</td>
-                                            <td>{{mon.gia}}</td>
-                                            <td>
+                                          <td style="width :10%">{{mon.ma_mon}}</td>
+                                          <td style="width :40%">{{mon.ten_mon}}</td>
+                                          <td style="width :20%">{{mon.don_vi}}</td>
+                                          <td style="width :20%">{{mon.gia}}</td>
+                                          <td style="width :10%">
                                               
                                                 <button id="addMeal{{mon.ten_mon}}" onclick="addMealFunction('{{mon.ma_mon}}', '{{mon.ten_mon}}', '{{mon.gia}}')" class= "add_mon" >Add</button>
                                               
@@ -178,25 +178,30 @@
           <div class="tab-content" id="nav-tabContent">
             <p>Mã hóa đơn : {{mahoadon}}</p>
 
-            <form name="take_awayForm" action="" method="post">
-              <p>Thông tin khách hàng:<input  name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}">
-                <button type="submit" value='{{mahoadon}}' name="search_infor_kh" id= "search">Search</button>
-              </p>
-              <p>Họ tên của khách hàng:{{hotenkhachhang}}</p>
-              <p>Tiền tích lũy của khách hàng:{{tientichluy}}</p>
-              <p>Tiêu tích lũy:<input  name="so_diem_tieu" type="text " value="0">
-              <button type="submit" value='{{mahoadon}}' name="tieu_tich_luy" id= "use">Use</button>
-              </p>
+            <form name="take_awayForm" action="" method="post" onsubmit=" return validateHomeForm()">
+              <div class="row">
+                <div class="col">
+                  <p > Số ĐT:<input style="width:120px" name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}">
+                    <button type="submit" value='{{so_ban}}' name="search_infor_kh" id= "search">Search</button> 
+                  </p>
+                  <p > Xu tích lũy:{{tientichluy}}</p>
+                  </div>
+                <div class="col">
+                  <p > Họ tên:     {{hotenkhachhang}}</p>
+                  <p > Tiêu xu:<input style="width:120px" name="so_diem_tieu" type="text" onkeypress="return isNumberKey(event)" onpaste ="false" >
+                        <button type="submit" value='{{so_ban}}' name="tieu_tich_luy" id="use">Use</button>
+                  </p>
+                </div>
+            </div>
                 {% csrf_token %}
                 <table class="table">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Tên</th>
-                        <th scope="col">Số lượng</th>
-                        <th scope="col"> Đơn Giá </th>
-                        <th scope="col">Thành tiền</th>
-                        <th scope="col">#</th>
+                        <th style="width :30%" scope="col">Tên</th>
+                        <th style="width :20%" scope="col">Số lượng</th>
+                        <th style="width :20%" scope="col"> Đơn Giá </th>
+                        <th style="width :20%" scope="col">Thành tiền</th>
+                        <th style="width :10%" scope="col"></th>
                       </tr>
                     </thead>
                 </table>
@@ -205,12 +210,11 @@
                     <tbody id="bang_hoa_don">  
                     {% for dat_mon in dat_mons %}
                      <tr >
-                        <th scope="row"></th>
-                        <td class="ten__mon">{{dat_mon.get_ten_mon}}</td>
-                        <td class="so__luong">{{dat_mon.so_luong}}</td>
-                        <td class="gia__mon"> {{dat_mon.get_gia}}</td>
-                        <td class="thanh__tien"> {{dat_mon.thanh_tien}}</td>
-                        <th></th>
+                      <td style="width :30%" class="ten__mon">{{dat_mon.get_ten_mon}}</td>
+                      <td style="width :20%" class="so__luong">{{dat_mon.so_luong}}</td>
+                      <td style="width :20%" class="gia__mon">{{dat_mon.get_gia}}</td>
+                      <td style="width :20%" class="thanh__tien"> {{dat_mon.thanh_tien}}</td>
+                      <td></td>
                       </tr>  
                     {% endfor %}                 
                       <!-- if else -->
@@ -240,6 +244,9 @@
     }
     if(ttkh==null || ttkh==""){
       document.getElementById("use").disabled= true;
+    }
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
     }
   </script>
 {% endblock %}

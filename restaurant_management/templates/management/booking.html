@@ -43,6 +43,16 @@
           </nav>
             <form name="bookingForm" action="" method="post" onsubmit="return validateform()">
                 Số bàn : {{so_ban}}
+                <div class="row">
+                  <div class="col">
+                    <div class="ho_ten">Họ tên: <input name="ho_ten" type="text"  required/></div>
+                    <div class="thoi_gian">Thời gian: <input style="width:200px" type="datetime-local" name="thoi_gian" required></div>
+                  </div>
+                  <div class="col">
+                    <div class="sdt">Số điện thoại: <input name="sdt" type="text"  required/></div>
+                    <button type="submit" value='{{so_ban}}' name="booking_table" id="dat__ban">Đặt bàn</button>
+                  </div>
+                </div>
                 {% csrf_token %}
                 <table class="table">
                     <thead>
@@ -77,12 +87,8 @@
                         <td class="thoi_gian"><input name="thoi_gian" type="text"  /> </td> {% endcomment %}
                         {% comment %} <th></th>
                     </tr>  {% endcomment %}
-                    <div class="ho_ten">Họ tên: <input name="ho_ten" type="text"  /></div>
-                    <div class="sdt">Số điện thoại: <input name="sdt" type="text"  /></div>
-                    <div class="thoi_gian">Thời gian: <input type="datetime-local" name="thoi_gian"></div>
                     </tbody>
                 </table>
-                <button type="submit" value='{{so_ban}}' name="booking_table" id="dat__ban">Đặt bàn</button>
                 
             </form>  
         </div>
@@ -93,22 +99,6 @@
     var soban= document.bookingForm.booking_table.value;
     if(soban== null || soban ==""){
       document.getElementById("dat__ban").disabled= true;
-    }
-
-    function validateform() {
-    var name = document.bookingForm.ho_ten.value;
-    var sdt = document.bookingForm.sdt.value;
-    var thoigian = document.bookingForm.thoi_gian.value
-    if (name == null || name == "") {
-    alert("Họ tên không được để trống!");
-    return false;
-    } else if (sdt== null || sdt=="") {
-    alert("Số điện thoại không được để trống!");
-    return false;
-    } else if (thoigian== null || thoigian=="") {
-    alert("Thời gian không được để trống!");
-    return false;
-    }
     }
   </script>
 {% endblock %}
