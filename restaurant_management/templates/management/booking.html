@@ -7,9 +7,9 @@
 {% bootstrap_javascript %}
 
 <div class="container">
-    <div class="row">
+    {% comment %} <div class="row"> {% endcomment %}
         <!-- Phần này cho danh sách bàn và menu -->
-        <div class="col-sm">
+        <div id="container_1">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                   <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Danh Sách Bàn</button>
@@ -35,11 +35,24 @@
 
         </div>
         <!-- Phần này cho Hóa đơn -->
-        <div class="col-sm">
-            <h1>Hóa đơn</h1>
-            <p>Mã hóa đơn : {{hoadon.ma_hoa_don}}</p>
-            <form action="" method="post">
+        <div id="container_2">
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Lịch đặt</button>
+            </div>
+          </nav>
+            <form name="bookingForm" action="" method="post" onsubmit="return validateform()">
                 Số bàn : {{so_ban}}
+                <div class="row">
+                  <div class="col">
+                    <div class="ho_ten">Họ tên: <input name="ho_ten" type="text"  required/></div>
+                    <div class="thoi_gian">Thời gian: <input style="width:200px" type="datetime-local" name="thoi_gian" required></div>
+                  </div>
+                  <div class="col">
+                    <div class="sdt">Số điện thoại: <input name="sdt" type="text"  required/></div>
+                    <button type="submit" value='{{so_ban}}' name="booking_table" id="dat__ban">Đặt bàn</button>
+                  </div>
+                </div>
                 {% csrf_token %}
                 <table class="table">
                     <thead>
@@ -66,22 +79,26 @@
                     </tr>   
                     {% endfor %}       
                       <!-- if else -->
-                     <tr >
-                        <th scope="row"></th>
-                        <td class="ho_ten"><input name="ho_ten" type="text"  /></td>
+                     {% comment %} <tr >
+                        <th scope="row"></th> {% endcomment %}
+                        {% comment %} <td class="ho_ten"><input name="ho_ten" type="text"  /></td>
                         <td class="sdt"><input name="sdt" type="text"  /></td>
                         <td class="so_ban">{{so_ban}}</td>
-                        <td class="thoi_gian"><input name="thoi_gian" type="text"  /> </td>
-                        <th></th>
-                    </tr> 
+                        <td class="thoi_gian"><input name="thoi_gian" type="text"  /> </td> {% endcomment %}
+                        {% comment %} <th></th>
+                    </tr>  {% endcomment %}
                     </tbody>
                 </table>
-                <button type="submit" value='{{so_ban}}' name="booking_table">Đặt bàn</button>
                 
             </form>  
         </div>
 
-    </div>
+    {% comment %} </div> {% endcomment %}
   </div>
-
+  <script>
+    var soban= document.bookingForm.booking_table.value;
+    if(soban== null || soban ==""){
+      document.getElementById("dat__ban").disabled= true;
+    }
+  </script>
 {% endblock %}

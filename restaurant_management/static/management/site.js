@@ -1,51 +1,39 @@
 
 function addMealFunction(ma_mon, tenmon, giamon) {
-    change= "'change" +tenmon + ma_mon+ "'" ;
-    tmmm = "change"+tenmon + ma_mon ;
-    
-        var html=' <tr class="'
+    mamon= "'"+ ma_mon +"'";
+    tm=",'"+ tenmon +"'";
+    idMealAdded= "idMeal"+ ma_mon;
+        var html=' <tr id="'
+    +idMealAdded
+    +'" class="'
     +ma_mon
-    +'">  <th scope="row">  </th>  <td class="ten__mon">' 
+    +'"> <td style="width :30%"  class="ten__mon">' 
     +tenmon
     +' </td>'  
-    +'<td class="so__luong"> <input onclick="delete_num('
-    +change
-    +')" type="button" value="-" />'
-    +'<input id="'
-    +tmmm
-    +'" name="so_luongs" type="text" value="1" />'
-    +'<input onclick="add_num('
-    +change
-    +')" type="button" value="+" /> </td>' 
-    +'<td class="gia__mon">'
+    +'<td style="width :20%" class="so__luong"> <input style="width: 100px" name="so_luongs" type="number" min="1" step="1" value="1" /> </td>' 
+    +'<td style="width :20%" class="gia__mon">'
     + giamon
     + '</td>'
-    +'<td class="thanh__tien"></td>'
-    +' <input type="text" value="'+ma_mon+'"name="ma_mons" hidden>'
+    +'<td style="width :20%" class="thanh__tien"></td>'
+    +'<td> <input type="text" value="'+ma_mon+'"name="ma_mons" hidden> </td>'
+    +'<td style="width :10%" > <button type="button" onclick="deleteMealFunction('
+    +mamon
+    +tm
+    +')" >Del</button> </td>'
     + ' </tr>';
     document.getElementById("addMeal"+tenmon).disabled= true;
     document.getElementById('bang_hoa_don').insertAdjacentHTML('afterend', html);
     
 }
-function deletebill(){
+
+function deleteMealFunction(idMeal, tenmon) {
+    var element = document.getElementById("idMeal"+idMeal);
+    element.parentNode.removeChild(element);
+    document.getElementById("addMeal"+tenmon).disabled= false;
+}
+function validateHomeForm(){
     var result=confirm("Are you sure?");
-    if(result== true){
-        remove_hoa_don = true;
-    }
-}
-
-function add_num(id){
-    var result = document.getElementById(id); 
-    var qty = result.value; 
-    if( !isNaN(qty)) result.value++;
-    return false;
-}
-
-function delete_num(id){
-    var result = document.getElementById(id);
-    var qty = result.value; 
-    if( !isNaN(qty) && qty > 1 ) result.value--;
-    return false;
+    return result ;
 }
 
  function menu_monan(ma_menu){
