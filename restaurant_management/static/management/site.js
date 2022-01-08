@@ -36,7 +36,7 @@ function validateHomeForm(){
     return result ;
 }
 
- function menu_monan(ma_menu){
+function menu_monan(ma_menu){
     var x = document.getElementsByClassName("menu_1");
     var y = document.getElementsByClassName("menu_2");
     var z = document.getElementsByClassName("menu_3");
@@ -82,4 +82,51 @@ function set_emp(){
 function set_menu(){
     document.getElementsByClassName("emp")[0].style.display='none'
     document.getElementsByClassName("setting_menu")[0].style.display='contents'
+}
+
+function add_db(){
+    document.getElementById("add_db_popup").style.display='block';
+}
+function close_add_popup(){
+    document.getElementById("add_db_popup").style.display='none';
+}
+function db_mn1(){
+    var x = document.getElementsByClassName("dbmenu_1");
+    var y = document.getElementsByClassName("dbmenu_2");
+    var z = document.getElementsByClassName("dbmenu_3");
+    var t = document.getElementsByClassName("dbmenu_4");
+    for (i = 0; i < x.length; i++) x[i].style.display = 'table-row';
+    for (i = 0; i < y.length; i++) y[i].style.display = 'none';
+    for (i = 0; i < z.length; i++) z[i].style.display = 'none';
+    for (i = 0; i < t.length; i++) t[i].style.display = 'none';
+}
+function db_mn2(){
+    var x = document.getElementsByClassName("dbmenu_1");
+    var y = document.getElementsByClassName("dbmenu_2");
+    var z = document.getElementsByClassName("dbmenu_3");
+    var t = document.getElementsByClassName("dbmenu_4");
+    for (i = 0; i < x.length; i++) x[i].style.display = 'none';
+    for (i = 0; i < y.length; i++) y[i].style.display = 'table-row';
+    for (i = 0; i < z.length; i++) z[i].style.display = 'none';
+    for (i = 0; i < t.length; i++) t[i].style.display = 'none';
+}
+function db_mn3(){
+    var x = document.getElementsByClassName("dbmenu_1");
+    var y = document.getElementsByClassName("dbmenu_2");
+    var z = document.getElementsByClassName("dbmenu_3");
+    var t = document.getElementsByClassName("dbmenu_4");
+    for (i = 0; i < x.length; i++) x[i].style.display = 'none';
+    for (i = 0; i < y.length; i++) y[i].style.display = 'none';
+    for (i = 0; i < z.length; i++) z[i].style.display = 'table-row';
+    for (i = 0; i < t.length; i++) t[i].style.display = 'none';
+}
+function db_mn4(){
+    var x = document.getElementsByClassName("dbmenu_1");
+    var y = document.getElementsByClassName("dbmenu_2");
+    var z = document.getElementsByClassName("dbmenu_3");
+    var t = document.getElementsByClassName("dbmenu_4");
+    for (i = 0; i < x.length; i++) x[i].style.display = 'none';
+    for (i = 0; i < y.length; i++) y[i].style.display = 'none';
+    for (i = 0; i < z.length; i++) z[i].style.display = 'none';
+    for (i = 0; i < t.length; i++) t[i].style.display = 'table-row';
 }
