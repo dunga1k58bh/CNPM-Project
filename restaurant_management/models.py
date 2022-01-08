@@ -5,7 +5,7 @@ class Ban(models.Model):
     so_cho_ngoi = models.IntegerField(db_column='SO_CHO_NGOI', blank=True, null=True)  # Field name made lowercase.
     trang_thai = models.CharField(db_column='TRANG_THAI', max_length=50)  # Field name made lowercase.        
     ma_hoa_don = models.ForeignKey('HoaDon', models.DO_NOTHING, db_column='MA_HOA_DON', blank=True, null=True)  # Field name made lowercase.
-
+    delete = models.CharField(db_column='DELETE', max_length=10, blank=True, null=True)  # Field name made lowercase.
     class Meta:
         managed = False
         db_table = 'BAN'
@@ -87,7 +87,9 @@ class MonAn(models.Model):
     don_vi = models.CharField(db_column='DON_VI', max_length=50)  # Field name made lowercase.
     gia = models.IntegerField(db_column='GIA')  # Field name made lowercase.
     ma_menu = models.ForeignKey(Menu, models.DO_NOTHING, db_column='MA_MENU')  # Field name made lowercase.   
-
+    dac_biet = models.CharField(db_column='DAC_BIET', max_length=10)  # Field name made lowercase.
+    delete = models.CharField(db_column='DELETE', max_length=10)  # Field name made lowercase.
+    
     class Meta:
         managed = False
         db_table = 'MON_AN'
