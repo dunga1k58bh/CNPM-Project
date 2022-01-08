@@ -71,17 +71,25 @@
               <td>{{nhanvien.chuc_vu}}</td>
               <td>
                 
-                  <button >Edit</button>
+                  <!-- <button >Edit</button> -->
                 
               </td>
             </tr>      
           {% endfor %}
       </tbody>
-  </table>
+    </table>
   </div>
 </div>
+
 <div class= "setting_menu" style="display:contents;">
   <div class="col-sm-4">
+    <form style="background-color:rgba(206, 206, 206, 0.9); color:#030b53" action="" method="post">
+      {% csrf_token %}
+      <label for="quantity">  Cài đặt số lượng bàn:</label>
+      <input type="number" id="quantity" name="quantity" value="{{soluong_ban}}" min="1" max="30">
+      <button type="submit" name="save_ban"onclick="return confirm('Bạn có chắc chắn muốn sửa menu?')">Save</button>
+    </form>
+    
     <table class="table" style="background-color:rgba(206, 206, 206, 0.9); color:#030b53">
       <thead>
         <tr>
@@ -106,16 +114,41 @@
           {% endfor %}
       </tbody>
   </table>
-  <!-- <form style="margin-left: 10px;color:rgb(255, 255, 255)">
-    <label for="quantity">  Cài đặt số lượng bàn:</label>
-    <input type="number" id="quantity" name="quantity" value="{{soluong_ban}}" min="1" max="100">
-    <button onclick="set_ban()">Save</button>
-  </form> -->
+  <div>
+    
+    <table class="table" style="background-color:rgba(206, 206, 206, 0.9); color:#030b53">
+      <thead>
+        <tr>
+          <th colspan="5" scope="colgroup" style="text-align: center;">Menu Đặc Biệt</th>
+        </tr>
+      </thead>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Tên Món</th>
+          <th scope="col">Giá</th>
+          <th scope="col">Đơn vị</th>
+          <th scope="col"><button style="width: 65px;" onclick="add_db()">Edit</button></th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for monan in mondacbiet %}
+            <tr>
+              <th scope="row"></th>
+              <td>{{monan.ten_mon}}</td>
+              <td>{{monan.gia}}</td>
+              <td>{{monan.don_vi}}</td>
+              <td></td>
+            </tr>      
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
   </div>
   <div class="col-sm-6">
     <form action="" method="post">
       {% csrf_token %}
-    <table class="table" id="table_mon" style="background-color:rgba(206, 206, 206, 0.9); color:#030b53">
+    <table class="table" id="table_mon" style="background-color:rgba(206, 206, 206, 0.9); color:#030b53 ; margin-top: 30px;">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -142,7 +175,7 @@
                 <td><input style="width: 100px" type="number" min="0" step = "1000" name="giamonsua" value={{monan.gia}}></td>
                 <td>{{monan.don_vi}}</td>
                 <input type="text" value={{monan.ma_mon}} name="ma_monss" hidden>
-                <td></td>
+                <td><button type="submit" name="xoa_mon" value= {{monan.ma_mon}} onclick="return confirm('Bạn có chắc chắn muốn sửa menu?')">Delete</button></td>
               </tr>   
               {% elif monan.ma_menu.ma_menu ==  "MN2" %}
               <tr class="menu_2" style="display: none;">
@@ -151,7 +184,7 @@
                 <td><input style="width: 100px" type="number" min="0" step = "1000" name="giamonsua" value={{monan.gia}}></td>
                 <td>{{monan.don_vi}}</td>
                 <input type="text" value={{monan.ma_mon}} name="ma_monss" hidden>
-                <td></td>
+                <td><button type="submit" name="xoa_mon" value= {{monan.ma_mon}} onclick="return confirm('Bạn có chắc chắn muốn sửa menu?')">Delete</button></td>
               </tr>  
               {% elif monan.ma_menu.ma_menu ==  "MN3" %}
               <tr class="menu_3" style="display: none;">
@@ -160,7 +193,7 @@
                 <td><input style="width: 100px" type="number" min="0" step = "1000" name="giamonsua" value={{monan.gia}}></td>
                 <td>{{monan.don_vi}}</td>
                 <input type="text" value={{monan.ma_mon}} name="ma_monss" hidden>
-                <td></td>
+                <td><button type="submit" name="xoa_mon" value= {{monan.ma_mon}} onclick="return confirm('Bạn có chắc chắn muốn sửa menu?')">Delete</button></td>
               </tr>  
               {% elif monan.ma_menu.ma_menu ==  "MN4" %}
               <tr class="menu_4" style="display: none;">
@@ -169,7 +202,7 @@
                 <td><input style="width: 100px" type="number" min="0" step = "1000" name="giamonsua" value={{monan.gia}}></td>
                 <td>{{monan.don_vi}}</td>
                 <input type="text" value={{monan.ma_mon}} name="ma_monss" hidden>
-                <td></td>
+                <td><button type="submit" name="xoa_mon" value= {{monan.ma_mon}} onclick="return confirm('Bạn có chắc chắn muốn sửa menu?')">Delete</button></td>
               </tr>
               {% endif %}
               
@@ -180,6 +213,85 @@
   </table>
     <button id="savemn" value = "MN1" type = "submit" name="save_mon" class = "addd_mon" onclick="return confirm('Bạn có chắc chắn muốn sửa menu?')">Save</button>
   </form>
+  </div>
+  <div id="add_db_popup">
+    <div style = " display: flex;">
+      <button onclick="db_mn1()">MN1</button>
+      <button onclick="db_mn2()">MN2</button>
+      <button onclick="db_mn3()">MN3</button>
+      <button onclick="db_mn4()">MN4</button>
+    </div>
+    <form action="" method="post">
+      {% csrf_token %}
+    <div class="content_add">
+    <table class="table" style="background-color:rgba(206, 206, 206, 0.9); color:#030b53">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Tên Món</th>
+          <th scope="col">Giá</th>
+          <th scope="col">Đơn vị</th>
+          <th scope="col">#</th>
+        </tr>
+      </thead>
+      <tbody>
+          <!-- {% for monan in monans %}
+            <tr>
+              <th scope="row"></th>
+              <td>{{monan.ten_mon}}</td>
+              <td>{{monan.gia}}</td>
+              <td>{{monan.don_vi}}</td>
+              <td>
+                <input value = {{monan.ma_mon}} type = "checkbox" {% if monan.dac_biet == "YES" %} checked {% endif %} name = "list_add">              
+              </td>
+            </tr>      
+          {% endfor %} -->
+          <div class="MN">
+            {% for monan in monans %}
+                {% if  monan.ma_menu.ma_menu ==  "MN1" %}
+                <tr class="dbmenu_1" style="display: table-row;">
+                  <th scope="row"></th>
+                  <td>{{monan.ten_mon}}</td>
+                  <td>{{monan.gia}}</td>
+                  <td>{{monan.don_vi}}</td>
+                  <td><input value = {{monan.ma_mon}} type = "checkbox" {% if monan in mondacbiet %} checked {% endif %} name = "list_add"></td>
+                </tr>   
+                {% elif monan.ma_menu.ma_menu ==  "MN2" %}
+                <tr class="dbmenu_2" style="display: none;">
+                  <th scope="row"></th>
+                  <td>{{monan.ten_mon}}</td>
+                  <td>{{monan.gia}}</td>
+                  <td>{{monan.don_vi}}</td>
+                  <td><input value = {{monan.ma_mon}} type = "checkbox" {% if monan in mondacbiet %} checked {% endif %} name = "list_add"></td>
+                </tr>  
+                {% elif monan.ma_menu.ma_menu ==  "MN3" %}
+                <tr class="dbmenu_3" style="display: none;">
+                  <th scope="row"></th>
+                  <td>{{monan.ten_mon}}</td>
+                  <td>{{monan.gia}}</td>
+                  <td>{{monan.don_vi}}</td>
+                  <td><input value = {{monan.ma_mon}} type = "checkbox" {% if monan in mondacbiet %} checked {% endif %} name = "list_add"></td>
+                </tr>  
+                {% elif monan.ma_menu.ma_menu ==  "MN4" %}
+                <tr class="dbmenu_4" style="display: none;">
+                  <th scope="row"></th>
+                  <td>{{monan.ten_mon}}</td>
+                  <td>{{monan.gia}}</td>
+                  <td>{{monan.don_vi}}</td>
+                  <td><input value = {{monan.ma_mon}} type = "checkbox" {% if monan in mondacbiet %} checked {% endif %} name = "list_add"></td>
+                </tr>
+                {% endif %}
+                
+            {% endfor %}
+        </div>
+      </tbody>
+    </table>
+    <div style="margin-left: 82%;">
+        <button name="save_db">Save</button>
+      <button onclick='close_add_popup()' type="button">Cancel</button>
+    </div>
+    </div>
+    </form>
   </div>
 </div>
 
