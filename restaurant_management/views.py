@@ -45,12 +45,12 @@ def signout(request):
 
 @login_required(login_url='/')
 def home(request):
-    bans = models.Ban.objects.all()[1:]
+    bans = models.Ban.objects.filter(delete = 'NO')[1:]
     menu = models.Menu.objects.all()
-    menu1 = models.MonAn.objects.filter(ma_menu='MN1')
-    menu2 = models.MonAn.objects.filter(ma_menu='MN2')
-    menu3 = models.MonAn.objects.filter(ma_menu='MN3')
-    menu4 = models.MonAn.objects.filter(ma_menu='MN4')
+    menu1 = models.MonAn.objects.filter(ma_menu='MN1', delete = 'NO')
+    menu2 = models.MonAn.objects.filter(ma_menu='MN2', delete = 'NO')
+    menu3 = models.MonAn.objects.filter(ma_menu='MN3', delete = 'NO')
+    menu4 = models.MonAn.objects.filter(ma_menu='MN4', delete = 'NO')
     # monans = models.MonAn.objects.all()
     now = timezone.now()
     events = models.SuKien.objects.filter(ngay_bd__lte= now, ngay_kt__gte = now)
@@ -291,7 +291,7 @@ def home(request):
 
 @login_required(login_url='/')
 def booking (request):
-    bans = models.Ban.objects.all()[1:]
+    bans = models.Ban.objects.filter(delete = 'NO')[1:]
     context = {
         'bans': bans,
     }
@@ -335,10 +335,10 @@ def booking (request):
 @login_required(login_url='/')
 def takeAway(request):
     menu = models.Menu.objects.all()
-    menu1 = models.MonAn.objects.filter(ma_menu='MN1')
-    menu2 = models.MonAn.objects.filter(ma_menu='MN2')
-    menu3 = models.MonAn.objects.filter(ma_menu='MN3')
-    menu4 = models.MonAn.objects.filter(ma_menu='MN4')
+    menu1 = models.MonAn.objects.filter(ma_menu='MN1', delete = 'NO')
+    menu2 = models.MonAn.objects.filter(ma_menu='MN2', delete = 'NO')
+    menu3 = models.MonAn.objects.filter(ma_menu='MN3', delete = 'NO')
+    menu4 = models.MonAn.objects.filter(ma_menu='MN4', delete = 'NO')
     ban= models.Ban.objects.get(so_ban=0)
     print(ban.ma_hoa_don)
     context = {
@@ -826,10 +826,10 @@ def statistics(request):
 @login_required(login_url='/')
 def setting(request):
     menus = models.Menu.objects.all()
-    monans = models.MonAn.objects.all() 
-    bans = models.Ban.objects.all() 
+    monans = models.MonAn.objects.filter(delete = 'NO') 
+    bans = models.Ban.objects.filter(delete = 'NO') 
     nhanviens = models.NhanVien.objects.all() 
-    soluong_ban = models.Ban.objects.filter().count() 
+    mondacbiet = models.MonAn.objects.filter(dac_biet = 'YES',delete = 'NO' )
     
     if "save_mon" in request.POST :
         name_mon = request.POST.get("tenmonan")
@@ -848,11 +848,37 @@ def setting(request):
             gia_moi = gia_sua[ma_mon_sua.index(ma_mon)]
             mon_an.gia = gia_moi
             mon_an.save()
-    return render(request, "management/setting.html", 
+    if "save_db" in request.POST :
+        list_add_db = request.POST.getlist("list_add")
+        for monan in monans:
+            monan.dac_biet = "NO"
+            for add_db in list_add_db:
+                if monan.ma_mon == add_db :
+                    monan.dac_biet = "YES"
+            monan.save()
+    if "xoa_mon" in request.POST :
+        ma_mon_xoa=request.POST.get("xoa_mon")
+        mon_xoa = models.MonAn.objects.get(ma_mon = ma_mon_xoa)
+        mon_xoa.delete = "YES"
+        mon_xoa.save()
+    if "save_ban" in request.POST :
+        banall = models.Ban.objects.all()
+        so_ban_sua = int(request.POST.get("quantity"))
+        for ban in banall :
+            if ban.so_ban <=so_ban_sua  :
+                ban.delete = "NO"
+                ban.save()
+            else :
+                ban.delete = "YES"
+                ban.save()
+    soluong_ban = (models.Ban.objects.filter(delete = 'NO').count() -1)
+    return render(request, "management/setting.html",
                   {
                         'menus' : menus,
                         'monans' : monans,
                         'bans' : bans,
                         'nhanviens' : nhanviens,
                         'soluong_ban': soluong_ban,
+                        'mondacbiet': mondacbiet
+                       
                   })
