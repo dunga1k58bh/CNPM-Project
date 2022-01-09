@@ -14,10 +14,10 @@
                 <form action="" method="post">
                     {% csrf_token %}
                     <!-- {{ AddF.as_p }}   -->
-                    <label>Ma the</label>
+                    <!-- <label>Ma the</label>
                     <input type="text" name="ma_the" class="form-control">
                     <label>Ma KH</label>
-                    <input type="text" name="ma_khach_hang" class="form-control">
+                    <input type="text" name="ma_khach_hang" class="form-control"> -->
                     <label>Ten KH</label>
                     <input type="text" name="ten_khach_hang" class="form-control">
                     <label>SĐT</label>
@@ -31,7 +31,7 @@
                     {% endfor %}
                     <button type="submit" value="{{KH_Hang}}" name="AddKH" class="btn btn-light">Submit</button>
                 </form>
-                <div style="text-align: center;">
+                <div style="text-align: center;" class="mt-5">
                     <img src="https://lh3.googleusercontent.com/pw/AM-JKLWDxaYBlmzAmzNwGEhlHO7T8uRTRV14JVkStno1CaCc7HwbtobywPQdZKO4Jn320-AjxElMyOx1SrU0N2WHyl6eu8MgKTHv1MB_QFtNNj7OZBWfLWzZM8rcMG7hM_P1wQL_gxBSggsSAiZ3VfdOVvIM=s360-no?authuser=0" alt="2H8l7.png" style="width: 250px; height: 250px;">
                 </div>
             </div>
@@ -48,7 +48,7 @@
                             {{ myFilter.form.ma_khach_hang__ten_khach_hang }} <br>
                         </div> 
                         <div class="col-sm-8" style="text-align: center;">
-                            <img src="https://lh3.googleusercontent.com/pw/AM-JKLWDxaYBlmzAmzNwGEhlHO7T8uRTRV14JVkStno1CaCc7HwbtobywPQdZKO4Jn320-AjxElMyOx1SrU0N2WHyl6eu8MgKTHv1MB_QFtNNj7OZBWfLWzZM8rcMG7hM_P1wQL_gxBSggsSAiZ3VfdOVvIM=s360-no?authuser=0" alt="" style="width: 180px; height: 180px;">
+                            <img src="https://marsurl.com/images/2U5db.png" alt="" style="width: 300px; height: 180px;">
                         </div>   
                     </div>    
                     <button class="btn btn-primary" type="submit">Search</button>
@@ -56,7 +56,7 @@
                 <form action="" method="post">
                     {% csrf_token %}
                     <div class="table-responsive mt-2" style="height: 400px;overflow-y: scroll;">
-                        <table class="table table-bordered table-hover table-fixed" id="viptable">
+                        <table class="table table-bordered table-hover table-striped bg-light">
                             <thead>
                                 <tr>
                                     <th>Mã thẻ</th>
@@ -74,7 +74,7 @@
                                     <td>{{thethanhvien.ma_khach_hang.ten_khach_hang}}</td>
                                     <td>{{thethanhvien.tien_tich_luy}}</td>
                                     <td>{{thethanhvien.hang}}</td>
-                                    <td><button type='submit' class="btn btn-light" value="{{thethanhvien.ma_the}}" 
+                                    <td><button type='submit' class="btn btn-light btn-outline-dark" value="{{thethanhvien.ma_the}}" 
                                         name="DelKH" onclick="return confirm('Bạn có chắc chắn muốn xoá không?')">Xoá</button></td>
                                     {% comment %} <th></th> {% endcomment %}
                                 </tr>
