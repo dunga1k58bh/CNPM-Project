@@ -526,7 +526,6 @@ def takeAway(request):
 
 class EventsView(LoginRequiredMixin, ListView, ModelFormMixin):
     login_url = '/'
-
     model = models.SuKien
     template_name='calendar_event/events.html'
     form_class = EventForm
@@ -559,8 +558,8 @@ class EventsView(LoginRequiredMixin, ListView, ModelFormMixin):
         context['calendar_event'] = mark_safe(html_cal)
         create_event_form = self.form
         context["create_event_form"] = create_event_form
-        events = models.SuKien.objects.filter(ngay_bd__month__lte= d.month, ngay_kt__month__gte=d.month,
-                                              ngay_bd__year__lte= d.year, ngay_kt__year__gte=d.year)
+        events = models.SuKien.objects.filter(ngay_bd__month=d.month,
+                                              ngay_bd__year__lte= d.year)
         context["events"] = events
         return context
 
