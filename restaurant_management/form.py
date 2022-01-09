@@ -1,5 +1,5 @@
 from django.forms import ModelForm, DateInput
-from restaurant_management.models import SuKien
+from restaurant_management.models import MonAn, SuKien
 from django.forms import Select
 
 
@@ -11,6 +11,7 @@ class EventForm(ModelForm):
       'ngay_bd': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
       'ngay_kt': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
     }
+    
     fields = ["ten_sk", "mo_ta", "ngay_bd", "ngay_kt", "ma_mon"]
     labels = {"ten_sk" : "Tên sự kiện","mo_ta": "Mô tả",
               "ngay_bd": "Thời gian bắt đầu", "ngay_kt": "Thời gian kết thúc", "ma_mon": "Món khuyến mãi"}
@@ -20,3 +21,5 @@ class EventForm(ModelForm):
     # input_formats to parse HTML5 datetime-local input to datetime field
     self.fields['ngay_bd'].input_formats = ('%Y-%m-%dT%H:%M',)
     self.fields['ngay_kt'].input_formats = ('%Y-%m-%dT%H:%M',)
+    mon_an = MonAn.objects.filter(delete = 'NO')
+    self.fields['ma_mon'].queryset = mon_an
