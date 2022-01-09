@@ -57,7 +57,7 @@ class HoaDon(models.Model):
     phuong_thuc_thanh_toan = models.CharField(db_column='PHUONG_THUC_THANH_TOAN', max_length=50)  # Field name made lowercase.
     so_ban = models.IntegerField(db_column='SO_BAN', blank=True, null=True)  # Field name made lowercase.     
     ma_nhan_vien = models.ForeignKey('NhanVien', models.DO_NOTHING, db_column='MA_NHAN_VIEN')  # Field name made lowercase.
-
+    tre_em = models.CharField(db_column='TRE_EM', max_length=5, null= True)
     class Meta:
         managed = False
         db_table = 'HOA_DON'
