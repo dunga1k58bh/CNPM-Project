@@ -5,7 +5,24 @@
 {% block content %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
-
+<style>
+  .add_mon{
+    border-radius:5px;
+  }
+  .del_mon{
+    border-radius:5px;
+  }
+  .save_del_pay{
+    border-radius:5px;
+  } 
+  .style_menu{
+    height: 545px; 
+    overflow:auto;
+  }
+  .table{
+    margin: 0;
+  }
+</style>
 <div class="container">
         <!-- Phần này cho danh sách bàn và menu -->
         <div id="container_1">
@@ -22,13 +39,17 @@
                             <form action="" method="post">
                             {% for ban in bans %}
                                     {% csrf_token %}
-                                    <button style="margin:5px" type="submit" class="btn btn-outline-primary btn_ban" value='{{ban.so_ban}}' name = "choose_ban">
-                                        Bàn số    : {{ban.so_ban}} <br>
-                                        Trạng thái: {{ban.trang_thai}}
+                                    <button id="ban{{ban.so_ban}}" style="margin:5px; " type="submit" class="btn btn-outline-primary btn_ban" value='{{ban.so_ban}}' name = "choose_ban">
+                                        <div >
+                                          <p style= "float: left; margin: 0;font-weight: bold">  {{ban.so_ban}} </p>
+                                          {% comment %} {% if ban.trang_thai == "free" %}
+                                        <img style="width:30%;float: right " src="\static\images\tick1.png" alt="Table" >
+                                        {% endif %} {% endcomment %}
+                                        <img style="width:84px " src="\static\images\tablebusy.png" alt="Table" >
+                                        </div>
                                     </button>
                             {% endfor %}
                             </form>
-                            
                           </div>
                     </div>
                     <!-- Content cho danh sách thực đơn -->
@@ -43,8 +64,6 @@
                       </nav>
                       <div class="tab-content" id="nav-tabMenuContent">
                         <div class="tab-pane fade show active" id="nav-menu1" role="tabpanel" aria-labelledby="nav-menu1-tab">
-                          Số bàn : {{so_ban}}
-
                             <table class="table" >
                                 <thead>
                                   <tr>
@@ -56,7 +75,7 @@
                                   </tr>
                                 </thead>
                             </table>
-                                <div style="height: 510px; overflow:auto;">
+                                <div class="style_menu" >
                                   <table class="table">
                                     <tbody>
                                     {% for mon in menu1 %}
@@ -78,8 +97,6 @@
                                 </div>
                         </div>
                               <div class="tab-pane fade" id="nav-menu2" role="tabpanel" aria-labelledby="nav-menu2-tab">
-                                Số bàn : {{so_ban}}
-
                                 <table class="table" >
                                     <thead>
                                       <tr>
@@ -91,7 +108,7 @@
                                       </tr>
                                     </thead>
                                 </table>
-                                    <div style="height: 510px; overflow:auto;">
+                                <div class="style_menu" >
                                       <table class="table">
                                         <tbody>
                                         {% for mon in menu2 %}
@@ -113,8 +130,6 @@
                                     </div>
                               </div>
                               <div class="tab-pane fade" id="nav-menu3" role="tabpanel" aria-labelledby="nav-menu3-tab">
-                                Số bàn : {{so_ban}}
-
                                 <table class="table" >
                                     <thead>
                                       <tr>
@@ -126,7 +141,7 @@
                                       </tr>
                                     </thead>
                                 </table>
-                                    <div style="height: 510px; overflow:auto;">
+                                <div class="style_menu" >
                                       <table class="table">
                                         <tbody>
                                         {% for mon in menu3 %}
@@ -148,8 +163,6 @@
                                     </div>
                               </div>
                               <div class="tab-pane fade" id="nav-menu4" role="tabpanel" aria-labelledby="nav-menu4-tab">
-                                Số bàn : {{so_ban}}
-
                                 <table class="table" >
                                     <thead>
                                       <tr>
@@ -161,7 +174,7 @@
                                       </tr>
                                     </thead>
                                 </table>
-                                    <div style="height: 510px; overflow:auto;">
+                                <div class="style_menu" >
                                       <table class="table">
                                         <tbody>
                                         {% for mon in menu4 %}
@@ -196,138 +209,121 @@
               <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-home-booking" type="button" role="tab" aria-controls="nav-home-booking" aria-selected="false">Lịch đặt</button>
             </div>
           </nav>
-          <div class="tab-content" id="nav-tabContent">
+          <div style="padding: 15px; height:630px;" class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home-bill" role="tabpanel" aria-labelledby="nav-home-bill-tab">
             
             
               <form id="homeForm" name="homeForm" action="" method="post" onsubmit=" return validateHomeForm()">
                   <div class="row">
                     <div class="col">
-                      <p>Số bàn : {{so_ban}} </p>
-                      <p > Số ĐT:<input style="width:120px" name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}">
-                        <button type="submit" value='{{so_ban}}' name="search_infor_kh" id= "search">Search</button> 
+                      <p style="font-weight: bold;margin: 3px">Số bàn : {{so_ban}} </p>
+                      <p style="font-weight: bold;margin: 3px"> Họ tên:     {{hotenkhachhang}}</p>
+                      <p style="font-weight: bold;margin: 3px"> Số ĐT:<input style="width:120px;border-radius:5px" name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}">
+                        <button style="border-radius:5px;margin: 3px" type="submit" value='{{so_ban}}' name="search_infor_kh" id= "search">Search</button> 
                       </p>
-                      <p > Xu tích lũy:{{tientichluy}}</p>
                       </div>
                     <div class="col">
-                      <p>Mã hóa đơn : {{hoadon.ma_hoa_don}}</p>
-                      <p > Họ tên:     {{hotenkhachhang}}</p>
-                      <p > Tiêu xu:<input style="width:120px" name="so_diem_tieu" type="text" onkeypress="return isNumberKey(event)" onpaste ="false" >
-                            <button type="submit" value='{{so_ban}}' name="tieu_tich_luy" id="use">Use</button>
+                      <p style="font-weight: bold;margin: 3px">Mã hóa đơn : {{hoadon.ma_hoa_don}}</p>
+                      <p style="font-weight: bold;margin: 3px"> Xu tích lũy:{{tientichluy}}</p>
+                      <p style="font-weight: bold;margin: 3px"> Tiêu xu:<input style="width:120px;border-radius:5px" name="so_diem_tieu" type="text" onkeypress="return isNumberKey(event)" onpaste ="false" >
+                            <button style="border-radius:5px;margin: 0" type="submit" value='{{so_ban}}' name="tieu_tich_luy" id="use">Use</button>
                       </p>
+                      {% if hoadon.tre_em == "yes"%}
+                      <p style="margin: 5px"> Bàn có trẻ em/ Người già  <input checked name="treem_nguoigia" type="checkbox" value="yes" /> </p>
+                      {% else%}
+                      <p style="margin: 5px"> Bàn có trẻ em/ Người già  <input name="treem_nguoigia" type="checkbox" value="yes" /> </p>
+                      {% endif %}
                     </div>
                   </div>
 
                   {% csrf_token %}
-                  <table class="table">
+                  <table style="margin: 0" class="table">
                       <thead>
                         <tr>
-                          <th style="width :30%" scope="col">Tên</th>
+                          <th style="width :25%" scope="col">Tên</th>
                           <th style="width :20%" scope="col">Số lượng</th>
-                          <th style="width :20%" scope="col"> Đơn Giá </th>
-                          <th style="width :20%" scope="col">Thành tiền</th>
+                          <th style="width :18%" scope="col"> Đơn Giá </th>
+                          <th style="width :22%" scope="col">Thành tiền</th>
                           <th style="width :10%" scope="col"></th>
                         </tr>
                       </thead>
                   </table>    
-                  <div style="height: 275px; overflow:auto;">
+                  <div style="height: 230px; overflow:auto;" >
                     <table class="table">
-                      <tbody id="bang_hoa_don">
+                      <tbody  id="bang_hoa_don">
                       {% for dat_mon in dat_mons %}
                        <tr >
                           <td style="width :30%" class="ten__mon">{{dat_mon.get_ten_mon}}</td>
                           <td style="width :20%" class="so__luong">{{dat_mon.so_luong}}</td>
                           <td style="width :20%" class="gia__mon">{{dat_mon.get_gia}}</td>
                           <td style="width :20%" class="thanh__tien"> {{dat_mon.thanh_tien}}</td>
-                          <td></td>
+                          <td style="width :10%"></td>
                       </tr>  
                       {% endfor %}                      
                         <!-- if else -->
                     </tbody>
                     </table>
                   </div>
-                    <table class="table">
-                      <tfoot>
+                  <div style="height: 200px; margin-top: 15px">
+                      <p style="font-weight: bold;margin: 0">Khuyến mãi </p>
+                      <table style="margin: 0" class="table">
                         <tr>
-                          <th colspan="6">Khuyến mãi</th>
+                          <th style="width:37%">Món</th>
+                          <th style="width:38%">Sự kiện</th>
+                          <th style="width:25%">Thành tiền</th>
                         </tr>
-                        <tr>
-                          <th></th>
-                          <th>Món</th>
-                          <th colspan="2">Sự kiện</th>
-                          <th>Thành tiền</th>
-                        </tr>
+                      </table>
+                      <div style="height: 80px; overflow:auto;" >
+                      <table class="table">
                         {% for event in events %}
                           <tr>
-                              <td></td>
-                              <td>{{event.ma_mon}}</td>
-                              <td colspan="2">{{event.ten_sk}}</td>
-                              <td>0</td>
+                              <td style="width:40%">{{event.ma_mon}}</td>
+                              <td style="width:40%">{{event.ten_sk}}</td>
+                              <td style="width:20%">0</td>
                           </tr>
                         {% endfor %}
-                        <tr>
-                          <th scope="row"></th>
-                          <td></td>
-                          <td></td>
-                          <td class="tong_tien">Tổng tiền: </td>
-                          <td class="total">{{hoadon.don_gia}}</td>
-                          <th></th>
-                        </tr>
-  
-                      </tfoot>
-                  </table>
-                  <button type="submit" value='{{so_ban}}' name="add_hoa_don" id="luuhoadon1">Lưu hóa đơn</button>
-                  <button type="submit" value='{{hoadon.ma_hoa_don}}' name="remove_hoa_don" id="xoahoadon1">Xóa hóa đơn</button> 
-                  <button type="submit" value='{{hoadon.ma_hoa_don}}' name="pay_hoa_don" id="thanhtoan1">Thanh toán</button>
+                      </table>
+                      </div>
+                      <div style="font-weight: bold; padding-left:65%" class="tong_tien">Tổng tiền: 
+                        {% if hoadon.tre_em == "yes"%}
+                        {{tong_tien_tre_em}}
+                        {% else %}
+                        {{hoadon.don_gia}}
+                        {% endif %}
+                      </div>
+                  <button class="save_del_pay" type="submit" value='{{so_ban}}' name="add_hoa_don" id="luuhoadon1">Lưu hóa đơn</button>
+                  <button class="save_del_pay" type="submit" value='{{hoadon.ma_hoa_don}}' name="remove_hoa_don" id="xoahoadon1">Xóa hóa đơn</button> 
+                  <button class="save_del_pay" type="submit" value='{{hoadon.ma_hoa_don}}' name="pay_hoa_don" id="thanhtoan1">Thanh toán</button>
+                </div>
                 </form>
             </div>
             <div class="tab-pane fade " id="nav-home-booking" role="tabpanel" aria-labelledby="nav-home-booking-tab">
-              
-              {% comment %} <form action="" method="post"> {% endcomment %}
+
                   Số bàn : {{so_ban}}
                   {% csrf_token %}
                   <table class="table">
                       <thead>
                         <tr>
-                          <th scope="col">#</th>
                           <th scope="col">Họ tên</th>
                           <th scope="col">Số điện thoại</th>
                           <th scope="col"> Số bàn </th>
                           <th scope="col">Thời gian</th>
-                          <th scope="col">#</th>
                         </tr>
                       </thead>
                       <tbody id="bang_hoa_don">
                         {% for dat_ban in dat_bans %}
                        <tr >
-                          <th scope="row"></th>
                           <td class="ho_ten">{{dat_ban.ho_ten}}</td>
                           <td class="sdt">{{dat_ban.sdt}}</td>
                           <td class="so_ban">{{dat_ban.so_ban.so_ban}}</td>
                           <td class="thoi_gian"> {{dat_ban.thoi_gian}}</td>
                       </tr>   
                       {% endfor %}       
-                        <!-- if else
-                       <tr >
-                          <th scope="row"></th>
-                          <td class="ho_ten"><input name="ho_ten" type="text"  /></td>
-                          <td class="sdt"><input name="sdt" type="text"  /></td>
-                          <td class="so_ban">{{so_ban}}</td>
-                          <td class="thoi_gian"><input name="thoi_gian" type="text"  /> </td>
-                          <th></th>
-                      </tr>  -->
                       </tbody>
                   </table>
-                  
-                  
-              {% comment %} </form>   {% endcomment %}
-
             </div>
-          </div>
-              
+          </div>             
         </div>
-
-
   </div>
   <script>
     var soban= document.homeForm.add_hoa_don.value;
@@ -356,5 +352,6 @@
           return false;
       return true;
     }
+
   </script>
 {% endblock %}
