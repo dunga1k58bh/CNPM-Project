@@ -7,7 +7,7 @@ from .models import *
 
 class TTVfilter(django_filters.FilterSet):
     #name = django_filters.CharFilter(lookup_expr='iexact')
-    ma_the = CharFilter(label='Ma The')
+    ma_the = CharFilter(label='SĐT')
     hang = CharFilter(label='Hang')
     ma_khach_hang__ten_khach_hang = CharFilter(label='Ten KH')
     class Meta:

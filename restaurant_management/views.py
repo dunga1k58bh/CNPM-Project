@@ -203,10 +203,12 @@ def home(request):
             try:
                 ban = models.Ban.objects.get(so_ban = so_ban)
                 hoadon=ban.ma_hoa_don
+                so_diem_tieu = int(sodiemtieu)
+                if (so_diem_tieu > 500000):
+                    so_diem_tieu = 500000
                 ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
                 thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = ma_khach_hang)
-                thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy- int(sodiemtieu)
-                hoadon.don_gia = hoadon.don_gia - int(sodiemtieu)
+                thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy- so_diem_tieu
                 hoadon.save()
                 thethanhvien.save()
             except:
@@ -240,8 +242,22 @@ def home(request):
             try:
                 if hoadon.ma_khach_hang is not None:               
                     thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
-                    thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy + hoadon.don_gia * 0.1
                     thethanhvien.tong_tien= thethanhvien.tong_tien+ hoadon.don_gia
+                    tong_tien = thethanhvien.tong_tien
+                    heso = 0.1
+                    if tong_tien > 50000000:
+                        thethanhvien.hang = 'Kim cương'
+                        heso = 0.25
+                    elif tong_tien > 30000000 :
+                        thethanhvien.hang = 'Vàng'
+                        heso = 0.2
+                    elif tong_tien > 10000000:
+                        thethanhvien.hang ='Bạc'
+                        heso =0.15
+                    else :
+                        thethanhvien.hang = 'Đồng'
+                        
+                    thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy + hoadon.don_gia * heso
                     thethanhvien.save()
             except:
                 print("bàn này ko có mã")
@@ -574,8 +590,22 @@ def takeAway(request):
             try:
                 if hoadon.ma_khach_hang is not None:               
                     thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
-                    thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy + hoadon.don_gia * 0.1
                     thethanhvien.tong_tien= thethanhvien.tong_tien+ hoadon.don_gia
+                    tong_tien = thethanhvien.tong_tien
+                    heso = 0.1
+                    if tong_tien > 50000000:
+                        thethanhvien.hang = 'Kim cương'
+                        heso = 0.25
+                    elif tong_tien > 30000000 :
+                        thethanhvien.hang = 'Vàng'
+                        heso = 0.2
+                    elif tong_tien > 10000000:
+                        thethanhvien.hang ='Bạc'
+                        heso =0.15
+                    else :
+                        thethanhvien.hang = 'Đồng'
+                        
+                    thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy + hoadon.don_gia * heso
                     thethanhvien.save()
             except:
                 print("bàn này ko có mã")
@@ -658,7 +688,7 @@ def vipMember(request):
         so_dien_thoai = request.POST.get('so_dien_thoai')
         try:
             KH = models.KhachHang.objects.create(ma_khach_hang = ma_khach_hang, ten_khach_hang = ten_khach_hang, so_dien_thoai = so_dien_thoai)  
-            models.TheThanhVien.objects.create(ma_the = ma_the, ma_khach_hang = KH, tien_tich_luy = 0, hang = 'Đồng')
+            models.TheThanhVien.objects.create(ma_the = ma_the, ma_khach_hang = KH, tien_tich_luy = 0, tong_tien=0, hang = 'Đồng')
         except:
             #html = '<script>alert("Không thành công")</script>'
             #messages.error(request, 'Không thành công')
