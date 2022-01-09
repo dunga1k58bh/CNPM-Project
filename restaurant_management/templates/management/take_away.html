@@ -32,7 +32,7 @@
             </div>
           </nav>
                     <!-- Content cho danh sách thực đơn -->
-                    <div class="tab-content" id="nav-tabContent">
+                    <div style="overflow:auto; height: 630px" class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                       <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -192,7 +192,7 @@
               <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Hóa đơn</button>
             </div>
           </nav>
-          <div style="padding: 15px; height:630px;" class="tab-content" id="nav-tabContent">
+          <div style="padding: 15px; height:630px;overflow:auto" class="tab-content" id="nav-tabContent">
             <form name="take_awayForm" action="" method="post" onsubmit=" return validateHomeForm()">
               <p style="font-weight: bold;margin: 3px">Mã hóa đơn : {{mahoadon}}</p>
               <div class="row">

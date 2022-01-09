@@ -53,7 +53,7 @@
                           </div>
                     </div>
                     <!-- Content cho danh sách thực đơn -->
-                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div style="overflow:auto; height: 630px" class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                       <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                           <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-menu1" type="button" role="tab" aria-controls="nav-menu1" aria-selected="true">Menu 1</button>
@@ -209,7 +209,7 @@
               <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-home-booking" type="button" role="tab" aria-controls="nav-home-booking" aria-selected="false">Lịch đặt</button>
             </div>
           </nav>
-          <div style="padding: 15px; height:630px;" class="tab-content" id="nav-tabContent">
+          <div style="padding: 15px; height:630px;overflow:auto" class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home-bill" role="tabpanel" aria-labelledby="nav-home-bill-tab">
             
             
@@ -224,8 +224,8 @@
                       </div>
                     <div class="col">
                       <p style="font-weight: bold;margin: 3px">Mã hóa đơn : {{hoadon.ma_hoa_don}}</p>
-                      <p style="font-weight: bold;margin: 3px"> Xu tích lũy:{{tientichluy}}</p>
-                      <p style="font-weight: bold;margin: 3px"> Tiêu xu:<input style="width:120px;border-radius:5px" name="so_diem_tieu" type="text" onkeypress="return isNumberKey(event)" onpaste ="false" >
+                      <p style="font-weight: bold;margin: 3px"> Điểm tích lũy:{{tientichluy}}</p>
+                      <p style="font-weight: bold;margin: 3px"> Tiêu tích lũy:<input style="width:120px;border-radius:5px" name="so_diem_tieu" type="text" onkeypress="return isNumberKey(event)" onpaste ="false" >
                             <button style="border-radius:5px;margin: 0" type="submit" value='{{so_ban}}' name="tieu_tich_luy" id="use">Use</button>
                       </p>
                       {% if hoadon.tre_em == "yes"%}
@@ -264,7 +264,7 @@
                     </tbody>
                     </table>
                   </div>
-                  <div style="height: 200px; margin-top: 15px">
+                  <div style="height: 190px; margin-top: 15px">
                       <p style="font-weight: bold;margin: 0">Khuyến mãi </p>
                       <table style="margin: 0" class="table">
                         <tr>

@@ -41,7 +41,7 @@
               <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Lịch đặt</button>
             </div>
           </nav>
-          <div style="height: 630px; padding: 15px" class="tab-content" id="nav-tabContent">
+          <div style="height: 630px; padding: 15px; overflow: auto" class="tab-content" id="nav-tabContent">
             <form name="bookingForm" action="" method="post" onsubmit="return validateform()">
               <p style="font-weight: bold;margin: 3px">Số bàn : {{so_ban}} </p>
                 <div class="row">
@@ -66,7 +66,7 @@
                       </tr>
                     </thead>
                   </table>
-                  <div style="height: 450px; overflow: auto">
+                  <div style="height: 435px; overflow: auto">
                     <table class="table">
                     <tbody id="bang_hoa_don">
                       {% for dat_ban in dat_bans %}
