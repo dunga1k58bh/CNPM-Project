@@ -18,6 +18,8 @@ from django.db.models.aggregates import Min
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from .filter import TTVfilter
+# from django.http import JsonResponse
+# from .models import TheThanhVien
 # Create your views here.
 def signin(request):
     if request.method == 'POST':
@@ -631,8 +633,8 @@ def vipMember(request):
     if 'AddKH' in request.POST:
         # KH_Hang = request.POST.get("AddKH")
         # Member = models.KhachHang.objects.get(KH_Hang = KH_Hang)
-        ma_the = request.POST.get('ma_the')
-        ma_khach_hang = request.POST.get('ma_khach_hang')
+        ma_the = request.POST.get('so_dien_thoai')
+        ma_khach_hang = request.POST.get('so_dien_thoai')
         ten_khach_hang = request.POST.get('ten_khach_hang')
         so_dien_thoai = request.POST.get('so_dien_thoai')
         try:
@@ -648,7 +650,6 @@ def vipMember(request):
         the.delete = 'yes'
         the.save()
     menus = models.Menu.objects.all()
-    
     thethanhviens = models.TheThanhVien.objects.filter(delete__isnull = True)
     myFilter = TTVfilter(request.GET, queryset=thethanhviens)
     thethanhviens = myFilter.qs
@@ -660,7 +661,20 @@ def vipMember(request):
         # 'KH_Hang' : KH_Hang
     }
     return render(request, "management/vip_member.html", context)
+# def checkNickName(request):
+#     # request should be ajax and method should be GET.
+#     if request.is_ajax and request.method == "GET":
+#         # get the nick name from the client side.
+#         ma_the = request.GET.get("ma_the", None)
+#         # check for the nick name in the database.
+#         if TheThanhVien.objects.filter(ma_the = ma_the).exists():
+#             # if nick_name found return not valid new friend
+#             return JsonResponse({"valid":False}, status = 200)
+#         else:
+#             # if nick_name not found, then user can create a new friend.
+#             return JsonResponse({"valid":True}, status = 200)
 
+#     return JsonResponse({}, status = 400)
 
 @login_required(login_url='/')
 def statistics(request):
