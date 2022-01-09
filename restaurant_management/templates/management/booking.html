@@ -23,10 +23,16 @@
                         {% for ban in bans %}
                                 {% csrf_token %}
                                 <button id="ban{{ban.so_ban}}" style="margin:5px; " type="submit" class="btn btn-outline-primary btn_ban" value='{{ban.so_ban}}' name = "choose_ban">
-                                  <p style= "float: left; margin: 0;font-weight: bold">  {{ban.so_ban}} </p>
-                                  <p style=" float: right; margin: 0"> {{ban.trang_thai}} </p>
-                                  <img style="width:100% " src="\static\images\tablebusy.png" alt="Table" >
-                                  </button>
+                                  <div >
+                                    <p style= "float: left; margin: 0;font-weight: bold">  {{ban.so_ban}} </p>
+                                    {% if ban.trang_thai == "free" %}
+                                    <img style="width:30%; float: right " src="\static\images\tick-xanh.png" alt="Table" >
+                                    {% else %}
+                                    <img style="width:30%; float: right " src="\static\images\tick-yellow.png" alt="Table" >
+                                    {% endif %}
+                                    <img style="width:84px " src="\static\images\tablebusy.png" alt="Table" >
+                                  </div>
+                                </button>
                         {% endfor %}
                         </form>
                       </div>

@@ -42,10 +42,12 @@
                                     <button id="ban{{ban.so_ban}}" style="margin:5px; " type="submit" class="btn btn-outline-primary btn_ban" value='{{ban.so_ban}}' name = "choose_ban">
                                         <div >
                                           <p style= "float: left; margin: 0;font-weight: bold">  {{ban.so_ban}} </p>
-                                          {% comment %} {% if ban.trang_thai == "free" %}
-                                        <img style="width:30%;float: right " src="\static\images\tick1.png" alt="Table" >
-                                        {% endif %} {% endcomment %}
-                                        <img style="width:84px " src="\static\images\tablebusy.png" alt="Table" >
+                                          {% if ban.trang_thai == "free" %}
+                                          <img style="width:30%; float: right " src="\static\images\tick-xanh.png" alt="Table" >
+                                          {% else %}
+                                          <img style="width:30%; float: right " src="\static\images\tick-yellow.png" alt="Table" >
+                                          {% endif %}
+                                          <img style="width:84px " src="\static\images\tablebusy.png" alt="Table" >
                                         </div>
                                     </button>
                             {% endfor %}
