@@ -215,21 +215,29 @@ display:none;
   a {
     color: #17a2b8;
   }
-  .left {
-    float: left;
+
+  .center {
+    display: flex;
+    justify-content: center;
   }
   
-  .right {
-    float: right;
-  }
   
   .btn {
     outline: none;
     color: black;
     background-color: blue;
     box-shadow: 0 0 0 0;
+    margin-left: 20px;
+    right: 20px;
   }
-  
+  #create_event{
+    background-color: blue;
+    color: yellow;
+  }
+  #edit_event{
+    background-color: blue;
+    color: yellow;
+  }
   
   #create_event_form {
     display: none;
@@ -271,6 +279,9 @@ display:none;
     width: 60%;
     height: 80%;
   }
+  #edit_event_header{
+    width: 100%;
+  }
 
   .edit_event_content{
     position: relative;
@@ -279,7 +290,6 @@ display:none;
     text-align: center;
 
     border-collapse: collapse;
-    margin: 25px 0;
     font-size: 0.9em;
     font-family: sans-serif;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);

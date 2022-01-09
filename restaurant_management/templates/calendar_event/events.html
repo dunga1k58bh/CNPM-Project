@@ -5,10 +5,13 @@
 {% block content %}
 <!-- You can alternatively load the minified version -->
 <div class="main-site-event">
-	<a class="btn btn-info left" href="{% url 'cal_events' %}?{{ prev_month }}"> Previous Month </a>
-	<button id="create_event" class="btn btn-primary" type="button" name="button" >Create event</button>
-	<button id="edit_event" class="btn btn-primary" type="button" name="button" >Edit</button>
-	<a class="btn btn-info right" href="{% url 'cal_events' %}?{{ next_month }}"> Next Month </a>
+	
+	<div class="center">
+		<a class="btn btn-info" href="{% url 'cal_events' %}?{{ prev_month }}"> Previous Month </a>
+		<a id="create_event" class="btn btn-info btn-create" type="button" name="button" >Create event</a>
+		<a id="edit_event" class="btn btn-info" type="button" name="button" >View</a>
+		<a class="btn btn-info" href="{% url 'cal_events' %}?{{ next_month }}"> Next Month </a>
+	</div>
 	{{calendar_event}}
 </div>
 
@@ -28,45 +31,46 @@
 </div>
 <div id="edit_event_popup">
 	<div class="content_div">
-	<table class="edit_event_content">
-		<thead>
-			<tr>
-				<th>Tên event</th>
-				<th>Mô tả</th>
-				<th>StartTime</th>
-				<th>EndTime</th>
-				<th>Món khuyến mãi</th>
-				<th>###</th>
-			</tr>
-		</thead>
-
-		<tbody>
-		{% for event in events %}
-		<form action="" method="post">
-		{% csrf_token %}
-			<tr>
-				<td>{{event.ten_sk}}</td>
-				<td>{{event.mo_ta}}</td>
-				<td>{{event.ngay_bd}}</td>
-				<td>{{event.ngay_kt}}</td>
-				<td>{{event.ma_mon}}</td>
-				<td>
-					<ul class="list-inline m-0">
-						<li class="list-inline-item">
-							<button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-table">Edit</i></button>
-						</li>
-						<li class="list-inline-item">
-							<button class="btn btn-danger btn-sm rounded-0" type="submit" data-toggle="tooltip" data-placement="top" title="Delete" value="{{event.ma_sk}}" name="delete_event"><i class="fa fa-trash">Delete</i></button>
-				</td>
-			</tr>
-		</form>
-		{% endfor %}
-		</tbody>
-		<tfoot>
-			<tr><button id="close_edit_event" class="btn btn-primary" type="button" name="button" >Close</button></tr>
-		</tfoot>
-	
-	</table>
+		<div id="edit_event_header">
+			<button id="close_edit_event" class="btn btn-primary left" type="button" name="button" >Close</button>
+		</div>
+		<div class="edit_event_content">
+			<table class="table" >
+				<thead>
+					<tr>
+						<th>Tên event</th>
+						<th>Mô tả</th>
+						<th>StartTime</th>
+						<th>EndTime</th>
+						<th>Món khuyến mãi</th>
+						<th>###</th>
+					</tr>
+				</thead>
+			</table>
+			<div style="height: 510px; overflow:auto;">
+				<table>
+					<tbody>
+						{% for event in events %}
+						<form action="" method="post">
+						{% csrf_token %}
+							<tr>
+								<td>{{event.ten_sk}}</td>
+								<td>{{event.mo_ta}}</td>
+								<td>{{event.ngay_bd}}</td>
+								<td>{{event.ngay_kt}}</td>
+								<td>{{event.ma_mon}}</td>
+								<td>
+										<li class="list-inline-item">
+										<button class="btn btn-danger btn-sm rounded-0" type="submit" data-toggle="tooltip" data-placement="top" title="Delete" value="{{event.ma_sk}}" name="delete_event"><i class="fa fa-trash">Delete</i></button>
+								</td>
+							</tr>
+						</form>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
     </div>
 </div>
 

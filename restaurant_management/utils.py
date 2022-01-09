@@ -11,13 +11,19 @@ class CalendarEvent(HTMLCalendar):
     
         
     def formatday(self, day, events: SuKien):
-        events_per_day = events.filter(ngay_bd__day__lte= day, ngay_kt__day__gte= day)
-        d = ''
-        for event in events_per_day:
-            d+=f'<li>{event.ten_sk}</li>'
-        if day != 0:
-            return f"<td><span class='date'>{day}</span><ul> {d} </ul></td>"
-        return '<td></td>'
+        try:
+            date = datetime(self.year, self.month, day)
+            events_per_day = events.filter(ngay_bd__lte = date, ngay_kt__gte = date)
+            d = ''
+
+            for event in events_per_day:
+                d+=f'<li>{event.ten_sk}</li>'
+            if day != 0:
+                return f"<td><span class='date'>{day}</span><ul> {d} </ul></td>"
+            return '<td></td>'
+        except: 
+            return '<td></td>'
+
     
     
     def formatweek(self, theweek, events: SuKien):

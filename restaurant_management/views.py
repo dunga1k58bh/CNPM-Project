@@ -121,10 +121,13 @@ def home(request):
         ttkh= request.POST.get("thong_tin_khach_hang")
         if ttkh != "":
             ban = models.Ban.objects.get(so_ban = so_ban)
-            hoadon=ban.ma_hoa_don
-            ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
-            hoadon.ma_khach_hang= ma_khach_hang
-            hoadon.save()
+            try:
+                hoadon=ban.ma_hoa_don
+                ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
+                hoadon.ma_khach_hang= ma_khach_hang
+                hoadon.save()
+            except:
+                print("failure!")
         else :
             ban = models.Ban.objects.get(so_ban = so_ban)
             hoadon=ban.ma_hoa_don
@@ -175,9 +178,9 @@ def home(request):
         ttkh= request.POST.get("thong_tin_khach_hang")
         if ttkh != "":
             print("yes")
-            ban = models.Ban.objects.get(so_ban = so_ban)
-            hoadon=ban.ma_hoa_don
             try:
+                ban = models.Ban.objects.get(so_ban = so_ban)
+                hoadon=ban.ma_hoa_don
                 ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
                 hoadon.ma_khach_hang= ma_khach_hang
                 hoadon.save()
@@ -197,14 +200,17 @@ def home(request):
         sodiemtieu = request.POST.get("so_diem_tieu")
         ttkh= request.POST.get("thong_tin_khach_hang")
         if ttkh != "":
-            ban = models.Ban.objects.get(so_ban = so_ban)
-            hoadon=ban.ma_hoa_don
-            ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
-            thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = ma_khach_hang)
-            thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy- int(sodiemtieu)
-            hoadon.don_gia = hoadon.don_gia - int(sodiemtieu)
-            hoadon.save()
-            thethanhvien.save()
+            try:
+                ban = models.Ban.objects.get(so_ban = so_ban)
+                hoadon=ban.ma_hoa_don
+                ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
+                thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = ma_khach_hang)
+                thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy- int(sodiemtieu)
+                hoadon.don_gia = hoadon.don_gia - int(sodiemtieu)
+                hoadon.save()
+                thethanhvien.save()
+            except:
+                print("failure!")
             
     if "remove_hoa_don" in request.POST :
         ma_hoa_don = request.POST.get("remove_hoa_don")
@@ -480,44 +486,58 @@ def takeAway(request):
             })  
     if "search_infor_kh" in request.POST:
         mahoadon = request.POST.get("search_infor_kh")
-        hoadon=models.HoaDon.objects.get(ma_hoa_don = mahoadon)
-        ttkh= request.POST.get("thong_tin_khach_hang")
-        if ttkh != "":
-            ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
-            hoadon.ma_khach_hang= ma_khach_hang
-            hoadon.save()
-            ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
-            dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
-            context.update({
-                'tientichluy' : ma_the.tien_tich_luy,
-                'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
-                'hotenkhachhang' : hoadon.ma_khach_hang.ten_khach_hang,
-                'mahoadon' : hoadon.ma_hoa_don ,
-                'tongtien' : hoadon.don_gia,
-                'dat_mons': dat_mons ,
-            })   
+        try:
+            hoadon=models.HoaDon.objects.get(ma_hoa_don = mahoadon)
+            ttkh= request.POST.get("thong_tin_khach_hang")
+            if ttkh != "":
+                ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
+                hoadon.ma_khach_hang= ma_khach_hang
+                hoadon.save()
+                ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
+                dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
+                context.update({
+                    'tientichluy' : ma_the.tien_tich_luy,
+                    'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
+                    'hotenkhachhang' : hoadon.ma_khach_hang.ten_khach_hang,
+                    'mahoadon' : hoadon.ma_hoa_don ,
+                    'tongtien' : hoadon.don_gia,
+                    'dat_mons': dat_mons ,
+                })
+            else :
+                hoadon.ma_khach_hang= None
+                hoadon.save()
+                context.update({
+                    'tientichluy' : "",
+                    'thongtinkhachhang' : "",
+                    'hotenkhachhang' : "",
+                })
+        except:
+            print("failure!")
     if "tieu_tich_luy" in request.POST:
         mahoadon = request.POST.get("tieu_tich_luy")
-        hoadon=models.HoaDon.objects.get(ma_hoa_don = mahoadon)
-        sodiemtieu = request.POST.get("so_diem_tieu")
-        ttkh= request.POST.get("thong_tin_khach_hang")
-        if ttkh != "":
-            ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
-            thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = ma_khach_hang)
-            thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy- int(sodiemtieu)
-            hoadon.don_gia = hoadon.don_gia - int(sodiemtieu)
-            hoadon.save()
-            thethanhvien.save()
-            ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
-            dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
-            context.update({
-                'tientichluy' : ma_the.tien_tich_luy,
-                'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
-                'hotenkhachhang' : hoadon.ma_khach_hang.ten_khach_hang,
-                'mahoadon' : hoadon.ma_hoa_don ,
-                'tongtien' : hoadon.don_gia,
-                'dat_mons': dat_mons ,
-            })
+        try:
+            hoadon=models.HoaDon.objects.get(ma_hoa_don = mahoadon)
+            sodiemtieu = request.POST.get("so_diem_tieu")
+            ttkh= request.POST.get("thong_tin_khach_hang")
+            if ttkh != "":
+                ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
+                thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = ma_khach_hang)
+                thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy- int(sodiemtieu)
+                hoadon.don_gia = hoadon.don_gia - int(sodiemtieu)
+                hoadon.save()
+                thethanhvien.save()
+                ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
+                dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
+                context.update({
+                    'tientichluy' : ma_the.tien_tich_luy,
+                    'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
+                    'hotenkhachhang' : hoadon.ma_khach_hang.ten_khach_hang,
+                    'mahoadon' : hoadon.ma_hoa_don ,
+                    'tongtien' : hoadon.don_gia,
+                    'dat_mons': dat_mons ,
+                })
+        except:
+            print("failure!")
     # Xóa hóa đơn
     if "remove_hoa_don" in request.POST :
         ma_hoa_don= request.POST.get("remove_hoa_don")
@@ -564,7 +584,6 @@ def takeAway(request):
     return render(request, "management/take_away.html", context)
 class EventsView(LoginRequiredMixin, ListView, ModelFormMixin):
     login_url = '/'
-
     model = models.SuKien
     template_name='calendar_event/events.html'
     form_class = EventForm
@@ -597,8 +616,8 @@ class EventsView(LoginRequiredMixin, ListView, ModelFormMixin):
         context['calendar_event'] = mark_safe(html_cal)
         create_event_form = self.form
         context["create_event_form"] = create_event_form
-        events = models.SuKien.objects.filter(ngay_bd__month__lte= d.month, ngay_kt__month__gte=d.month,
-                                              ngay_bd__year__lte= d.year, ngay_kt__year__gte=d.year)
+        events = models.SuKien.objects.filter(ngay_bd__month=d.month,
+                                              ngay_bd__year__lte= d.year)
         context["events"] = events
         return context
 

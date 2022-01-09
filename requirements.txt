@@ -1,3 +1,4 @@
 mssql-django 
 django-bootstrap-v5
 django-bootstrap-modal-forms
+django-filter
