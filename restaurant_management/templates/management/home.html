@@ -220,14 +220,16 @@
                     <div class="col">
                       <p style="font-weight: bold;margin: 3px">Số bàn : {{so_ban}} </p>
                       <p style="font-weight: bold;margin: 3px"> Họ tên:     {{hotenkhachhang}}</p>
-                      <p style="font-weight: bold;margin: 3px"> Số ĐT:<input style="width:120px;border-radius:5px" name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}">
-                        <button style="border-radius:5px;margin: 3px" type="submit" value='{{so_ban}}' name="search_infor_kh" id= "search">Search</button> 
+                      <p style="font-weight: bold;margin: 3px"> Số ĐT:<input style="width:40%;border-radius:5px" name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}">
+                        <button style="border-radius:5px;margin: 3px" type="submit" value='{{so_ban}}' name="search_infor_kh" id= "search">
+                          <img style="width:20px; " src="\static\images\icon-search.png" alt="Search" >
+                        </button> 
                       </p>
                       </div>
                     <div class="col">
                       <p style="font-weight: bold;margin: 3px">Mã hóa đơn : {{hoadon.ma_hoa_don}}</p>
                       <p style="font-weight: bold;margin: 3px"> Điểm tích lũy:{{tientichluy}}</p>
-                      <p style="font-weight: bold;margin: 3px"> Tiêu tích lũy:<input style="width:120px;border-radius:5px" name="so_diem_tieu" type="text" onkeypress="return isNumberKey(event)" onpaste ="false" >
+                      <p style="font-weight: bold;margin: 3px"> Tiêu tích lũy:<input style="width:30%;border-radius:5px" name="so_diem_tieu" type="text" onkeypress="return isNumberKey(event)" onpaste ="false" >
                             <button style="border-radius:5px;margin: 0" type="submit" value='{{so_ban}}' name="tieu_tich_luy" id="use">Use</button>
                       </p>
                       {% if hoadon.tre_em == "yes"%}

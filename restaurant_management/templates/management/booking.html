@@ -51,12 +51,12 @@
             <form name="bookingForm" action="" method="post" onsubmit="return validateform()">
               <p style="font-weight: bold;margin: 3px">Số bàn : {{so_ban}} </p>
                 <div class="row">
-                  <div style="width: 60%" class="col-sm-8">
-                    <p style="font-weight: bold;margin: 3px" class="ho_ten">   Họ tên: <input style="width:220px; border-radius:5px; margin-left:22px" name="ho_ten" type="text"  required/></p>
-                    <p style="font-weight: bold;margin: 3px" class="thoi_gian">Thời gian: <input style="width:220px; font-weight: bold;margin: 3px;border-radius:5px" type="datetime-local" name="thoi_gian" required></p>
+                  <div class="col-sm-7">
+                    <p style="font-weight: bold;margin: 3px" class="ho_ten">   Họ tên: <input style="width:65%; border-radius:5px; margin-left:22px" name="ho_ten" type="text"  required/></p>
+                    <p style="font-weight: bold;margin: 3px" class="thoi_gian">Thời gian: <input style="width:65%; font-weight: bold;margin: 3px;border-radius:5px" type="datetime-local" name="thoi_gian" required></p>
                   </div>
-                  <div style="width: 40%" class="col-sm-4">
-                    <p style="font-weight: bold;margin: 3px" class="sdt">Số ĐT: <input style="width:120px; font-weight: bold;margin: 3px;border-radius:5px" name="sdt" type="text"  required/></p>
+                  <div class="col-sm-5">
+                    <p style="font-weight: bold;margin: 3px" class="sdt">Số ĐT: <input style="width:50%; font-weight: bold;margin: 3px;border-radius:5px" name="sdt" type="text"  required/></p>
                     <button style="font-weight: bold;margin: 3px;border-radius:5px" type="submit" value='{{so_ban}}' name="booking_table" id="dat__ban">Đặt bàn</button>
                   </div>
                 </div>
