@@ -18,6 +18,31 @@ from django.db.models.aggregates import Min
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from .filter import TTVfilter
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import user_passes_test
+
+def group_required(group, login_url=None, raise_exception=False):
+    """
+    Decorator for views that checks whether a user has a group permission,
+    redirecting to the log-in page if necessary.
+    If the raise_exception parameter is given the PermissionDenied exception
+    is raised.
+    """
+    def check_perms(user):
+        if isinstance(group, str):
+            groups = (group, )
+        else:
+            groups = group
+        # First check if the user has the permission (even anon users)
+
+        if user.groups.filter(name__in=groups).exists():
+            return True
+        # In case the 403 handler should be called raise the exception
+        raise PermissionDenied("Tài khoản không có quyền truy cập vào phần này")
+        # As the last resort, show the login form
+        
+    return user_passes_test(check_perms, login_url=login_url)
+
 # from django.http import JsonResponse
 # from .models import TheThanhVien
 # Create your views here.
@@ -617,6 +642,7 @@ class EventsView(LoginRequiredMixin, ListView, ModelFormMixin):
     model = models.SuKien
     template_name='calendar_event/events.html'
     form_class = EventForm
+    group_required = u"quản trị viên"
     
     def get(self, request, *args, **kwargs):
         self.object = None
@@ -726,6 +752,7 @@ def vipMember(request):
 #     return JsonResponse({}, status = 400)
 
 @login_required(login_url='/')
+@group_required('quản trị viên',login_url='/')
 def statistics(request):
     context = {}
     # lay thong tin cho tab all
@@ -923,6 +950,7 @@ def statistics(request):
 
 
 @login_required(login_url='/')
+@group_required('quản trị viên',login_url='/')
 def setting(request):
     menus = models.Menu.objects.all()
     monans = models.MonAn.objects.filter(delete = 'NO') 
