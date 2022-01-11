@@ -179,7 +179,7 @@ display:none;
     margin: auto;
     font-size: 13px;
     font-weight: bold;
-    background-color: whitesmoke;
+    background-color: rgb(240, 234, 234);
   }
   
   .calendar tr, .calendar td {
