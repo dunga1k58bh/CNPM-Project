@@ -193,12 +193,12 @@
             </div>
           </nav>
           <div style="padding: 15px; height:630px;overflow:auto" class="tab-content" id="nav-tabContent">
-            <form name="take_awayForm" action="" method="post" onsubmit=" return validateHomeForm()">
+            <form name="take_awayForm" action="" method="post" onsubmit=" return validateTake_awayForm()">
               <p style="font-weight: bold;margin: 3px">Mã hóa đơn : {{mahoadon}}</p>
               <div class="row">
                 <div class="col">
                   <p style="font-weight: bold;margin: 3px"> Họ tên:     {{hotenkhachhang}}</p>
-                  <p style="font-weight: bold;margin: 3px"> Số ĐT :<input style="width:40%;border-radius:5px" name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}">
+                  <p style="font-weight: bold;margin: 3px"> Số ĐT :<input id="inputsdt" style="width:40%;border-radius:5px" name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}">
                     <button style="border-radius:5px; margin: 0" type="submit" value='{{mahoadon}}' name="search_infor_kh" id= "search">
                       <img style="width:20px; " src="\static\images\icon-search.png" alt="Search" >
                     </button> 
@@ -206,7 +206,8 @@
                 </div>
                 <div class="col">
                   <p style="font-weight: bold;margin: 3px;"> Điểm tích lũy:{{tientichluy}}</p>
-                  <p style="font-weight: bold;margin: 3px"> Tiêu tích lũy:<input style="width:30%;border-radius:5px" name="so_diem_tieu" type="text" onkeypress="return isNumberKey(event)" onpaste ="false" >
+                  <input hidden name="dtl" value="{{tientichluy}}"> 
+                  <p style="font-weight: bold;margin: 3px"> Tiêu tích lũy:<input id="inputpoints" style="width:30%;border-radius:5px" name="so_diem_tieu" type="text" onkeypress="return isNumberKey(event)" onpaste ="false" >
                         <button style="border-radius:5px; margin: 0" type="submit" value='{{mahoadon}}' name="tieu_tich_luy" id="use">Use</button>
                   </p>
                 </div>
@@ -242,6 +243,7 @@
                 </div>
                 </table>
                 <div style="padding-left: 65%; font-weight: bold"> Tổng tiền: {{tongtien}}   </div>
+                <input hidden name="tt" value="{{tongtien}}">
                 <button class="save_del_pay" type="submit" value='{{mahoadon}}' name="add_hoa_don">Lưu hóa đơn</button>
                 <button class="save_del_pay" type="submit" value='{{mahoadon}}' name="remove_hoa_don" id="xoahoadon">Xóa hóa đơn</button>
                 <button class="save_del_pay" type="submit" value='{{mahoadon}}' name="pay" id="thanhtoan">Thanh toán</button>               
@@ -259,9 +261,11 @@
       document.getElementById("xoahoadon").disabled= true;
       document.getElementById("thanhtoan").disabled= true;
       document.getElementById("search").disabled= true;
+      document.getElementById("inputsdt").disabled= true;
     }
     if(ttkh==null || ttkh==""){
       document.getElementById("use").disabled= true;
+      document.getElementById("inputpoints").disabled= true;
     }
     if ( window.history.replaceState ) {
       window.history.replaceState( null, null, window.location.href );

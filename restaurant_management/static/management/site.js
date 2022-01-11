@@ -15,7 +15,7 @@ function addMealFunction(ma_mon, tenmon, giamon) {
     + giamon
     + '</td>'
     +'<td style="width :20%" class="thanh__tien"></td>'
-    +'<td> <input type="text" value="'+ma_mon+'"name="ma_mons" hidden> </td>'
+    +'<td hidden> <input type="text" value="'+ma_mon+'"name="ma_mons" > </td>'
     +'<td style="width :10%" > <button class="del_mon" type="button" onclick="deleteMealFunction('
     +mamon
     +tm
@@ -32,10 +32,51 @@ function deleteMealFunction(idMeal, tenmon) {
     document.getElementById("addMeal"+tenmon).disabled= false;
 }
 function validateHomeForm(){
+    var ip = document.homeForm.so_diem_tieu.value;
+    var max1 = Number(document.homeForm.dtl.value);
+    var tt  =  Number(document.homeForm.tt.value);
+    if(ip != "" && ip < 0){
+        alert( "Số điểm tiêu phải > 0.");
+        return false;
+    }
+    if( ip != "" && ip >500000){
+        alert( "Số điểm tiêu không được vượt quá 500000.");
+        return false;
+    }
+    if( ip != "" && ip > max1){
+        alert( "Số điểm tiêu không được vượt quá số điểm hiện có.");
+        return false;
+    }
+    if( ip != "" && ip > tt ){
+        alert( "Số điểm tiêu không được lớn hơn giá trị hóa đơn." );
+        return false;
+    }
     var result=confirm("Are you sure?");
     return result ;
 }
-
+function validateTake_awayForm(){
+    var ip = document.take_awayForm.so_diem_tieu.value;
+    var max1 = Number(document.take_awayForm.dtl.value);
+    var tt  =  Number(document.take_awayForm.tt.value);
+    if(ip != "" && ip < 0){
+        alert( "Số điểm tiêu phải > 0.");
+        return false;
+    }
+    if( ip != "" && ip >500000){
+        alert( "Số điểm tiêu không được vượt quá 500000.");
+        return false;
+    }
+    if( ip != "" && ip > max1){
+        alert( "Số điểm tiêu không được vượt quá số điểm hiện có.");
+        return false;
+    }
+    if( ip != "" && ip > tt ){
+        alert( "Số điểm tiêu không được lớn hơn giá trị hóa đơn." );
+        return false;
+    }
+    var result=confirm("Are you sure?");
+    return result ;
+}
 function menu_monan(ma_menu){
     var x = document.getElementsByClassName("menu_1");
     var y = document.getElementsByClassName("menu_2");

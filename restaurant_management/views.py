@@ -136,6 +136,11 @@ def home(request):
         hoadon=ban.ma_hoa_don
         if hoadon is None:  
             hoadon = models.HoaDon.objects.create(ngay_lap = date, don_gia = 0, phuong_thuc_thanh_toan ="tien_mat", so_ban= so_ban, ma_nhan_vien = nhanvien)
+            try: 
+                ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
+                hoadon.ma_khach_hang= ma_khach_hang
+            except:
+                print("failure!")
             ban.ma_hoa_don= hoadon
         ban.trang_thai ="busy"
         ban.save()
@@ -185,6 +190,10 @@ def home(request):
                 hoadon.ma_khach_hang= ma_khach_hang
                 hoadon.save()
             except:
+                ban = models.Ban.objects.get(so_ban = so_ban)
+                hoadon=ban.ma_hoa_don
+                hoadon.ma_khach_hang= None
+                hoadon.save()
                 context.update({
                     'wronginfor':"Số điện thoại nhập vào không đúng!"
                 })
@@ -204,15 +213,14 @@ def home(request):
                 ban = models.Ban.objects.get(so_ban = so_ban)
                 hoadon=ban.ma_hoa_don
                 so_diem_tieu = int(sodiemtieu)
-                if (so_diem_tieu > 500000):
-                    so_diem_tieu = 500000
                 ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
                 thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = ma_khach_hang)
                 thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy- so_diem_tieu
+                hoadon.don_gia = hoadon.don_gia - int(sodiemtieu)
                 hoadon.save()
                 thethanhvien.save()
             except:
-                print("failure!")
+                print("failure! thất bại trong tiêu tích lũy")
             
     if "remove_hoa_don" in request.POST :
         ma_hoa_don = request.POST.get("remove_hoa_don")
@@ -234,7 +242,7 @@ def home(request):
         hoadon= models.HoaDon.objects.get(ma_hoa_don=ma_hoa_don)
         so_ban = hoadon.so_ban
         ban=models.Ban.objects.get(so_ban=so_ban)
-        if hoadon is not None:
+        if hoadon.ma_khach_hang is not None:
             ma_hoa_don = hoadon.ma_hoa_don
             ban.ma_hoa_don = None
             ban.trang_thai= "free"
@@ -287,8 +295,6 @@ def home(request):
                 ban.save()
             if hoadon.ma_khach_hang is not None:
                 ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
-                # hoadon.ma_khach_hang= None
-                # hoadon.save()
                 context.update({
                     'tientichluy' : ma_the.tien_tich_luy,
                     'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
@@ -490,16 +496,25 @@ def takeAway(request):
         })
         ttkh= request.POST.get("thong_tin_khach_hang")
         if ttkh != "":
-            ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
-            hoadon.ma_khach_hang= ma_khach_hang
-            hoadon.save()
-            ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
-            dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
-            context.update({
-                'tientichluy' : ma_the.tien_tich_luy,
-                'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
-                'hotenkhachhang' : hoadon.ma_khach_hang.ten_khach_hang,
-            })  
+            try:
+                ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
+                hoadon.ma_khach_hang= ma_khach_hang
+                hoadon.save()
+                ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
+                dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
+                context.update({
+                    'tientichluy' : ma_the.tien_tich_luy,
+                    'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
+                    'hotenkhachhang' : hoadon.ma_khach_hang.ten_khach_hang,
+                })  
+            except:
+                hoadon.ma_khach_hang= None
+                hoadon.save()
+                context.update({
+                    'tientichluy' : "",
+                    'thongtinkhachhang' : "",
+                    'hotenkhachhang' : "",
+                })
     if "search_infor_kh" in request.POST:
         mahoadon = request.POST.get("search_infor_kh")
         try:
@@ -528,6 +543,13 @@ def takeAway(request):
                     'hotenkhachhang' : "",
                 })
         except:
+            hoadon.ma_khach_hang= None
+            hoadon.save()
+            context.update({
+                'tientichluy' : "",
+                'thongtinkhachhang' : "",
+                'hotenkhachhang' : "",
+            })
             print("failure!")
     if "tieu_tich_luy" in request.POST:
         mahoadon = request.POST.get("tieu_tich_luy")

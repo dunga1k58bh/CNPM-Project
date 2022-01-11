@@ -219,8 +219,8 @@
                   <div class="row">
                     <div class="col">
                       <p style="font-weight: bold;margin: 3px">Số bàn : {{so_ban}} </p>
-                      <p style="font-weight: bold;margin: 3px"> Họ tên:     {{hotenkhachhang}}</p>
-                      <p style="font-weight: bold;margin: 3px"> Số ĐT:<input style="width:40%;border-radius:5px" name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}">
+                      <p style="font-weight: bold;margin: 3px">Họ tên: {{hotenkhachhang}}</p>
+                      <p style="font-weight: bold;margin: 3px"> Số ĐT:<input id="inputttkh" style="width:40%;border-radius:5px" name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}">
                         <button style="border-radius:5px;margin: 3px" type="submit" value='{{so_ban}}' name="search_infor_kh" id= "search">
                           <img style="width:20px; " src="\static\images\icon-search.png" alt="Search" >
                         </button> 
@@ -228,8 +228,9 @@
                       </div>
                     <div class="col">
                       <p style="font-weight: bold;margin: 3px">Mã hóa đơn : {{hoadon.ma_hoa_don}}</p>
-                      <p style="font-weight: bold;margin: 3px"> Điểm tích lũy:{{tientichluy}}</p>
-                      <p style="font-weight: bold;margin: 3px"> Tiêu tích lũy:<input style="width:30%;border-radius:5px" name="so_diem_tieu" type="text" onkeypress="return isNumberKey(event)" onpaste ="false" >
+                      <p style="font-weight: bold;margin: 3px"> Điểm tích lũy:{{tientichluy}} </p>
+                      <input hidden name="dtl" value="{{tientichluy}}"> 
+                      <p style="font-weight: bold;margin: 3px"> Tiêu tích lũy:<input id="inputpoints" style="width:30%;border-radius:5px" name="so_diem_tieu" type="text" onkeypress="return isNumberKey(event)" onpaste ="false" >
                             <button style="border-radius:5px;margin: 0" type="submit" value='{{so_ban}}' name="tieu_tich_luy" id="use">Use</button>
                       </p>
                       {% if hoadon.tre_em == "yes"%}
@@ -290,9 +291,11 @@
                       </div>
                       <div style="font-weight: bold; padding-left:65%" class="tong_tien">Tổng tiền: 
                         {% if hoadon.tre_em == "yes"%}
+                        <input hidden name="tt" value="{{tong_tien_tre_em}}"> 
                         {{tong_tien_tre_em}}
                         {% else %}
                         {{hoadon.don_gia}}
+                        <input hidden name="tt" value="{{hoadon.don_gia}}"> 
                         {% endif %}
                       </div>
                   <button class="save_del_pay" type="submit" value='{{so_ban}}' name="add_hoa_don" id="luuhoadon1">Lưu hóa đơn</button>
@@ -340,9 +343,11 @@
       document.getElementById("xoahoadon1").disabled= true;
       document.getElementById("thanhtoan1").disabled= true;
       document.getElementById("search").disabled= true;
+      document.getElementById("inputttkh").disabled= true;
     }
     if(ttkh==null || ttkh==""){
       document.getElementById("use").disabled= true;
+      document.getElementById("inputpoints").disabled= true;
     }
 
     if ( window.history.replaceState ) {
