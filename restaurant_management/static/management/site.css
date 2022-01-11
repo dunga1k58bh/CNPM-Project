@@ -327,3 +327,12 @@ display:none;
 /* Vipmember CSS */
 
   /* End Vipmember CSS */
+
+
+/*403 fobiden css*/
+#permission_denied{
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  color: white;
+}

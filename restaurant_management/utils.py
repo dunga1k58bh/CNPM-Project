@@ -8,7 +8,6 @@ class CalendarEvent(HTMLCalendar):
         self.year = year
         self.month = month
         super(CalendarEvent, self).__init__()
-    
         
     def formatday(self, day, events: SuKien):
         try:
