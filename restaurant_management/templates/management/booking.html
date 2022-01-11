@@ -7,99 +7,95 @@
 {% bootstrap_javascript %}
 
 <div class="container">
-    {% comment %} <div class="row"> {% endcomment %}
-        <!-- Phần này cho danh sách bàn và menu -->
-        <div id="container_1">
-            <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                  <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Danh Sách Bàn</button>
-                </div>
-              </nav>
-              <div style="height: 630px" class="tab-content" id="nav-tabContent">
-                    <!-- Content Danh sách bàn -->
-                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                      <div style="height: 630px; overflow:auto;" class="btn_matrix" role="group" aria-label="Three Column Button Matrix">
-                        <form action="" method="post">
-                        {% for ban in bans %}
-                                {% csrf_token %}
-                                <button id="ban{{ban.so_ban}}" style="margin:5px; " type="submit" class="btn btn-outline-primary btn_ban" value='{{ban.so_ban}}' name = "choose_ban">
-                                  <div >
-                                    <p style= "float: left; margin: 0;font-weight: bold">  {{ban.so_ban}} </p>
-                                    {% if ban.trang_thai == "free" %}
-                                    <img style="width:30%; float: right " src="\static\images\tick-xanh.png" alt="Table" >
-                                    {% else %}
-                                    <img style="width:30%; float: right " src="\static\images\tick-yellow.png" alt="Table" >
-                                    {% endif %}
-                                    <img style="width:84px " src="\static\images\tablebusy.png" alt="Table" >
-                                  </div>
-                                </button>
-                        {% endfor %}
-                        </form>
-                      </div>
-                    </div>
-              </div>
-
+  <!-- Phần này cho danh sách bàn và menu -->
+  <div id="container_1">
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Danh Sách Bàn</button>
+      </div>
+    </nav>
+    <div style="height: 630px" class="tab-content" id="nav-tabContent">
+      <!-- Content Danh sách bàn -->
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div style="height: 630px; overflow:auto;" class="btn_matrix" role="group" aria-label="Three Column Button Matrix">
+          <form action="" method="post">
+            {% for ban in bans %}
+              {% csrf_token %}
+              <button id="ban{{ban.so_ban}}" style="margin:5px; " type="submit" class="btn btn-outline-primary btn_ban" value='{{ban.so_ban}}' name = "choose_ban">
+                <p style= "float: left; margin: 0;font-weight: bold">  {{ban.so_ban}} </p>
+                {% if ban.trang_thai == "free" %}
+                  <img style="width:30%; float: right " src="\static\images\tick-xanh.png" alt="Table" >
+                {% else %}
+                  <img style="width:30%; float: right " src="\static\images\tick-yellow.png" alt="Table" >
+                {% endif %}
+                  <img style="width:84px " src="\static\images\tablebusy.png" alt="Table" >
+              </button>
+            {% endfor %}
+          </form>
         </div>
-        <!-- Phần này cho Hóa đơn -->
-        <div id="container_2">
-          <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Lịch đặt</button>
-            </div>
-          </nav>
-          <div style="height: 630px; padding: 15px; overflow: auto" class="tab-content" id="nav-tabContent">
-            <form name="bookingForm" action="" method="post" onsubmit="return validateform()">
-              <p style="font-weight: bold;margin: 3px">Số bàn : {{so_ban}} </p>
-                <div class="row">
-                  <div class="col-sm-7">
-                    <p style="font-weight: bold;margin: 3px" class="ho_ten">   Họ tên: <input style="width:65%; border-radius:5px; margin-left:22px" name="ho_ten" type="text"  required/></p>
-                    <p style="font-weight: bold;margin: 3px" class="thoi_gian">Thời gian: <input style="width:65%; font-weight: bold;margin: 3px;border-radius:5px" type="datetime-local" name="thoi_gian" required></p>
-                  </div>
-                  <div class="col-sm-5">
-                    <p style="font-weight: bold;margin: 3px" class="sdt">Số ĐT: <input style="width:50%; font-weight: bold;margin: 3px;border-radius:5px" name="sdt" type="text"  required/></p>
-                    <button style="font-weight: bold;margin: 3px;border-radius:5px" type="submit" value='{{so_ban}}' name="booking_table" id="dat__ban">Đặt bàn</button>
-                  </div>
-                </div>
-                {% csrf_token %}
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th style="width: 30%" scope="col">Họ tên</th>
-                        <th style="width: 20%" scope="col">Số ĐT</th>
-                        <th style="width: 10%" scope="col"> Bàn </th>
-                        <th style="width: 30%" scope="col">Thời gian</th>
-                        <th style="width: 10%"  scope="col">Xóa</th>
-                      </tr>
-                    </thead>
-                  </table>
-                  <div style="height: 435px; overflow: auto">
-                    <table class="table">
-                    <tbody id="bang_hoa_don">
-                      {% for dat_ban in dat_bans %}
-                     <tr >
-                        <td style="width: 30%"  class="ho_ten">{{dat_ban.ho_ten}}</td>
-                        <td style="width: 20%"  class="sdt">{{dat_ban.sdt}}</td>
-                        <td style="width: 10%"  class="so_ban">{{dat_ban.so_ban.so_ban}}</td>
-                        <td style="width: 30%"  class="thoi_gian"> {{dat_ban.thoi_gian}}</td>
-                        <th style="width: 10%" >
-                          <button style="border-radius:5px" type="submit" value='{{dat_ban.ma_dat_ban}}' name="delete_booking">Hủy</button>
-                        </th>
-                    </tr>   
-                    {% endfor %}       
-                    </tbody>
-                    </table>
-                  </div>
-            </form> 
-          </div> 
-        </div>
+      </div>
+    </div>
   </div>
-  <script>
-    var soban= document.bookingForm.booking_table.value;
-    if(soban== null || soban ==""){
-      document.getElementById("dat__ban").disabled= true;
-    }
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
+  <!-- Phần này cho Hóa đơn -->
+  <div id="container_2">
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active"  data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Lịch đặt</button>
+      </div>
+    </nav>
+    <div style="height: 630px; padding: 15px; overflow: auto" class="tab-content" id="nav-tabContent">
+      <form name="bookingForm" action="" method="post" onsubmit="return validateform()">
+        <p style="font-weight: bold;margin: 3px">Số bàn : {{so_ban}} </p>
+        <div class="row">
+          <div class="col-sm-7">
+            <p style="font-weight: bold;margin: 3px" class="ho_ten">   Họ tên: <input style="width:65%; border-radius:5px; margin-left:22px" name="ho_ten" type="text"  required/></p>
+            <p style="font-weight: bold;margin: 3px" class="thoi_gian">Thời gian: <input style="width:65%; font-weight: bold;margin: 3px;border-radius:5px" type="datetime-local" name="thoi_gian" required></p>
+          </div>
+          <div class="col-sm-5">
+            <p style="font-weight: bold;margin: 3px" class="sdt">Số ĐT: <input style="width:50%; font-weight: bold;margin: 3px;border-radius:5px" name="sdt" type="text"  required/></p>
+            <button style="font-weight: bold;margin: 3px;border-radius:5px" type="submit" value='{{so_ban}}' name="booking_table" id="dat__ban">Đặt bàn</button>
+          </div>
+        </div>
+        {% csrf_token %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 30%" scope="col">Họ tên</th>
+                <th style="width: 20%" scope="col">Số ĐT</th>
+                <th style="width: 10%" scope="col"> Bàn </th>
+                <th style="width: 30%" scope="col">Thời gian</th>
+                <th style="width: 10%"  scope="col">Xóa</th>
+              </tr>
+          </thead>
+        </table>
+        <div style="height: 435px; overflow: auto">
+          <table class="table">
+            <tbody id="bang_hoa_don">
+              {% for dat_ban in dat_bans %}
+                <tr >
+                  <td style="width: 30%"  class="ho_ten">{{dat_ban.ho_ten}}</td>
+                  <td style="width: 20%"  class="sdt">{{dat_ban.sdt}}</td>
+                  <td style="width: 10%"  class="so_ban">{{dat_ban.so_ban.so_ban}}</td>
+                  <td style="width: 30%"  class="thoi_gian"> {{dat_ban.thoi_gian}}</td>
+                  <td style="width: 10%" >
+                    <button style="border-radius:5px" type="submit" value='{{dat_ban.ma_dat_ban}}' name="delete_booking">Hủy</button>
+                  </td>
+                </tr>   
+              {% endfor %}       
+            </tbody>
+          </table>
+        </div>
+      </form> 
+    </div> 
+  </div>
+</div>
+<script>
+  var soban= document.bookingForm.booking_table.value;
+  if(soban== null || soban ==""){
+    document.getElementById("dat__ban").disabled= true;
   }
-  </script>
+  if( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+  }
+</script>
 {% endblock %}
