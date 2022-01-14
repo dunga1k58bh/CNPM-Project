@@ -158,13 +158,16 @@ def home(request):
                     'hotenkhachhang' : hoadon.ma_khach_hang.ten_khach_hang,
                 })  
             except:
-                hoadon.ma_khach_hang= None
-                hoadon.save()
-                context.update({
-                    'tientichluy' : "",
-                    'thongtinkhachhang' : "",
-                    'hotenkhachhang' : "",
-                })  
+                try:
+                    hoadon.ma_khach_hang= ""
+                    hoadon.save()
+                    context.update({
+                        'tientichluy' : "",
+                        'thongtinkhachhang' : "",
+                        'hotenkhachhang' : "",
+                    }) 
+                except:
+                    print("failure!")
         else :
             ban = models.Ban.objects.get(so_ban = so_ban)
             hoadon=ban.ma_hoa_don

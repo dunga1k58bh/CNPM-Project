@@ -81,8 +81,8 @@ DATABASES = {
         'ENGINE': 'mssql',
         'NAME': 'QL_Nhahang',
         'USER': 'sa',
-        'PASSWORD': 'admin',
-        'HOST': 'ADMIN\SQLEXPRESS',
+        'PASSWORD': '20194040',
+        'HOST': 'DELL',
         'PORT': '',
 
         'OPTIONS': {
