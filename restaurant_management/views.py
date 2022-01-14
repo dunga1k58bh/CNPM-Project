@@ -134,12 +134,10 @@ def home(request):
                 ban.trang_thai ="free"
                 ban.save()
     if "add_hoa_don" in request.POST :
-        # Đoạn này để tạo hóa đơn và thêm hóa đơn vào bàn
         so_ban = request.POST.get("add_hoa_don")
         date = timezone.now()
         nhanvien = models.NhanVien.objects.get(ma_nhan_vien = 1)
         tre_em = request.POST.get("treem_nguoigia")
-        # Lấy ra danh sách mã món đã thêm và số lượng để add vào bảng Đặt món 
         ma_mon_dat = request.POST.getlist("ma_mons")
         so_luong_dat = request.POST.getlist("so_luongs")    
         ban = models.Ban.objects.get(so_ban = so_ban)
@@ -159,7 +157,7 @@ def home(request):
                 })  
             except:
                 try:
-                    hoadon.ma_khach_hang= ""
+                    hoadon.ma_khach_hang= None
                     hoadon.save()
                     context.update({
                         'tientichluy' : "",

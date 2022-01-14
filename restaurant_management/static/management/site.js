@@ -15,7 +15,7 @@ function addMealFunction(ma_mon, tenmon, giamon) {
     + giamon
     + '</td>'
     +'<td style="width :20%" class="thanh__tien"></td>'
-    +'<input hidden type="text" value="'+ma_mon+'"name="ma_mons" >'
+    +'<td hidden> <input type="text" value="'+ma_mon+'"name="ma_mons" > </td>'
     +'<td style="width :10%" > <button class="del_mon" type="button" onclick="deleteMealFunction('
     +mamon
     +tm
@@ -23,6 +23,7 @@ function addMealFunction(ma_mon, tenmon, giamon) {
     + ' </tr>';
     document.getElementById("addMeal"+tenmon).disabled= true;
     document.getElementById('bang_hoa_don').insertAdjacentHTML('afterend', html);
+    document.getElementById("addMeal"+tenmon+"db").disabled= true;
     
 }
 
@@ -30,6 +31,7 @@ function deleteMealFunction(idMeal, tenmon) {
     var element = document.getElementById("idMeal"+idMeal);
     element.parentNode.removeChild(element);
     document.getElementById("addMeal"+tenmon).disabled= false;
+    document.getElementById("addMeal"+tenmon+"db").disabled= false;
 }
 function validateHomeForm(){
     var ip = document.homeForm.so_diem_tieu.value;
