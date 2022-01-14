@@ -233,6 +233,12 @@ def home(request):
             hoadon=ban.ma_hoa_don
             hoadon.ma_khach_hang= None
             hoadon.save()
+        tre_em = request.POST.get("treem_nguoigia")
+        if tre_em == "yes":
+            hoadon.tre_em=tre_em  
+        else :
+            hoadon.tre_em= "no"
+        hoadon.save()
     if "tieu_tich_luy" in request.POST:
         so_ban= request.POST.get("tieu_tich_luy")
         sodiemtieu = request.POST.get("so_diem_tieu")
@@ -249,7 +255,13 @@ def home(request):
                 hoadon.save()
                 thethanhvien.save()
             except:
-                print("failure! thất bại trong tiêu tích lũy")        
+                print("failure! thất bại trong tiêu tích lũy")   
+        tre_em = request.POST.get("treem_nguoigia")
+        if tre_em == "yes":
+            hoadon.tre_em=tre_em  
+        else :
+            hoadon.tre_em= "no"
+        hoadon.save()    
     if "remove_hoa_don" in request.POST :
         ma_hoa_don = request.POST.get("remove_hoa_don")
         hoadon= models.HoaDon.objects.get(ma_hoa_don=ma_hoa_don)
@@ -266,6 +278,15 @@ def home(request):
     if "pay_hoa_don" in request.POST :
         ma_hoa_don = request.POST.get("pay_hoa_don")
         hoadon= models.HoaDon.objects.get(ma_hoa_don=ma_hoa_don)
+        tre_em = request.POST.get("treem_nguoigia")
+        if tre_em == "yes":
+            hoadon.tre_em=tre_em  
+        else :
+            hoadon.tre_em= "no"
+        hoadon.save()
+        if hoadon.tre_em == "yes":
+            hoadon.don_gia = hoadon.don_gia*0.95
+            hoadon.save()
         so_ban = hoadon.so_ban
         ban=models.Ban.objects.get(so_ban=so_ban)
         if hoadon.ma_khach_hang is not None:
@@ -615,6 +636,8 @@ def takeAway(request):
         ma_hoa_don= request.POST.get("pay_hoa_don")
         hoadon= models.HoaDon.objects.get(ma_hoa_don = ma_hoa_don)
         if hoadon is not None:
+            if hoadon.tre_em == "yes":
+                hoadon.tong_tien = hoadon.tong_tien*0.95
             ma_hoa_don = hoadon.ma_hoa_don
             context.update({
                 'mahoadon' : "",

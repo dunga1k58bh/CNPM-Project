@@ -15,7 +15,7 @@ function addMealFunction(ma_mon, tenmon, giamon) {
     + giamon
     + '</td>'
     +'<td style="width :20%" class="thanh__tien"></td>'
-    +'<td hidden> <input type="text" value="'+ma_mon+'"name="ma_mons" > </td>'
+    +'<input hidden type="text" value="'+ma_mon+'"name="ma_mons" >'
     +'<td style="width :10%" > <button class="del_mon" type="button" onclick="deleteMealFunction('
     +mamon
     +tm
