@@ -81,8 +81,8 @@ DATABASES = {
         'ENGINE': 'mssql',
         'NAME': 'QL_Nhahang',
         'USER': 'sa',
-        'PASSWORD': 'admin',
-        'HOST': 'ADMIN\SQLEXPRESS',
+        'PASSWORD': '1',
+        'HOST': 'DESKTOP-KMM76OT\SQLEXPRESS',
         'PORT': '',
 
         'OPTIONS': {
@@ -134,3 +134,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Tự động log out tài khoản khi đóng trình duyệt
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
