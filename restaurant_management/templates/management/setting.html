@@ -30,17 +30,6 @@
         </button>
       </li><!-- End Profile Page Nav -->
 
-      <li class="nav-item">
-        <button class="nav-link collapsed" style="border: none;" >
-          <span>Register</span>
-        </button>
-      </li><!-- End Register Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="{% url 'signin' %}" >
-          <span>Login</span>
-        </a>
-      </li><!-- End Login Page Nav -->
 
     </ul>
 
@@ -48,6 +37,7 @@
 </div>
 <div class="emp" style="display:none;">
   <div class="col-sm-10">
+    
     <table class="table" style="background-color:rgba(206, 206, 206, 0.9); color:#030b53">
       <thead>
         <tr>
@@ -61,6 +51,22 @@
         </tr>
       </thead>
       <tbody>
+        <form action="" method="post">
+          {% csrf_token %}
+        <tr class = "themnv" style="display: none;">
+        <th scope="row"></th>
+        <td><input style="width: 50px" type="text" name="manhanvien" placeholder="Mã" required></td>
+        <td><input style="width: 200px" type="text" name="tennhanvien" placeholder="Tên nhân viên" required></td>
+        <td><input style="width: 150px" type="date"  name="ngaysinh" required></td>
+        <td><select name="gioitinh">
+          <option value="Nam">Nam</option>
+          <option value="Nữ">Nữ</option>
+          <option value="Khác">Khác</option>
+        </select></td>
+        <td><input style="width: 125px" type="text" name="chucvu" placeholder="Chức vụ" required></td>
+        <td><button style="width: 80px" name="them_nv">Save</button></td>
+        </tr>
+        </form>
           {% for nhanvien in nhanviens %}
           <tr>
               <th scope="row"></th>
@@ -70,14 +76,17 @@
               <td>{{nhanvien.gioi_tinh}}</td>
               <td>{{nhanvien.chuc_vu}}</td>
               <td>
-                
-                  <!-- <button >Edit</button> -->
-                
+                <form action="" method="post">
+                  {% csrf_token %}
+                  <button style="width: 80px" name="xoa_nv" value={{nhanvien.ma_nhan_vien}} {% if nhanvien in quanly %} type="button" onclick = "bug_del()" {% endif %}>Delete</button>
+                </form>
               </td>
             </tr>      
           {% endfor %}
       </tbody>
     </table>
+  
+    <button style="margin-left: 90%;" onclick="themnv()">Add</button>
   </div>
 </div>
 
@@ -150,7 +159,7 @@
       {% csrf_token %}
     <table class="table" id="table_mon" style="background-color:rgba(206, 206, 206, 0.9); color:#030b53 ; margin-top: 30px;">
       <thead>
-        <tr>
+        <tr >
           <th scope="col">#</th>
           <th scope="col">Tên</th>
           <th scope="col">Giá</th>
@@ -161,9 +170,9 @@
       <tbody>
         <tr class="themmonmoi" style="display: none;">
           <th scope="row"></th>
-          <td><input style="width: 200px" type="text" name="tenmonan" value="Thêm món" ></td>
-          <td><input style="width: 100px" type="number" min="0" step = "1000" name="giamonan" value="10000"></td>
-          <td><input style="width: 100px" type="text" name="donvimon" value="Đơn vị"></td>
+          <td><input style="width: 200px" type="text" name="tenmonan" placeholder="Tên món" ></td>
+          <td><input style="width: 100px" type="number" min="0" step = "1000" name="giamonan" placeholder="Giá" ></td>
+          <td><input style="width: 100px" type="text" name="donvimon" placeholder="Đơn vị" ></td>
           <td></td>
         </tr>
         <div class="MN">

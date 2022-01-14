@@ -85,7 +85,9 @@ function menu_monan(ma_menu){
     var k = document.getElementById("savemn");
      var i;
      document.getElementsByClassName("themmonmoi")[0].style.display = 'table-row';
+     document.getElementById("table_mon").style.display = 'inline-table';
      document.getElementsByClassName("addd_mon")[0].style.display = 'flex';
+
     if(ma_menu == 'MN1'){
         for (i = 0; i < x.length; i++) x[i].style.display = 'table-row';
         for (i = 0; i < y.length; i++) y[i].style.display = 'none';
@@ -170,4 +172,10 @@ function db_mn4(){
     for (i = 0; i < y.length; i++) y[i].style.display = 'none';
     for (i = 0; i < z.length; i++) z[i].style.display = 'none';
     for (i = 0; i < t.length; i++) t[i].style.display = 'table-row';
+}
+function themnv(){
+    document.getElementsByClassName("themnv")[0].style.display = 'table-row';
+}
+function bug_del(){
+    alert("Không thể xóa quản lý");
 }

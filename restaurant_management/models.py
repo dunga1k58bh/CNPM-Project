@@ -136,3 +136,4 @@ class TheThanhVien(models.Model):
         db_table = 'THE_THANH_VIEN'
     def getName(self):
         return self.ma_khach_hang.ten_khach_hang
+

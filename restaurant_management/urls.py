@@ -2,9 +2,9 @@ from django.urls import path
 from restaurant_management import views
 
 urlpatterns = [
-    path("", views.signin, name="signin"),
+    path("signin", views.signin, name="signin"),
     path("signout/", views.signout, name="signout"),
-    path("home/", views.home, name="home"),
+    path("", views.home, name="home"),
     path("take_away/", views.takeAway, name="take_away"),
     path("cal_events/", views.EventsView.as_view(), name="cal_events"),
     path("vip_member/", views.vipMember, name="vip_member"),

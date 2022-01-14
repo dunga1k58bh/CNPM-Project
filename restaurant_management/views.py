@@ -1,5 +1,6 @@
 import calendar
 from datetime import date, datetime, time, timedelta
+
 from django.core.checks import messages
 from django.shortcuts import redirect, render
 from django.shortcuts import get_object_or_404, redirect, render
@@ -20,6 +21,8 @@ from django.contrib.auth.decorators import login_required
 from .filter import TTVfilter
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.models import  User, Group
+
 
 def group_required(group, login_url=None, raise_exception=False):
     """
@@ -64,13 +67,13 @@ def signin(request):
     return render(request, "authentication/signin.html", {})
 
 
-@login_required(login_url='/')
+@login_required(login_url='/signin')
 def signout(request):
     logout(request)
     return render(request, "authentication/signout.html", {})
 
 
-@login_required(login_url='/')
+@login_required(login_url='/signin')
 def home(request):
     bans = models.Ban.objects.filter(delete = 'NO')[1:]
     menu = models.Menu.objects.all()
@@ -360,7 +363,7 @@ def home(request):
     #
     return render(request, "management/home.html", context)
 
-@login_required(login_url='/')
+@login_required(login_url='/signin')
 def booking (request):
     bans = models.Ban.objects.filter(delete = 'NO')[1:]
     context = {
@@ -440,7 +443,7 @@ def booking (request):
     #
     return render(request, "management/booking.html", context)
 
-@login_required(login_url='/')
+@login_required(login_url='/signin')
 def takeAway(request):
     menu = models.Menu.objects.all()
     menu1 = models.MonAn.objects.filter(ma_menu='MN1', delete = 'NO')
@@ -671,7 +674,7 @@ def takeAway(request):
     return render(request, "management/take_away.html", context)
 
 class EventsView(LoginRequiredMixin, ListView, ModelFormMixin):
-    login_url = '/'
+    login_url = '/signin'
     model = models.SuKien
     template_name='calendar_event/events.html'
     form_class = EventForm
@@ -735,7 +738,7 @@ def next_month(d):
     
     
     
-@login_required(login_url='/')
+@login_required(login_url='/signin')
 def vipMember(request):
     
     if 'AddKH' in request.POST:
@@ -784,7 +787,7 @@ def vipMember(request):
 
 #     return JsonResponse({}, status = 400)
 
-@login_required(login_url='/')
+@login_required(login_url='/signin')
 @group_required('quản trị viên',login_url='/')
 def statistics(request):
     context = {}
@@ -982,7 +985,7 @@ def statistics(request):
     return render(request, "management/statistics.html", context)
 
 
-@login_required(login_url='/')
+@login_required(login_url='/signin')
 @group_required('quản trị viên',login_url='/')
 def setting(request):
     menus = models.Menu.objects.all()
@@ -990,7 +993,7 @@ def setting(request):
     bans = models.Ban.objects.filter(delete = 'NO') 
     nhanviens = models.NhanVien.objects.all() 
     mondacbiet = models.MonAn.objects.filter(dac_biet = 'YES',delete = 'NO' )
-    
+    quanly = models.NhanVien.objects.filter(ma_nhan_vien = '1' )
     if "save_mon" in request.POST :
         name_mon = request.POST.get("tenmonan")
         gia_mon = request.POST.get("giamonan")
@@ -998,7 +1001,7 @@ def setting(request):
         count_mon = (models.MonAn.objects.filter().count()+1)
         ma_menu = request.POST.get("save_mon")
         menu_moi = models.Menu.objects.get(ma_menu = ma_menu)
-        if name_mon != "Thêm món" and name_mon != "" and don_vi_mon != "Đơn vị" and don_vi_mon != "":
+        if  name_mon != "" and don_vi_mon != "":
             mon_moi = models.MonAn.objects.create(ma_mon = "M"+str(count_mon), ten_mon = name_mon, don_vi = don_vi_mon, gia = gia_mon, ma_menu = menu_moi)
             mon_moi.save()
         ma_mon_sua = request.POST.getlist("ma_monss")
@@ -1025,13 +1028,27 @@ def setting(request):
         banall = models.Ban.objects.all()
         so_ban_sua = int(request.POST.get("quantity"))
         for ban in banall :
-            if ban.so_ban <=so_ban_sua  :
+            if ban.so_ban <=so_ban_sua :
                 ban.delete = "NO"
                 ban.save()
             else :
                 ban.delete = "YES"
                 ban.save()
     soluong_ban = (models.Ban.objects.filter(delete = 'NO').count() -1)
+    if "them_nv" in request.POST :
+        ma_nhan_vien = request.POST.get("manhanvien")
+        ten_nhan_vien = request.POST.get("tennhanvien")
+        ngay_sinh = request.POST.get("ngaysinh")
+        gioi_tinh = request.POST.get("gioitinh")
+        chuc_vu = request.POST.get("chucvu")
+        if ten_nhan_vien != "" and ngay_sinh != "" and chuc_vu != "":
+            nv_moi = models.NhanVien.objects.create(ma_nhan_vien = ma_nhan_vien, ten_nhan_vien = ten_nhan_vien, ngay_sinh = ngay_sinh, gioi_tinh = gioi_tinh, chuc_vu = chuc_vu)
+            nv_moi.save()
+    if "xoa_nv" in request.POST :
+        ma_nhan_vien = request.POST.get("xoa_nv")
+        if ma_nhan_vien != "1":
+            nv_xoa = models.NhanVien.objects.get(ma_nhan_vien=ma_nhan_vien)
+            nv_xoa.delete()
     return render(request, "management/setting.html",
                   {
                         'menus' : menus,
@@ -1039,6 +1056,6 @@ def setting(request):
                         'bans' : bans,
                         'nhanviens' : nhanviens,
                         'soluong_ban': soluong_ban,
-                        'mondacbiet': mondacbiet
-                       
+                        'mondacbiet': mondacbiet,
+                        'quanly': quanly
                   })
