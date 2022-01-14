@@ -1,5 +1,6 @@
 import calendar
 from datetime import date, datetime, time, timedelta
+
 from django.core.checks import messages
 from django.shortcuts import redirect, render
 from django.shortcuts import get_object_or_404, redirect, render
@@ -20,6 +21,8 @@ from django.contrib.auth.decorators import login_required
 from .filter import TTVfilter
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.models import  User, Group
+
 
 def group_required(group, login_url=None, raise_exception=False):
     """
@@ -64,13 +67,13 @@ def signin(request):
     return render(request, "authentication/signin.html", {})
 
 
-@login_required(login_url='/')
+@login_required(login_url='/signin')
 def signout(request):
     logout(request)
     return render(request, "authentication/signout.html", {})
 
 
-@login_required(login_url='/')
+@login_required(login_url='/signin')
 def home(request):
     bans = models.Ban.objects.filter(delete = 'NO')[1:]
     menu = models.Menu.objects.all()
@@ -339,7 +342,7 @@ def home(request):
     #
     return render(request, "management/home.html", context)
 
-@login_required(login_url='/')
+@login_required(login_url='/signin')
 def booking (request):
     bans = models.Ban.objects.filter(delete = 'NO')[1:]
     context = {
@@ -419,7 +422,7 @@ def booking (request):
     #
     return render(request, "management/booking.html", context)
 
-@login_required(login_url='/')
+@login_required(login_url='/signin')
 def takeAway(request):
     menu = models.Menu.objects.all()
     menu1 = models.MonAn.objects.filter(ma_menu='MN1', delete = 'NO')
@@ -648,7 +651,7 @@ def takeAway(request):
     return render(request, "management/take_away.html", context)
 
 class EventsView(LoginRequiredMixin, ListView, ModelFormMixin):
-    login_url = '/'
+    login_url = '/signin'
     model = models.SuKien
     template_name='calendar_event/events.html'
     form_class = EventForm
@@ -712,7 +715,7 @@ def next_month(d):
     
     
     
-@login_required(login_url='/')
+@login_required(login_url='/signin')
 def vipMember(request):
     
     if 'AddKH' in request.POST:
@@ -761,7 +764,7 @@ def vipMember(request):
 
 #     return JsonResponse({}, status = 400)
 
-@login_required(login_url='/')
+@login_required(login_url='/signin')
 @group_required('quản trị viên',login_url='/')
 def statistics(request):
     context = {}
@@ -959,7 +962,7 @@ def statistics(request):
     return render(request, "management/statistics.html", context)
 
 
-@login_required(login_url='/')
+@login_required(login_url='/signin')
 @group_required('quản trị viên',login_url='/')
 def setting(request):
     menus = models.Menu.objects.all()
@@ -967,7 +970,7 @@ def setting(request):
     bans = models.Ban.objects.filter(delete = 'NO') 
     nhanviens = models.NhanVien.objects.all() 
     mondacbiet = models.MonAn.objects.filter(dac_biet = 'YES',delete = 'NO' )
-    
+
     if "save_mon" in request.POST :
         name_mon = request.POST.get("tenmonan")
         gia_mon = request.POST.get("giamonan")
