@@ -1049,8 +1049,22 @@ def setting(request):
         if ma_nhan_vien != "1":
             nv_xoa = models.NhanVien.objects.get(ma_nhan_vien=ma_nhan_vien)
             nv_xoa.delete()
+
+    groups = Group.objects.values('id', 'name')
+    user_array = []
+    group_array = []
+    for group in groups:
+        group_ = Group.objects.get(id=group['id'])
+        users_group = group_.user_set.filter(is_superuser=False)
+        if users_group:
+            for user_group in users_group:
+                user_array.append(user_group)
+                group_array.append(group['name'])
+    users = zip(user_array, group_array)
+
     return render(request, "management/setting.html",
                   {
+                        'users': users,
                         'menus' : menus,
                         'monans' : monans,
                         'bans' : bans,

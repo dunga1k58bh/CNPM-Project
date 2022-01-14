@@ -330,9 +330,9 @@ display:none;
 
 
 /*403 fobiden css*/
-#permission_denied{
+.permission_denied{
   width: 100%;
   height: 100%;
   background-color: white;
-  color: white;
+  color: black;
 }
