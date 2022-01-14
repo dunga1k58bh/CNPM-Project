@@ -229,12 +229,13 @@
     <div style="padding: 15px; height:630px;overflow:auto" class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade show active" id="nav-home-bill" role="tabpanel" aria-labelledby="nav-home-bill-tab"> 
         <form id="homeForm" name="homeForm" action="" method="post" onsubmit=" return validateHomeForm()">
+          <input hidden id="ipid" name="ipname" value="69">
           <div class="row">
             <div class="col">
               <p style="font-weight: bold;margin: 3px">Số bàn : {{so_ban}} </p>
               <p style="font-weight: bold;margin: 3px">Họ tên: {{hotenkhachhang}}</p>
               <p style="font-weight: bold;margin: 3px"> Số ĐT:<input id="inputttkh" style="width:40%;border-radius:5px" name="thong_tin_khach_hang" type="text " value="{{thongtinkhachhang}}">
-                <button style="border-radius:5px;margin: 3px" type="submit" value='{{so_ban}}' name="search_infor_kh" id= "search">
+                <button onclick="addHFunction()" style="border-radius:5px;margin: 3px" type="submit" value='{{so_ban}}' name="search_infor_kh" id= "search">
                   <img style="width:20px; " src="\static\images\icon-search.png" alt="Search" >
                 </button> 
               </p>
@@ -244,7 +245,7 @@
               <p style="font-weight: bold;margin: 3px"> Điểm tích lũy:{{tientichluy}} </p>
               <input hidden name="dtl" value="{{tientichluy}}"> 
               <p style="font-weight: bold;margin: 3px"> Tiêu tích lũy:<input id="inputpoints" style="width:30%;border-radius:5px" name="so_diem_tieu" type="text" onkeypress="return isNumberKey(event)" onpaste ="false" >
-                <button style="border-radius:5px;margin: 0" type="submit" value='{{so_ban}}' name="tieu_tich_luy" id="use">Use</button>
+                <button onclick="addHFunction()" style="border-radius:5px;margin: 0" type="submit" value='{{so_ban}}' name="tieu_tich_luy" id="use">Use</button>
               </p>
               {% if hoadon.tre_em == "yes"%}
                 <p style="margin: 5px"> Bàn có trẻ em/ Người già  <input checked name="treem_nguoigia" type="checkbox" value="yes" /> </p>
@@ -309,7 +310,7 @@
                 <input hidden name="tt" value="{{hoadon.don_gia}}"> 
               {% endif %}
             </div>
-            <button class="save_del_pay" type="submit" value='{{so_ban}}' name="add_hoa_don" id="luuhoadon1">Lưu hóa đơn</button>
+            <button onclick="addHFunction()" class="save_del_pay" type="submit" value='{{so_ban}}' name="add_hoa_don" id="luuhoadon1">Lưu hóa đơn</button>
             <button class="save_del_pay" type="submit" value='{{hoadon.ma_hoa_don}}' name="remove_hoa_don" id="xoahoadon1">Xóa hóa đơn</button> 
             <button class="save_del_pay" type="submit" value='{{hoadon.ma_hoa_don}}' name="pay_hoa_don" id="thanhtoan1">Thanh toán</button>
           </div>

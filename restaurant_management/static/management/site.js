@@ -33,10 +33,17 @@ function deleteMealFunction(idMeal, tenmon) {
     document.getElementById("addMeal"+tenmon).disabled= false;
     document.getElementById("addMeal"+tenmon+"db").disabled= false;
 }
+function addHFunction(){
+    document.homeForm.ipname.value= 96;
+}
+function addTFunction(){
+    document.take_awayForm.ipname.value= 96;
+}
 function validateHomeForm(){
     var ip = document.homeForm.so_diem_tieu.value;
     var max1 = Number(document.homeForm.dtl.value);
     var tt  =  Number(document.homeForm.tt.value);
+    var ipval= Number(document.homeForm.ipname.value);
     if(ip != "" && ip < 0){
         alert( "Số điểm tiêu phải > 0.");
         return false;
@@ -52,6 +59,9 @@ function validateHomeForm(){
     if( ip != "" && ip > tt ){
         alert( "Số điểm tiêu không được lớn hơn giá trị hóa đơn." );
         return false;
+    }
+    if(ipval == 96){
+        return true;
     }
     var result=confirm("Are you sure?");
     return result ;
@@ -60,6 +70,7 @@ function validateTake_awayForm(){
     var ip = document.take_awayForm.so_diem_tieu.value;
     var max1 = Number(document.take_awayForm.dtl.value);
     var tt  =  Number(document.take_awayForm.tt.value);
+    var ipval= Number(document.take_awayForm.ipname.value);
     if(ip != "" && ip < 0){
         alert( "Số điểm tiêu phải > 0.");
         return false;
@@ -75,6 +86,9 @@ function validateTake_awayForm(){
     if( ip != "" && ip > tt ){
         alert( "Số điểm tiêu không được lớn hơn giá trị hóa đơn." );
         return false;
+    }
+    if(ipval == 96){
+        return true;
     }
     var result=confirm("Are you sure?");
     return result ;
