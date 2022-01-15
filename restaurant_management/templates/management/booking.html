@@ -44,7 +44,8 @@
       </div>
     </nav>
     <div style="height: 630px; padding: 15px; overflow: auto" class="tab-content" id="nav-tabContent">
-      <form name="bookingForm" action="" method="post" onsubmit="return validateform()">
+      <form name="bookingForm" action="" method="post">
+        {% csrf_token %}
         <p style="font-weight: bold;margin: 3px">Số bàn : {{so_ban}} </p>
         <div class="row">
           <div class="col-sm-7">
@@ -56,6 +57,8 @@
             <button style="font-weight: bold;margin: 3px;border-radius:5px" type="submit" value='{{so_ban}}' name="booking_table" id="dat__ban">Đặt bàn</button>
           </div>
         </div>
+      </form>
+      <form name="bookingForm" action="" method="post">
         {% csrf_token %}
         <table class="table">
           <thead>
