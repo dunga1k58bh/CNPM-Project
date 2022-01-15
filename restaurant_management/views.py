@@ -293,13 +293,12 @@ def home(request):
             hoadon.save()
         so_ban = hoadon.so_ban
         ban=models.Ban.objects.get(so_ban=so_ban)
-        if hoadon.ma_khach_hang is not None:
-            ma_hoa_don = hoadon.ma_hoa_don
-            ban.ma_hoa_don = None
-            ban.trang_thai= "free"
-            ban.save()
-            try:
-                if hoadon.ma_khach_hang is not None:               
+        ma_hoa_don = hoadon.ma_hoa_don
+        ban.ma_hoa_don = None
+        ban.trang_thai= "free"
+        ban.save()  
+        try:
+                if hoadon.ma_khach_hang is not None:             
                     thethanhvien = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
                     thethanhvien.tong_tien= thethanhvien.tong_tien+ hoadon.don_gia
                     tong_tien = thethanhvien.tong_tien
@@ -317,7 +316,7 @@ def home(request):
                         thethanhvien.hang = 'Đồng'                       
                     thethanhvien.tien_tich_luy = thethanhvien.tien_tich_luy + hoadon.don_gia * heso
                     thethanhvien.save()
-            except:
+        except:
                 print("bàn này chưa có hóa đơn")
     # 
     curban = models.Ban.objects.get(so_ban=0)
