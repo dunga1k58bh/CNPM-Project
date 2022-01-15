@@ -144,26 +144,26 @@ def home(request):
         ban.trang_thai ="busy"
         ban.save()
         #  Tìm kiếm thông tin khách hàng
-        ttkh= request.POST.get("thong_tin_khach_hang")
-        try:
-            ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
-            hoadon.ma_khach_hang= ma_khach_hang
-            hoadon.save()
-            ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
-            dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
-            context.update({
-                'tientichluy' : ma_the.tien_tich_luy,
-                'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
-                'hotenkhachhang' : hoadon.ma_khach_hang.ten_khach_hang,
-            })  
-        except:
-            hoadon.ma_khach_hang= None
-            hoadon.save()
-            context.update({
-                'tientichluy' : "",
-                'thongtinkhachhang' : "",
-                'hotenkhachhang' : "",
-            }) 
+        # ttkh= request.POST.get("thong_tin_khach_hang")
+        # try:
+        #     ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
+        #     hoadon.ma_khach_hang= ma_khach_hang
+        #     hoadon.save()
+        #     ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
+        #     dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
+        #     context.update({
+        #         'tientichluy' : ma_the.tien_tich_luy,
+        #         'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
+        #         'hotenkhachhang' : hoadon.ma_khach_hang.ten_khach_hang,
+        #     })  
+        # except:
+        #     hoadon.ma_khach_hang= None
+        #     hoadon.save()
+        #     context.update({
+        #         'tientichluy' : "",
+        #         'thongtinkhachhang' : "",
+        #         'hotenkhachhang' : "",
+        #     }) 
         #Lưu món đặt mới vào csdl
         giahoadon =0 
         ma_hoa_don = hoadon.ma_hoa_don
@@ -466,27 +466,27 @@ def takeAway(request):
             'tongtien' : hoadon.don_gia,
             'dat_mons': dat_mons ,
         })
-        ttkh= request.POST.get("thong_tin_khach_hang")
-        try:
-            ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
-            hoadon.ma_khach_hang= ma_khach_hang
-            hoadon.save()
-            ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
-            dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
-            context.update({
-                'tientichluy' : ma_the.tien_tich_luy,
-                'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
-                'hotenkhachhang' : hoadon.ma_khach_hang.ten_khach_hang,
-            })  
-        except:
-            hoadon.ma_khach_hang= None
-            hoadon.save()
-            context.update({
-                'tientichluy' : "",
-                'thongtinkhachhang' : "",
-                'hotenkhachhang' : "",
-            })
-            print("Không tìm thấy thông tin khách hàng trong CSDL!")
+        # ttkh= request.POST.get("thong_tin_khach_hang")
+        # try:
+        #     ma_khach_hang= models.KhachHang.objects.get(so_dien_thoai = ttkh)
+        #     hoadon.ma_khach_hang= ma_khach_hang
+        #     hoadon.save()
+        #     ma_the = models.TheThanhVien.objects.get(ma_khach_hang = hoadon.ma_khach_hang)
+        #     dat_mons = models.DatMon.objects.filter(ma_hoa_don = hoadon.ma_hoa_don)
+        #     context.update({
+        #         'tientichluy' : ma_the.tien_tich_luy,
+        #         'thongtinkhachhang' : hoadon.ma_khach_hang.so_dien_thoai,
+        #         'hotenkhachhang' : hoadon.ma_khach_hang.ten_khach_hang,
+        #     })  
+        # except:
+        #     hoadon.ma_khach_hang= None
+        #     hoadon.save()
+        #     context.update({
+        #         'tientichluy' : "",
+        #         'thongtinkhachhang' : "",
+        #         'hotenkhachhang' : "",
+        #     })
+        #     print("Không tìm thấy thông tin khách hàng trong CSDL!")
 
     if "search_infor_kh" in request.POST:
         mahoadon = request.POST.get("search_infor_kh")
