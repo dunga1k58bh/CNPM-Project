@@ -22,14 +22,16 @@
                     <input type="text" name="ten_khach_hang" class="form-control">
                     <label>SĐT</label>
                     <input type="text" name="so_dien_thoai" class="form-control"> <br>
-                    {% for message in messages %}
+                    <!-- {% for message in messages %}
                         <script>
                             window.onload() = function(){
                                 alert('{{message}}')
                             }
                         </script>
-                    {% endfor %}
-                    <button type="submit" value="{{KH_Hang}}" name="AddKH" class="btn btn-light">Submit</button>
+                    {% endfor %} -->
+                    <div style="text-align: center;">
+                        <button type="submit" value="{{KH_Hang}}" name="AddKH" class="btn btn-light">Submit</button>
+                    </div>
                 </form>
                 <div style="text-align: center;" class="mt-5">
                     <img src="https://lh3.googleusercontent.com/pw/AM-JKLWDxaYBlmzAmzNwGEhlHO7T8uRTRV14JVkStno1CaCc7HwbtobywPQdZKO4Jn320-AjxElMyOx1SrU0N2WHyl6eu8MgKTHv1MB_QFtNNj7OZBWfLWzZM8rcMG7hM_P1wQL_gxBSggsSAiZ3VfdOVvIM=s360-no?authuser=0" alt="2H8l7.png" style="width: 250px; height: 250px;">
@@ -45,13 +47,13 @@
                             {{ myFilter.form.hang.label_tag }} <br>
                             {{ myFilter.form.hang }}    <br>
                             {{ myFilter.form.ma_khach_hang__ten_khach_hang.label_tag }} <br>
-                            {{ myFilter.form.ma_khach_hang__ten_khach_hang }} <br>
+                            {{ myFilter.form.ma_khach_hang__ten_khach_hang }} <br> <br>
+                            <button class="btn btn-primary mx-auto" type="submit">Search</button>
                         </div> 
                         <div class="col-sm-8" style="text-align: center;">
                             <img src="https://marsurl.com/images/2U5db.png" alt="" style="width: 300px; height: 180px;">
-                        </div>   
-                    </div>    
-                    <button class="btn btn-primary" type="submit">Search</button>
+                        </div>
+                    </div>             
                 </form>
                 <form action="" method="post">
                     {% csrf_token %}
@@ -61,7 +63,7 @@
                                 <tr>
                                     <th>SĐT</th>
                                     <th>Tên khách hàng</th>
-                                    <th>Tiền tích luỹ</th>
+                                    <th>Điểm tích luỹ</th>
                                     <th>Hạng</th>
                                     <th>Xoá</th>                      
                                 </tr>
