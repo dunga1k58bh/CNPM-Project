@@ -336,3 +336,10 @@ display:none;
   background-color: white;
   color: black;
 }
+
+/* Footer */
+.information .small-icon:hover,
+.information .small-icon:active{
+  transform: scale(1.3);
+  color: yellow;
+}
