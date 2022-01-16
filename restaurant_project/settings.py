@@ -77,18 +77,10 @@ WSGI_APPLICATION = 'restaurant_project.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'QL_Nhahang',
-        'USER': 'sa',
-        'PASSWORD': 'admin',
-        'HOST': 'ADMIN\SQLEXPRESS',
-        'PORT': '',
-
-        'OPTIONS': {
-            'driver': 'SQL Server Native Client 11.0',
-        },
-    },
+        'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 
