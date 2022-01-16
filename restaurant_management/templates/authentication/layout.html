@@ -9,20 +9,25 @@
     </title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'authentication/site.css' %}"/>
+    <style>
+        body{
+            margin: 0;
+            background: url("https://bloganchoi.com/wp-content/uploads/2019/09/am-thuc-the-gioi.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;      
+        }
+    </style>
 </head>
 
 <body>
-<div class="navbar">
-</div>
-
 <div class="body-content">
     {% block content %}
     
     {% endblock %}
-    <hr/>
-    <footer>
-        <p>© 2021</p>
-    </footer>
 </div>
 </body>
 </html>
