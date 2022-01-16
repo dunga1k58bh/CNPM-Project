@@ -154,7 +154,7 @@
         </tr>
         <div class="MN">
           {% for monan in monans %}
-              {% if  monan.ma_menu.ma_menu ==  "MN1" %}
+              {% if  monan.ma_menu.ma_menu ==  'MN1' %}
               <tr class="menu_1" style="display: none;">
                 <th scope="row"></th>
                 <td>{{monan.ten_mon}}</td>
@@ -163,7 +163,7 @@
                 <input type="text" value={{monan.ma_mon}} name="ma_monss" hidden>
                 <td><button type="submit" name="xoa_mon" value= {{monan.ma_mon}} onclick="return confirm('Bạn có chắc chắn muốn sửa menu?')">Delete</button></td>
               </tr>   
-              {% elif monan.ma_menu.ma_menu ==  "MN2" %}
+              {% elif monan.ma_menu.ma_menu ==  'MN2' %}
               <tr class="menu_2" style="display: none;">
                 <th scope="row"></th>
                 <td>{{monan.ten_mon}}</td>
@@ -172,7 +172,7 @@
                 <input type="text" value={{monan.ma_mon}} name="ma_monss" hidden>
                 <td><button type="submit" name="xoa_mon" value= {{monan.ma_mon}} onclick="return confirm('Bạn có chắc chắn muốn sửa menu?')">Delete</button></td>
               </tr>  
-              {% elif monan.ma_menu.ma_menu ==  "MN3" %}
+              {% elif monan.ma_menu.ma_menu ==  'MN3' %}
               <tr class="menu_3" style="display: none;">
                 <th scope="row"></th>
                 <td>{{monan.ten_mon}}</td>
@@ -181,7 +181,7 @@
                 <input type="text" value={{monan.ma_mon}} name="ma_monss" hidden>
                 <td><button type="submit" name="xoa_mon" value= {{monan.ma_mon}} onclick="return confirm('Bạn có chắc chắn muốn sửa menu?')">Delete</button></td>
               </tr>  
-              {% elif monan.ma_menu.ma_menu ==  "MN4" %}
+              {% elif monan.ma_menu.ma_menu ==  'MN4' %}
               <tr class="menu_4" style="display: none;">
                 <th scope="row"></th>
                 <td>{{monan.ten_mon}}</td>

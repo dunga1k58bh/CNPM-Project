@@ -7,12 +7,11 @@ class Ban(models.Model):
     ma_hoa_don = models.ForeignKey('HoaDon', models.DO_NOTHING, db_column='MA_HOA_DON', blank=True, null=True)  # Field name made lowercase.
     delete = models.CharField(db_column='DELETE', max_length=10, blank=True, null=True)  # Field name made lowercase.
     class Meta:
-        managed = False
         db_table = 'BAN'
         
     def get_mahoadon(self):
         return self.ma_hoa_don
-
+     
 
 class DatBan(models.Model):
     ma_dat_ban = models.AutoField(db_column='MA_DAT_BAN', primary_key=True)  # Field name made lowercase.
@@ -22,7 +21,6 @@ class DatBan(models.Model):
     thoi_gian = models.DateTimeField(db_column='THOI_GIAN')  # Field name made lowercase.
     
     class Meta:
-        managed = False
         db_table = 'DAT_BAN'
 
 
@@ -32,7 +30,6 @@ class DatMon(models.Model):
     so_luong = models.IntegerField(db_column='SO_LUONG')  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'DAT_MON'
         unique_together = (('ma_hoa_don', 'ma_mon'),)
     
@@ -51,15 +48,14 @@ class DatMon(models.Model):
 
 class HoaDon(models.Model):
     ma_hoa_don = models.AutoField(db_column='MA_HOA_DON', primary_key=True)  # Field name made lowercase.     
-    ma_khach_hang = models.ForeignKey('KhachHang', models.DO_NOTHING, db_column='MA_KHACH_HANG')  # Field name made lowercase.
+    ma_khach_hang = models.ForeignKey('KhachHang', models.DO_NOTHING, db_column='MA_KHACH_HANG', null = True)  # Field name made lowercase.
     ngay_lap = models.DateTimeField(db_column='NGAY_LAP')  # Field name made lowercase.
     don_gia = models.IntegerField(db_column='DON_GIA')  # Field name made lowercase.
     phuong_thuc_thanh_toan = models.CharField(db_column='PHUONG_THUC_THANH_TOAN', max_length=50)  # Field name made lowercase.
     so_ban = models.IntegerField(db_column='SO_BAN', blank=True, null=True)  # Field name made lowercase.     
-    ma_nhan_vien = models.ForeignKey('NhanVien', models.DO_NOTHING, db_column='MA_NHAN_VIEN')  # Field name made lowercase.
+    ma_nhan_vien = models.ForeignKey('NhanVien', models.DO_NOTHING, db_column='MA_NHAN_VIEN', null = True)  # Field name made lowercase.
     tre_em = models.CharField(db_column='TRE_EM', max_length=5, null= True)
     class Meta:
-        managed = False
         db_table = 'HOA_DON'
 
 class KhachHang(models.Model):
@@ -68,7 +64,6 @@ class KhachHang(models.Model):
     so_dien_thoai = models.CharField(db_column='SO_DIEN_THOAI', max_length=20)  # Field name made lowercase.  
     
     class Meta:
-        managed = False
         db_table = 'KHACH_HANG'
 
 
@@ -77,7 +72,6 @@ class Menu(models.Model):
     ten_menu = models.CharField(db_column='TEN_MENU', max_length=100)  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'MENU'
 
 
@@ -91,7 +85,6 @@ class MonAn(models.Model):
     delete = models.CharField(db_column='DELETE', max_length=10)  # Field name made lowercase.
     
     class Meta:
-        managed = False
         db_table = 'MON_AN'
     def __str__(self):
         return self.ten_mon
@@ -105,7 +98,6 @@ class NhanVien(models.Model):
     chuc_vu = models.CharField(db_column='CHUC_VU', max_length=50)  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'NHAN_VIEN'
 
 class SuKien(models.Model):
@@ -117,7 +109,6 @@ class SuKien(models.Model):
     ngay_kt = models.DateTimeField(db_column='NGAY_KT')  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'SU_KIEN'
     
     def get_ten_mon(self):
@@ -132,7 +123,6 @@ class TheThanhVien(models.Model):
     delete = models.CharField(db_column='DELETE', max_length=50, blank=True, null=True)  # Field name made lowercase.
     tong_tien = models.IntegerField(db_column='TONG_TIEN', null =True)  # Field name made lowercase.
     class Meta:
-        managed = False
         db_table = 'THE_THANH_VIEN'
     def getName(self):
         return self.ma_khach_hang.ten_khach_hang
