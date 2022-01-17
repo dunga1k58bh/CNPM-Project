@@ -21,6 +21,14 @@
   padding: auto;
   background-color: #aab7cf;
 }
+.container_statistic{
+  width: 80%;
+  height: max-content;
+  margin-left: 10%;
+  margin-right: 10%;
+  background-color: #aab7cf;
+  justify-content: center;
+}
 
 #container_1{
   width: 49%;
@@ -92,6 +100,7 @@
 .body-content {
     padding: 5px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: max-content;
 }
 
 /*My css*/
